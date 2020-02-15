@@ -1,6 +1,7 @@
 package io.github.stajscavengers.scavenger.model.entity;
 
 
+import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,7 +25,7 @@ public class Organizer {
   @GenericGenerator(name = "uuid2", strategy = "uuid2")
   @Column(name = "organizer_id", columnDefinition = "CHAR(16) FOR BIT DATA",
   nullable = false, updatable = false)
-  private long id;
+  private UUID id;
 
   @NonNull
   @Column(name = "organizer_name", nullable = false)
@@ -47,5 +48,5 @@ public class Organizer {
   public long getHuntId() {
     return huntId;
   }
-  
+
 }
