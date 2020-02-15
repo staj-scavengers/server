@@ -37,6 +37,7 @@ public class Organizer {
   private long huntId;
 
   @NonNull
+  @Column(name = "organizer_name", nullable = false)
   public String getOrganizerName() {
     return organizerName;
   }
