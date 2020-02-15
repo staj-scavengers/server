@@ -63,10 +63,6 @@ public class Clues {
     return huntId;
   }
 
-  public void setHuntId(long huntId) {
-    this.huntId = huntId;
-  }
-
   @NonNull
   public Object getMedia() {
     return media;
