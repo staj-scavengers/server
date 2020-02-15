@@ -31,7 +31,7 @@ public class Clues {
   private UUID id;
 
   @NonNull
-  @Column(name = "clue_name", nullable = false, updatable = true)
+  @Column(name = "clue_name", nullable = false)
   private String clueName;
 
   @NonNull
@@ -50,5 +50,47 @@ public class Clues {
   @Column(name = "hunt_order", nullable = false)
   private Integer huntOrder;
 
+  @NonNull
+  public String getClueName() {
+    return clueName;
+  }
 
+  public void setClueName(@NonNull String clueName) {
+    this.clueName = clueName;
+  }
+
+  public long getHuntId() {
+    return huntId;
+  }
+
+  public void setHuntId(long huntId) {
+    this.huntId = huntId;
+  }
+
+  @NonNull
+  public Object getMedia() {
+    return media;
+  }
+
+  public void setMedia(@NonNull Object media) {
+    this.media = media;
+  }
+
+  @NonNull
+  public Object getMediaTag() {
+    return mediaTag;
+  }
+
+  public void setMediaTag(@NonNull Object mediaTag) {
+    this.mediaTag = mediaTag;
+  }
+
+  @NonNull
+  public Integer getHuntOrder() {
+    return huntOrder;
+  }
+
+  public void setHuntOrder(@NonNull Integer huntOrder) {
+    this.huntOrder = huntOrder;
+  }
 }
