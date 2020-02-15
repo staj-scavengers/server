@@ -31,66 +31,24 @@ public class Clues {
   private UUID id;
 
   @NonNull
-  @Column(nullable = false, updatable = true)
-  private String clue_name;
+  @Column(name = "clue_name", nullable = false, updatable = true)
+  private String clueName;
 
   @NonNull
-  @Column(nullable = false, updatable = false)
-  private long hunt_id;
+  @Column(name = "hunt_id", nullable = false, updatable = false)
+  private long huntId;
 
   @NonNull
   @Column(nullable = false)
   private Object media;
 
   @NonNull
-  @Column(nullable = false)
-  private Object media_tag;
+  @Column(name = "media_tag", nullable = false)
+  private Object mediaTag;
 
   @NonNull
-  @Column(nullable = false)
-  private Integer hunt_order;
+  @Column(name = "hunt_order", nullable = false)
+  private Integer huntOrder;
 
-  @NonNull
-  public String getClue_name() {
-    return clue_name;
-  }
 
-  public void setClue_name(@NonNull String clue_name) {
-    this.clue_name = clue_name;
-  }
-
-  public long getHunt_id() {
-    return hunt_id;
-  }
-
-  public void setHunt_id(long hunt_id) {
-    this.hunt_id = hunt_id;
-  }
-
-  @NonNull
-  public Object getMedia() {
-    return media;
-  }
-
-  public void setMedia(@NonNull Object media) {
-    this.media = media;
-  }
-
-  @NonNull
-  public Object getMedia_tag() {
-    return media_tag;
-  }
-
-  public void setMedia_tag(@NonNull Object media_tag) {
-    this.media_tag = media_tag;
-  }
-
-  @NonNull
-  public Integer getHunt_order() {
-    return hunt_order;
-  }
-
-  public void setHunt_order(@NonNull Integer hunt_order) {
-    this.hunt_order = hunt_order;
-  }
 }
