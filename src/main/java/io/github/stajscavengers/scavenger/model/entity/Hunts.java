@@ -1,8 +1,8 @@
 package io.github.stajscavengers.scavenger.model.entity;
 
+import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Index;
@@ -13,7 +13,11 @@ import org.springframework.lang.NonNull;
 @Entity
 @Table(
     indexes = {
-        @Index(columnList = "created")
+        @Index(columnList = "hunt_id"),
+        @Index(columnList = "hunt_name"),
+        @Index(columnList = "organizer_id"),
+        @Index(columnList = "clues_id"),
+        @Index(columnList = "hunter_id"),
     }
 )
 public class Hunts {
@@ -23,7 +27,7 @@ public class Hunts {
   @GenericGenerator(name = "uuid2", strategy = "uuid2")
   @Column(name = "hunt_id", columnDefinition = "CHAR(16) FOR BIT DATA",
       nullable = false, updatable = false)
-  private long id;
+  private UUID id;
 
   @NonNull
   @Column(name = "hunt_name", length = 1024, nullable = false, unique = true)
