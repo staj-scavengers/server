@@ -13,17 +13,16 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.lang.NonNull;
 
 @Entity(
- foreignKeys = @ForeignKey(
+ foreignKeys =
+ @ForeignKey(
      entity = Hunts.class,
       parentColumns = "hunt_id",
-      childColumns = "hunt_activity_id"
- );
-    @ForeignKey(
+      childColumns = "hunt_activity_id")
+ @ForeignKey(
         entity = Hunters.class,
         parentColumns  = "hunter_id",
         childColumns = "hunter_activity_id"
-    );
-)
+    ))
 public class HuntActivity {
 
   @NonNull
