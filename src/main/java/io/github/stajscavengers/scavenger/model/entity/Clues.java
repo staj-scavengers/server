@@ -21,7 +21,7 @@ import org.springframework.lang.NonNull;
         @Index(columnList = "media_tag"),
     }
 )
-public class Clues {
+public class  Clues {
 
   @NonNull
   @Id
