@@ -1,11 +1,17 @@
 package io.github.stajscavengers.scavenger.model.entity;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
 import java.util.UUID;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Index;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.lang.NonNull;
@@ -35,20 +41,22 @@ public class Hunts {
   @Column(name = "hunt_name", length = 1024, nullable = false, unique = true)
   private String huntName;
 
-  // Foreign key
   @NonNull
-  @Column(name = "organizer_id", nullable = false, updatable = false)
-  private long organizer;
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "hunts",
+      cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+  @JoinColumn(name = "organizer_id", nullable = false, updatable = false)
+  private Set<Organizer> organizer = new LinkedHashSet<>();
 
-  // Foreign key
   @NonNull
-  @Column(name = "clues_id", nullable = false, updatable = false)
-  private long clues;
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "hunts",
+      cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+  @JoinColumn(name = "clues_id", nullable = false, updatable = false)
+  private Set<Clues> clues = new LinkedHashSet<>();
 
-  // Foreign key
-  @NonNull
-  @Column(name = "hunter_id", nullable = false, updatable = false)
-  private long hunter;
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "hunts",
+      cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+  @JoinColumn(name = "hunter_id", nullable = false, updatable = false)
+  private Set<Hunters> hunter = new LinkedHashSet<>();
 
   @NonNull
   public UUID getId() {
@@ -64,15 +72,17 @@ public class Hunts {
     this.huntName = huntName;
   }
 
-  public long getOrganizer() {
+  @NonNull
+  public Set<Organizer> getOrganizer() {
     return organizer;
   }
 
-  public long getClues() {
+  @NonNull
+  public Set<Clues> getClues() {
     return clues;
   }
 
-  public long getHunter() {
+  public Set<Hunters> getHunter() {
     return hunter;
   }
 }
