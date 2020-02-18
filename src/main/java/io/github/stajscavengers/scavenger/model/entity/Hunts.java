@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
@@ -42,10 +43,12 @@ public class Hunts {
   private String huntName;
 
   @NonNull
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "hunts",
-      cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+  @ManyToOne(
+      fetch = FetchType.EAGER,
+      cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}
+  )
   @JoinColumn(name = "organizer_id", nullable = false, updatable = false)
-  private Set<Organizer> organizer = new LinkedHashSet<>();
+  private Organizer organizer;
 
   @NonNull
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "hunts",
@@ -56,7 +59,7 @@ public class Hunts {
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "hunts",
       cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
   @JoinColumn(name = "hunter_id", nullable = false, updatable = false)
-  private Set<Hunters> hunter = new LinkedHashSet<>();
+  private Set<HuntActivity> huntActivity = new LinkedHashSet<>();
 
   @NonNull
   public UUID getId() {
@@ -73,7 +76,7 @@ public class Hunts {
   }
 
   @NonNull
-  public Set<Organizer> getOrganizer() {
+  public Organizer getOrganizer() {
     return organizer;
   }
 
@@ -82,7 +85,8 @@ public class Hunts {
     return clues;
   }
 
-  public Set<Hunters> getHunter() {
-    return hunter;
+  public Set<HuntActivity> getHuntActivity() {
+    return huntActivity;
   }
+
 }
