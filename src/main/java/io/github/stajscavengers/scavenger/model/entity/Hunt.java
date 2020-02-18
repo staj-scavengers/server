@@ -29,7 +29,7 @@ import org.springframework.lang.NonNull;
         @Index(columnList = "hunter_id"),
     }
 )
-public class Hunts {
+public class Hunt {
 
   @Id
   @GeneratedValue(generator = "uuid2")
@@ -42,21 +42,20 @@ public class Hunts {
   @Column(name = "hunt_name", length = 1024, nullable = false, unique = true)
   private String huntName;
 
-  @NonNull
   @ManyToOne(
       fetch = FetchType.EAGER,
       cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}
   )
-  @JoinColumn(name = "organizer_id", nullable = false, updatable = false)
+  @JoinColumn(name = "organizer_id", nullable = true, updatable = true)
   private Organizer organizer;
 
   @NonNull
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "hunts",
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "hunt",
       cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-  @JoinColumn(name = "clues_id", nullable = false, updatable = false)
-  private Set<Clues> clues = new LinkedHashSet<>();
+  @JoinColumn(name = "clue_id", nullable = false, updatable = false)
+  private Set<Clue> clue = new LinkedHashSet<>();
 
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "hunts",
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "hunt",
       cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
   @JoinColumn(name = "hunter_id", nullable = false, updatable = false)
   private Set<HuntActivity> huntActivity = new LinkedHashSet<>();
@@ -81,8 +80,8 @@ public class Hunts {
   }
 
   @NonNull
-  public Set<Clues> getClues() {
-    return clues;
+  public Set<Clue> getClue() {
+    return clue;
   }
 
   public Set<HuntActivity> getHuntActivity() {

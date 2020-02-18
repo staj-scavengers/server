@@ -1,10 +1,10 @@
 package io.github.stajscavengers.scavenger.model.entity;
+
 import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Index;
@@ -13,7 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import jdk.jfr.Timestamp;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -42,13 +41,13 @@ public class HuntActivity {
   @ManyToOne(fetch = FetchType.LAZY,
       cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
   @JoinColumn(name = "hunt_id")
-  private Hunts hunts;
+  private Hunt hunt;
 
   @NonNull
   @ManyToOne(fetch = FetchType.LAZY,
       cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
   @JoinColumn(name = "hunter_id")
-  private Hunters hunters;
+  private Hunter hunter;
 
   @NonNull
   @CreationTimestamp
@@ -68,4 +67,38 @@ public class HuntActivity {
   @NonNull
   private Integer cluesCompleted;
 
+  @NonNull
+  public Date getStarted() {
+    return started;
+  }
+
+  public void setStarted(@NonNull Date started) {
+    this.started = started;
+  }
+
+  @NonNull
+  public Date getCompleted() {
+    return completed;
+  }
+
+  public void setCompleted(@NonNull Date completed) {
+    this.completed = completed;
+  }
+
+  public long getTotalTime() {
+    return totalTime;
+  }
+
+  public void setTotalTime(long totalTime) {
+    this.totalTime = totalTime;
+  }
+
+  @NonNull
+  public Integer getCluesCompleted() {
+    return cluesCompleted;
+  }
+
+  public void setCluesCompleted(@NonNull Integer cluesCompleted) {
+    this.cluesCompleted = cluesCompleted;
+  }
 }

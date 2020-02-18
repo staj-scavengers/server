@@ -25,7 +25,7 @@ import org.springframework.lang.NonNull;
         @Index(columnList = "media_tag"),
     }
 )
-public class  Clues {
+public class Clue {
 
   @NonNull
   @Id
@@ -41,7 +41,7 @@ public class  Clues {
   @ManyToOne(fetch = FetchType.LAZY,
       cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
   @JoinColumn(name = "hunt_id")
-  private Hunts hunts;
+  private Hunt hunt;
 
   @NonNull
   @Column(nullable = false)
@@ -54,6 +54,10 @@ public class  Clues {
   @NonNull
   @Column(name = "hunt_order", nullable = false)
   private Integer huntOrder;
+
+  public Hunt getHunt() {
+    return hunt;
+  }
 
   @NonNull
   public String getClueName() {

@@ -12,7 +12,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.lang.NonNull;
@@ -43,7 +42,7 @@ public class Organizer {
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "organizer",
       cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
   @Column(name = "hunt_id", nullable = false, updatable = false)
-  private Set<Hunts> hunts = new LinkedHashSet<>();
+  private Set<Hunt> hunt = new LinkedHashSet<>();
 
   @NonNull
   public String getOrganizerName() {
@@ -55,7 +54,7 @@ public class Organizer {
   }
 
   @NonNull
-  public Set<Hunts> getHunts() {
-    return hunts;
+  public Set<Hunt> getHunt() {
+    return hunt;
   }
 }

@@ -24,7 +24,7 @@ import org.springframework.lang.NonNull;
         @Index(columnList = "organizer_name")
     }
 )
-public class Hunters {
+public class Hunter {
 
   @NonNull
   @Id
@@ -40,7 +40,7 @@ public class Hunters {
 
 
   @NonNull
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "hunters",
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "hunter",
       cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
   @Column(name = "hunt_id", nullable = false, updatable = false)
   private Set<HuntActivity> huntActivity = new LinkedHashSet<>();
@@ -50,10 +50,11 @@ public class Hunters {
     return hunterName;
   }
 
-  public void setHuntActivity(
-      @NonNull Set<HuntActivity> huntActivity) {
-    this.huntActivity = huntActivity;
+  @NonNull
+  public Set<HuntActivity> getHuntActivity() {
+    return huntActivity;
   }
+
 
   public void setHunterName(@NonNull String hunterName) {
     this.hunterName = hunterName;
