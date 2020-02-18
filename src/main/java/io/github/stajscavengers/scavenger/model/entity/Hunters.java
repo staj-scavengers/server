@@ -1,24 +1,21 @@
 package io.github.stajscavengers.scavenger.model.entity;
 
 import java.util.UUID;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Index;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.lang.NonNull;
 
 @SuppressWarnings("JpaDataSourceORMInspection")
-  @Entity
-      ( foreignKeys =
-  @ForeignKey(
-    entity = Hunts.class,
-    parentColumns  = "hunt_id",
-    childColumns = "hunter_id"
-))
   @Table(
       indexes = {
           @Index(columnList = "organizer_name")
@@ -40,6 +37,8 @@ import org.springframework.lang.NonNull;
 
 
     @NonNull
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "hunt_id",
+        cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @Column(name = "hunt_id", nullable = false, updatable = false)
     private long huntId;
 
