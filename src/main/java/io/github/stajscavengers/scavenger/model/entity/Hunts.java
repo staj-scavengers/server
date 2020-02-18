@@ -10,6 +10,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.lang.NonNull;
 
+@SuppressWarnings("JpaDataSourceORMInspection")
+
 @Entity
 @Table(
     indexes = {
@@ -48,7 +50,8 @@ public class Hunts {
   @Column(name = "hunter_id", nullable = false, updatable = false)
   private long hunter;
 
-  public long getId() {
+  @NonNull
+  public UUID getId() {
     return id;
   }
 
