@@ -18,7 +18,7 @@ import org.springframework.lang.NonNull;
 @Entity
 @Table(
     indexes = {
-        @Index(columnList = "clue name"),
+        @Index(columnList = "clue_name"),
         @Index(columnList = "hunt_id"),
         @Index(columnList = "hunt_order", unique = true),
         @Index(columnList = "media"),
@@ -38,7 +38,7 @@ public class Clues {
   @Column(name = "clue_name", nullable = false)
   private String clueName;
 
-  @ManyToOne(fetch = FetchType.EAGER,
+  @ManyToOne(fetch = FetchType.LAZY,
       cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
   @JoinColumn(name = "hunt_id")
   private Hunts hunts;

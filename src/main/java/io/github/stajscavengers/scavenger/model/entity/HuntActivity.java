@@ -1,28 +1,34 @@
 package io.github.stajscavengers.scavenger.model.entity;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Index;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import jdk.jfr.Timestamp;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.lang.NonNull;
 
-@Entity(
- foreignKeys =
- @ForeignKey(
-     entity = Hunts.class,
-      parentColumns = "hunt_id",
-      childColumns = "hunt_activity_id")
- @ForeignKey(
-        entity = Hunters.class,
-        parentColumns  = "hunter_id",
-        childColumns = "hunter_activity_id"
-    ))
+@SuppressWarnings("JpaDataSourceORMInspection")
+@Entity
+    @Table(
+        indexes = {
+            @Index(columnList = "date_started"),
+            @Index(columnList = "date_completed"),
+            @Index(columnList = "total_time"),
+            @Index(columnList = "clues_completed")
+        }
+    )
 public class HuntActivity {
 
   @NonNull
@@ -33,15 +39,19 @@ public class HuntActivity {
   private long huntActivityId;
 
   @NonNull
-  @Column(name = "hunt_id")
-  private long huntId;
+  @ManyToOne(fetch = FetchType.LAZY,
+      cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+  @JoinColumn(name = "hunt_id")
+  private Hunts hunts;
 
   @NonNull
-  @Column(name = "hunter_id")
-  private long hunterId;
+  @ManyToOne(fetch = FetchType.LAZY,
+      cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+  @JoinColumn(name = "hunter_id")
+  private Hunters hunters;
 
   @NonNull
-  @UpdateTimestamp
+  @CreationTimestamp
   @Temporal(TemporalType.TIMESTAMP)
   @Column(name = "date_started")
   private Date started;
@@ -53,7 +63,7 @@ public class HuntActivity {
   private Date completed;
 
   @NonNull
-  private long totalDone;
+  private long totalTime;
 
   @NonNull
   private Integer cluesCompleted;
