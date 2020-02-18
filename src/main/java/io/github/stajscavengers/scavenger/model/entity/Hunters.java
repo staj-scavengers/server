@@ -43,16 +43,16 @@ public class Hunters {
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "hunters",
       cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
   @Column(name = "hunt_id", nullable = false, updatable = false)
-  private Set<Hunts> hunts = new LinkedHashSet<>();
+  private Set<HuntActivity> huntActivity = new LinkedHashSet<>();
 
   @NonNull
   public String getHunterName() {
     return hunterName;
   }
 
-  @NonNull
-  public Set<Hunts> getHunts() {
-    return hunts;
+  public void setHuntActivity(
+      @NonNull Set<HuntActivity> huntActivity) {
+    this.huntActivity = huntActivity;
   }
 
   public void setHunterName(@NonNull String hunterName) {
