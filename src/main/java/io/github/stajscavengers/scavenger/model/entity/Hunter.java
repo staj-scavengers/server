@@ -21,7 +21,7 @@ import org.springframework.lang.NonNull;
 @Entity
 @Table(
     indexes = {
-        @Index(columnList = "organizer_name")
+        @Index(columnList = "hunter_name")
     }
 )
 public class Hunter {
