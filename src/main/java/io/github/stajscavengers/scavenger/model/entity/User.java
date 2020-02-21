@@ -28,6 +28,11 @@ public class User {
   private boolean isOrganizer;
 
   @NonNull
+  public UUID getId() {
+    return id;
+  }
+
+  @NonNull
   public String getoAuthToken() {
     return oAuthToken;
   }

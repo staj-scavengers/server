@@ -45,6 +45,11 @@ public class Organizer {
   private Set<Hunt> hunt = new LinkedHashSet<>();
 
   @NonNull
+  public UUID getId() {
+    return id;
+  }
+
+  @NonNull
   public String getOrganizerName() {
     return organizerName;
   }
