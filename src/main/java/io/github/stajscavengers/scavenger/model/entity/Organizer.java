@@ -37,7 +37,7 @@ public class Organizer {
   @Column(name = "organizer_name", nullable = false)
   private String organizerName;
 
-// ForeignKey
+
   @NonNull
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "organizer",
       cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
