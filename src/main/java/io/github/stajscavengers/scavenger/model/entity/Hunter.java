@@ -42,7 +42,7 @@ public class Hunter {
   @NonNull
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "hunter",
       cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-  @Column(name = "hunt_id", nullable = false, updatable = false)
+  @Column(name = "hunt_activity", nullable = false, updatable = false)
   private Set<HuntActivity> huntActivity = new LinkedHashSet<>();
 
   @NonNull
