@@ -18,11 +18,6 @@ import org.springframework.lang.NonNull;
 
 @SuppressWarnings("JpaDataSourceORMInspection")
 @Entity
-@Table(
-    indexes = {
-        @Index(columnList = "organizer_name")
-    }
-)
 public class Organizer {
 
   @NonNull
@@ -33,16 +28,12 @@ public class Organizer {
       nullable = false, updatable = false)
   private UUID id;
 
-  @NonNull
-  @Column(name = "organizer_name", nullable = false)
-  private String organizerName;
-
 // ForeignKey
   @NonNull
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "organizer",
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "user",
       cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-  @Column(name = "hunt_id", nullable = false, updatable = false)
-  private Set<Hunt> hunt = new LinkedHashSet<>();
+  @Column(name = "user_id", nullable = false, updatable = false)
+  private Set<User> user = new LinkedHashSet<>();
 
   @NonNull
   public UUID getId() {
@@ -50,16 +41,7 @@ public class Organizer {
   }
 
   @NonNull
-  public String getOrganizerName() {
-    return organizerName;
-  }
-
-  public void setOrganizerName(@NonNull String organizerName) {
-    this.organizerName = organizerName;
-  }
-
-  @NonNull
-  public Set<Hunt> getHunt() {
-    return hunt;
+  public Set<User> getUser() {
+    return user;
   }
 }

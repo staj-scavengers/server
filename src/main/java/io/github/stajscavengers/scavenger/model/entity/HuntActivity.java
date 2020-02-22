@@ -67,6 +67,7 @@ public class HuntActivity {
   @NonNull
   private Integer cluesCompleted;
 
+
   @NonNull
   public Date getStarted() {
     return started;
