@@ -62,9 +62,11 @@ public class HuntActivity {
   private Date completed;
 
   @NonNull
+  @Column(name = "total_time")
   private long totalTime;
 
   @NonNull
+  @Column(name = "clues_completed")
   private Integer cluesCompleted;
 
 

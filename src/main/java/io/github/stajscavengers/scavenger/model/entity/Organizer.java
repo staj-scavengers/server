@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.lang.NonNull;
@@ -30,7 +31,7 @@ public class Organizer {
 
 // ForeignKey
   @NonNull
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "user",
+  @OneToMany(fetch = FetchType.LAZY,
       cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
   @Column(name = "user_id", nullable = false, updatable = false)
   private Set<User> user = new LinkedHashSet<>();
