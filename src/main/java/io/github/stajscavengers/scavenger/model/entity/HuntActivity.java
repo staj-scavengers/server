@@ -46,8 +46,8 @@ public class HuntActivity {
   @NonNull
   @ManyToOne(fetch = FetchType.LAZY,
       cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-  @JoinColumn(name = "hunter_id")
-  private Hunter hunter;
+  @JoinColumn(name = "user_id")
+  private User user;
 
   @NonNull
   @CreationTimestamp
