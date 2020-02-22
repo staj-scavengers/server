@@ -30,7 +30,7 @@ public class Organizer {
 
 // ForeignKey
   @NonNull
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "user",
+  @OneToMany(fetch = FetchType.LAZY,
       cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
   @Column(name = "user_id", nullable = false, updatable = false)
   private Set<User> user = new LinkedHashSet<>();

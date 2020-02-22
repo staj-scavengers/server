@@ -22,10 +22,7 @@ import org.springframework.lang.NonNull;
 @Entity
 @Table(
     indexes = {
-        @Index(columnList = "hunt_id"),
-        @Index(columnList = "hunt_name"),
-        @Index(columnList = "organizer_id"),
-        @Index(columnList = "clue_id")
+        @Index(columnList = "hunt_name")
     }
 )
 public class Hunt {
