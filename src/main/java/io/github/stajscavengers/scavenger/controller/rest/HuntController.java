@@ -47,7 +47,6 @@ public class HuntController {
 
  @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
  public Iterable<Hunt> search(@RequestParam("q") String fragment) {
-
   return huntRepository.getAllByHuntNameContainsOrderByHuntName(fragment);
  }
 
@@ -58,9 +57,9 @@ public class HuntController {
  }
 
  @PutMapping(value = "/{huntId}/organizer/{organizerId}", produces = MediaType.APPLICATION_JSON_VALUE)
- public Hunt attach(@PathVariable UUID quoteId, @PathVariable UUID sourceId) {
-  Hunt hunt = huntRepository.findOrFail(quoteId);
-  Organizer organizer = organizerRepository.findOrFail(sourceId);
+ public Hunt attach(@PathVariable UUID huntId, @PathVariable UUID organizerId) {
+  Hunt hunt = huntRepository.findOrFail(huntId);
+  Organizer organizer = organizerRepository.findOrFail(organizerId);
   if (!organizer.equals(hunt.getOrganizer())) {
    hunt.setOrganizer(organizer);
    huntRepository.save(hunt);

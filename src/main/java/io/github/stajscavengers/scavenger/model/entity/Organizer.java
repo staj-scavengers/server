@@ -1,9 +1,11 @@
 package io.github.stajscavengers.scavenger.model.entity;
 
 
+import java.net.URI;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.UUID;
+import javax.annotation.PostConstruct;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,11 +17,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.server.EntityLinks;
 import org.springframework.lang.NonNull;
 
 @SuppressWarnings("JpaDataSourceORMInspection")
 @Entity
 public class Organizer {
+
+  private static EntityLinks entityLinks;
 
   @NonNull
   @Id
@@ -45,4 +51,18 @@ public class Organizer {
   public Set<User> getUser() {
     return user;
   }
+
+  public URI getHref() {
+    return entityLinks.linkForItemResource(Hunt.class, id).toUri();
+  }
+  @PostConstruct
+  private void init() {
+    entityLinks.toString();
+  }
+
+  @Autowired
+  private void setEntityLinks(EntityLinks entityLinks) {
+    Organizer.entityLinks = entityLinks;
+  }
+
 }
