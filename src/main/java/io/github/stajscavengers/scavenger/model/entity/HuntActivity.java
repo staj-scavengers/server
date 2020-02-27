@@ -1,6 +1,8 @@
 package io.github.stajscavengers.scavenger.model.entity;
 
+import java.net.URI;
 import java.util.Date;
+import javax.annotation.PostConstruct;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +18,8 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.server.EntityLinks;
 import org.springframework.lang.NonNull;
 
 @SuppressWarnings("JpaDataSourceORMInspection")
@@ -29,6 +33,9 @@ import org.springframework.lang.NonNull;
         }
     )
 public class HuntActivity {
+
+  private static EntityLinks entityLinks;
+
 
   @NonNull
   @Id
@@ -103,5 +110,17 @@ public class HuntActivity {
 
   public void setCluesCompleted(@NonNull Integer cluesCompleted) {
     this.cluesCompleted = cluesCompleted;
+  }
+  public URI getHref() {
+    return entityLinks.linkForItemResource(HuntActivity.class, huntActivityId).toUri();
+  }
+  @PostConstruct
+  private void init() {
+    entityLinks.toString();
+  }
+
+  @Autowired
+  private void setEntityLinks(EntityLinks entityLinks) {
+    HuntActivity.entityLinks = entityLinks;
   }
 }
