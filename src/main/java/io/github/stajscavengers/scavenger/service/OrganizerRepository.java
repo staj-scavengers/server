@@ -21,7 +21,7 @@ public interface OrganizerRepository extends JpaRepository<Organizer, UUID> {
     default Organizer findOrFail(UUID id){
       return findById(id).get();
     }
-    
+
 
   }
 

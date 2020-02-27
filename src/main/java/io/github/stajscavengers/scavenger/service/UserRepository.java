@@ -18,4 +18,6 @@ public interface UserRepository extends JpaRepository<User, UUID> {
   default User findOrFail(UUID id){
     return findById(id).get();
   }
+
+  Iterable<User> getAllByOrderByCreatedDesc();
 }

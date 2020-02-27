@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface HuntActivityRepository extends JpaRepository<HuntActivity, UUID> {
+public interface  HuntActivityRepository extends JpaRepository<HuntActivity, UUID> {
 
   Iterable<HuntActivity> getAllByOrderByHunt(Hunt hunt);
 
