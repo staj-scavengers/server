@@ -22,11 +22,7 @@ import org.springframework.lang.NonNull;
 @Entity
 @Table(
     indexes = {
-        @Index(columnList = "hunt_id"),
         @Index(columnList = "hunt_name"),
-        @Index(columnList = "organizer_id"),
-        @Index(columnList = "clues_id"),
-        @Index(columnList = "hunter_id"),
     }
 )
 public class Hunt {
@@ -46,19 +42,9 @@ public class Hunt {
       fetch = FetchType.EAGER,
       cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}
   )
-  @JoinColumn(name = "organizer_id", nullable = true, updatable = true)
+  @JoinColumn(name = "organizer_id")
   private Organizer organizer;
 
-  @NonNull
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "hunt",
-      cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-  @JoinColumn(name = "clue_id", nullable = false, updatable = false)
-  private Set<Clue> clue = new LinkedHashSet<>();
-
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "hunt",
-      cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-  @JoinColumn(name = "hunt_activity", nullable = false, updatable = false)
-  private Set<HuntActivity> huntActivity = new LinkedHashSet<>();
 
   @NonNull
   public UUID getId() {
@@ -77,15 +63,6 @@ public class Hunt {
   @NonNull
   public Organizer getOrganizer() {
     return organizer;
-  }
-
-  @NonNull
-  public Set<Clue> getClue() {
-    return clue;
-  }
-
-  public Set<HuntActivity> getHuntActivity() {
-    return huntActivity;
   }
 
 }

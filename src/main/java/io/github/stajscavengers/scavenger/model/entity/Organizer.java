@@ -12,17 +12,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.lang.NonNull;
 
 @SuppressWarnings("JpaDataSourceORMInspection")
 @Entity
-@Table(
-    indexes = {
-        @Index(columnList = "organizer_name")
-    }
-)
 public class Organizer {
 
   @NonNull
@@ -33,16 +29,12 @@ public class Organizer {
       nullable = false, updatable = false)
   private UUID id;
 
+// ForeignKey
   @NonNull
-  @Column(name = "organizer_name", nullable = false)
-  private String organizerName;
-
-
-  @NonNull
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "organizer",
+  @OneToMany(fetch = FetchType.LAZY,
       cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-  @Column(name = "hunt_id", nullable = false, updatable = false)
-  private Set<Hunt> hunt = new LinkedHashSet<>();
+  @Column(name = "user_id", nullable = false, updatable = false)
+  private Set<User> user = new LinkedHashSet<>();
 
   @NonNull
   public UUID getId() {
@@ -50,16 +42,7 @@ public class Organizer {
   }
 
   @NonNull
-  public String getOrganizerName() {
-    return organizerName;
-  }
-
-  public void setOrganizerName(@NonNull String organizerName) {
-    this.organizerName = organizerName;
-  }
-
-  @NonNull
-  public Set<Hunt> getHunt() {
-    return hunt;
+  public Set<User> getUser() {
+    return user;
   }
 }

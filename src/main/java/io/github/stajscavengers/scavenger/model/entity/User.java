@@ -29,8 +29,8 @@ public class User {
   private String oAuthToken;
 
   @NonNull
-  @Column(name = "is_organizer")
-  private boolean isOrganizer;
+  @Column(name = "user_name", nullable = false)
+  private String userName;
 
   @NonNull
   public UUID getId() {
@@ -46,11 +46,12 @@ public class User {
     this.oAuthToken = oAuthToken;
   }
 
-  public boolean isOrganizer() {
-    return isOrganizer;
+  @NonNull
+  public String getUserName() {
+    return userName;
   }
 
-  public void setOrganizer(boolean organizer) {
-    isOrganizer = organizer;
+  public void setUserName(@NonNull String userName) {
+    this.userName = userName;
   }
 }
