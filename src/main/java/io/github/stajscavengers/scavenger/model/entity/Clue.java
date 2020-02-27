@@ -1,6 +1,8 @@
 package io.github.stajscavengers.scavenger.model.entity;
 
+import java.net.URI;
 import java.util.UUID;
+import javax.annotation.PostConstruct;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +14,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.server.EntityLinks;
 import org.springframework.lang.NonNull;
+import org.springframework.hateoas.server.EntityLinks;
+
 
 @SuppressWarnings("JpaDataSourceORMInspection")
 @Entity
@@ -26,6 +32,8 @@ import org.springframework.lang.NonNull;
     }
 )
 public class Clue {
+
+  private static EntityLinks entityLinks;
 
   @NonNull
   @Id
@@ -98,5 +106,19 @@ public class Clue {
 
   public void setHuntOrder(@NonNull Integer huntOrder) {
     this.huntOrder = huntOrder;
+  }
+
+  public URI getHref() {
+    return entityLinks.linkForItemResource(Clue.class, id).toUri();
+  }
+
+  @PostConstruct
+  private void init() {
+    entityLinks.toString();
+  }
+
+  @Autowired
+  private void setEntityLinks(EntityLinks entityLinks) {
+    Clue.entityLinks = entityLinks;
   }
 }
