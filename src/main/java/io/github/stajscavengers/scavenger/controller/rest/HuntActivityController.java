@@ -1,5 +1,6 @@
 package io.github.stajscavengers.scavenger.controller.rest;
 
+import io.github.stajscavengers.scavenger.model.entity.Hunt;
 import io.github.stajscavengers.scavenger.model.entity.HuntActivity;
 import io.github.stajscavengers.scavenger.service.HuntActivityRepository;
 import io.github.stajscavengers.scavenger.service.HuntRepository;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.server.ExposesResourceFor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,5 +36,10 @@ public class HuntActivityController {
   public ResponseEntity<HuntActivity> post(@RequestBody HuntActivity huntActivity) {
     huntActivityRepository.save(huntActivity);
     return ResponseEntity.created(huntActivity.getHref()).body(huntActivity);
+  }
+
+  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+  public Iterable<HuntActivity> get() {
+    return huntActivityRepository.getAllByOrderByHunt();
   }
 }

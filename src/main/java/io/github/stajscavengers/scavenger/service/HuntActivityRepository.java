@@ -4,12 +4,14 @@ import io.github.stajscavengers.scavenger.model.entity.Hunt;
 import io.github.stajscavengers.scavenger.model.entity.HuntActivity;
 import io.github.stajscavengers.scavenger.model.entity.User;
 import java.util.Date;
+import java.util.Optional;
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 public interface HuntActivityRepository extends JpaRepository<HuntActivity, UUID> {
 
-  Iterable<HuntActivity> getAllByOrderByHunt(Hunt hunt);
+  Iterable<HuntActivity> getAllByOrderByHunt();
 
   Iterable<HuntActivity> getAllByOrderByUser(User user);
 
@@ -18,6 +20,9 @@ public interface HuntActivityRepository extends JpaRepository<HuntActivity, UUID
   Iterable<HuntActivity> getAllByOrderByCompleted(Date completed);
 
   Iterable<HuntActivity> getAllByOrderByTotalTime(long totalTime);
+
+  @Query(value = "SELECT * FROM HuntActivity WHERE hunt_id = :huntId", nativeQuery = true)
+  Optional<HuntActivity> get();
 
   default HuntActivity findOrFail(UUID id) {
     return findById(id).get();
