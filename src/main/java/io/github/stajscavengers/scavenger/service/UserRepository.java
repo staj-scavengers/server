@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface UserRepository extends JpaRepository<User, UUID> {
 
-  Iterable<User> getAllByOrderBy();
   Iterable<User> getAllByUserNameContainsOrderByUserName(String fragment);
 
   @Query(value = "SELECT * FROM sa.User WHERE user_id = :id",
@@ -18,4 +17,6 @@ public interface UserRepository extends JpaRepository<User, UUID> {
   default User findOrFail(UUID id){
     return findById(id).get();
   }
+
+  Iterable<User> getAllByOrderByUserName();
 }

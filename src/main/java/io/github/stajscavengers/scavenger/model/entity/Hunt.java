@@ -1,8 +1,6 @@
 package io.github.stajscavengers.scavenger.model.entity;
 
 import java.net.URI;
-import java.util.LinkedHashSet;
-import java.util.Set;
 import java.util.UUID;
 import javax.annotation.PostConstruct;
 import javax.persistence.CascadeType;
@@ -14,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,6 +75,7 @@ public class Hunt {
   public URI getHref() {
     return entityLinks.linkForItemResource(Hunt.class, id).toUri();
   }
+
   @PostConstruct
   private void init() {
     entityLinks.toString();

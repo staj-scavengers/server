@@ -9,17 +9,17 @@ import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-public interface HuntActivityRepository extends JpaRepository<HuntActivity, UUID> {
+public interface  HuntActivityRepository extends JpaRepository<HuntActivity, UUID> {
 
   Iterable<HuntActivity> getAllByOrderByHunt();
 
-  Iterable<HuntActivity> getAllByOrderByUser(User user);
+  Iterable<HuntActivity> getAllByOrderByUser();
 
-  Iterable<HuntActivity> getAllByOrderByStarted(Date started);
+  Iterable<HuntActivity> getAllByOrderByStarted();
 
-  Iterable<HuntActivity> getAllByOrderByCompleted(Date completed);
+  Iterable<HuntActivity> getAllByOrderByCompleted();
 
-  Iterable<HuntActivity> getAllByOrderByTotalTime(long totalTime);
+  Iterable<HuntActivity> getAllByOrderByTotalTime();
 
   @Query(value = "SELECT * FROM HuntActivity WHERE hunt_id = :huntId", nativeQuery = true)
   Optional<HuntActivity> get();

@@ -6,9 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ClueRepository extends JpaRepository<Clue, UUID> {
 
-  Iterable<Clue> findAllByOrderByHuntOrder();
+  Iterable<Clue> findAllByOrderByHunt();
 
-  Iterable<Clue> getAllByhuntIdContainsOrderByHuntOrder(UUID id);
+  Iterable<Clue> getAllByHuntOrderContainsOrderByHuntOrder(Integer fragment);
 
   default Clue findOrFail(UUID id) {
     return findById(id).get();

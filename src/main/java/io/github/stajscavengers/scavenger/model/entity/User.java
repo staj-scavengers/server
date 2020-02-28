@@ -1,5 +1,6 @@
 package io.github.stajscavengers.scavenger.model.entity;
 
+import java.net.URI;
 import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,13 +10,15 @@ import javax.persistence.Index;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.lang.NonNull;
+import org.springframework.hateoas.server.EntityLinks;
+
+
 
 @SuppressWarnings("JpaDataSourceORMInspection")
 @Entity
-@Table(
-    indexes = {@Index(columnList = "is_organizer")}
-)
 public class User {
+
+  private static EntityLinks entityLinks;
 
   @NonNull
   @Id
@@ -54,4 +57,9 @@ public class User {
   public void setUserName(@NonNull String userName) {
     this.userName = userName;
   }
+
+  public URI getHref() {
+    return entityLinks.linkForItemResource(User.class, id).toUri();
+  }
+
 }
