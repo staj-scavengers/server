@@ -16,9 +16,6 @@ import org.springframework.hateoas.server.EntityLinks;
 
 @SuppressWarnings("JpaDataSourceORMInspection")
 @Entity
-@Table(
-    indexes = {@Index(columnList = "is_organizer")}
-)
 public class User {
 
   private static EntityLinks entityLinks;

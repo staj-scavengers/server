@@ -9,15 +9,15 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface  HuntActivityRepository extends JpaRepository<HuntActivity, UUID> {
 
-  Iterable<HuntActivity> getAllByOrderByHunt(Hunt hunt);
+  Iterable<HuntActivity> getAllByOrderByHunt();
 
-  Iterable<HuntActivity> getAllByOrderByUser(User user);
+  Iterable<HuntActivity> getAllByOrderByUser();
 
-  Iterable<HuntActivity> getAllByOrderByStarted(Date started);
+  Iterable<HuntActivity> getAllByOrderByStarted();
 
-  Iterable<HuntActivity> getAllByOrderByCompleted(Date completed);
+  Iterable<HuntActivity> getAllByOrderByCompleted();
 
-  Iterable<HuntActivity> getAllByOrderByTotalTime(long totalTime);
+  Iterable<HuntActivity> getAllByOrderByTotalTime();
 
   default HuntActivity findOrFail(UUID id) {
     return findById(id).get();

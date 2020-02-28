@@ -45,12 +45,7 @@ public class OrganizerController {
 
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<Organizer> get() {
-    return organizerRepository.getAllByOrderBy();
-  }
-
-  @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
-  public Iterable<Organizer> search(@RequestParam("q") String fragment) {
-    return organizerRepository.getAllByOrganizerNameContainsOrderByOrganizerName(fragment);
+    return organizerRepository.getAllByOrderById();
   }
 
   @DeleteMapping(value = "/{id}")

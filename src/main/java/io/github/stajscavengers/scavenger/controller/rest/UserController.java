@@ -2,12 +2,10 @@ package io.github.stajscavengers.scavenger.controller.rest;
 
 import io.github.stajscavengers.scavenger.model.entity.User;
 import io.github.stajscavengers.scavenger.service.UserRepository;
-
 import java.util.UUID;
-import org.graalvm.compiler.lir.LIRInstruction.Use;
+import org.springframework.hateoas.server.ExposesResourceFor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.hateoas.server.ExposesResourceFor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,10 +38,10 @@ public class UserController {
   }
 
 
-  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-  public Iterable<User> get() {
-    return userRepository.getAllByOrderBy();
-  }
+//  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+//  public Iterable<User> get() {
+//    return userRepository.getAllByOrderBy();
+//  }
 
   @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<User> search(@RequestParam("q") String fragment) {

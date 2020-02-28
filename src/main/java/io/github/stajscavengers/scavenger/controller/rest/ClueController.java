@@ -32,7 +32,7 @@ public class ClueController {
   private final HuntRepository huntRepository;
 
   @Autowired
-  public ClueController(ClueRepository clueRepository) {
+  public ClueController(ClueRepository clueRepository, HuntRepository huntRepository) {
     this.clueRepository = clueRepository;
     this.huntRepository = huntRepository;
   }
@@ -66,7 +66,7 @@ public class ClueController {
     Clue clue = clueRepository.findOrFail(clueId);
     Hunt hunt = huntRepository.findOrFail(huntId);
     if (!hunt.equals(clue.getHunt())) {
-      clue.setHuntOrder();
+      clue.setHunt(hunt);
       clueRepository.save(clue);
     }
     return clue;

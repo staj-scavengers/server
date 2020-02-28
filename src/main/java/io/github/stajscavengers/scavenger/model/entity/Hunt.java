@@ -75,6 +75,7 @@ public class Hunt {
   public URI getHref() {
     return entityLinks.linkForItemResource(Hunt.class, id).toUri();
   }
+
   @PostConstruct
   private void init() {
     entityLinks.toString();

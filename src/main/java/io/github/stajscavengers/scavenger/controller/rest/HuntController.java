@@ -41,9 +41,14 @@ public class HuntController {
  }
 
  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
- public Iterable<Hunt> get() {
-  return huntRepository.getAllByOrderByOrganizer();
+ public Hunt getByOrganizer(long id) {
+  return huntRepository.getByOrganizer(id).get();
  }
+
+// @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+// public Iterable<Hunt> get() {
+//  return huntRepository.getAllByOrderByOrganizer();
+// }
 
  @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
  public Iterable<Hunt> search(@RequestParam("q") String fragment) {
