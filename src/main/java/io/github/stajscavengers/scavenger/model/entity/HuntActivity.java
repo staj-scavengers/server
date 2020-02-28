@@ -76,6 +76,10 @@ public class HuntActivity {
   @Column(name = "clues_completed")
   private Integer cluesCompleted;
 
+  @NonNull
+  public long getHuntActivityId() {
+    return huntActivityId;
+  }
 
   @NonNull
   public Date getStarted() {
