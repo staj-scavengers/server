@@ -44,7 +44,7 @@ public class ClueController {
     clueRepository.save(clue);
     return ResponseEntity.created(clue.getHref()).body(clue);
   }
-
+  
 //  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 //  public Iterable<Clue> get() {
 //    return clueRepository.getAllByOrderByHuntId();

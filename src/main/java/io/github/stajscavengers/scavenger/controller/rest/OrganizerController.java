@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/organizers")
 @ExposesResourceFor(Organizer.class)
-
 public class OrganizerController {
 
   private final OrganizerRepository organizerRepository;
@@ -46,6 +45,11 @@ public class OrganizerController {
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<Organizer> get() {
     return organizerRepository.getAllByOrderById();
+  }
+
+  @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+  public Organizer get(@PathVariable UUID id) {
+    return organizerRepository.findOrFail(id);
   }
 
   @DeleteMapping(value = "/{id}")

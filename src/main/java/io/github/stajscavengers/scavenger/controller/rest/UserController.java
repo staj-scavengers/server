@@ -3,6 +3,7 @@ package io.github.stajscavengers.scavenger.controller.rest;
 import io.github.stajscavengers.scavenger.model.entity.User;
 import io.github.stajscavengers.scavenger.service.UserRepository;
 import java.util.UUID;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.server.ExposesResourceFor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,7 +26,7 @@ public class UserController {
 
   private final UserRepository userRepository;
 
-
+  @Autowired
   public UserController(UserRepository userRepository) {
     this.userRepository = userRepository;
   }
@@ -53,11 +54,11 @@ public class UserController {
     return userRepository.findOrFail(id);
   }
 
-  @PutMapping(value = "/{user_name}",
+  @PutMapping(value = "/{id}",
       consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public User put(@PathVariable UUID id, @RequestBody User modifiedQuote) {
+  public User put(@PathVariable UUID id, @RequestBody User modifiedUser) {
     User user = userRepository.findOrFail(id);
-    user.setUserName(modifiedQuote.getUserName());
+    user.setUserName(modifiedUser.getUserName());
     return userRepository.save(user);
   }
 
