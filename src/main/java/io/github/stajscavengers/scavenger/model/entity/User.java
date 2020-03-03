@@ -7,12 +7,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Index;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.NonNull;
 import org.springframework.hateoas.server.EntityLinks;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 

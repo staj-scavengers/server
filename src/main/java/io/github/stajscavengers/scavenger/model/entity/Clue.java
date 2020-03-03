@@ -83,7 +83,7 @@ public class Clue {
   }
 
   @NonNull
-  public Object getMedia() {
+  public String getMedia() {
     return media;
   }
 
@@ -92,7 +92,7 @@ public class Clue {
   }
 
   @NonNull
-  public Object getMediaTag() {
+  public String getMediaTag() {
     return mediaTag;
   }
 
@@ -105,7 +105,7 @@ public class Clue {
     return huntOrder;
   }
 
-  public void setHuntOrder() {
+  public void setHuntOrder(Integer huntOrder) {
     this.huntOrder = huntOrder;
   }
 

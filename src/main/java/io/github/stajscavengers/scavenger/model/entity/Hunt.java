@@ -27,7 +27,7 @@ import org.springframework.stereotype.Component;
     indexes = {
         @Index(columnList = "hunt_name"),
     }
-)
+    )
 public class Hunt {
 
   private static EntityLinks entityLinks;

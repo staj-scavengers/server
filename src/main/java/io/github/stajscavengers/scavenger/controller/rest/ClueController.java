@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -44,7 +45,7 @@ public class ClueController {
     clueRepository.save(clue);
     return ResponseEntity.created(clue.getHref()).body(clue);
   }
-  
+
 //  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 //  public Iterable<Clue> get() {
 //    return clueRepository.getAllByOrderByHuntId();
@@ -78,4 +79,22 @@ public class ClueController {
     return clue;
   }
 
+  @PutMapping(value = "/{clueId}",
+      consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  public Clue edit(@PathVariable UUID clueId, @RequestBody Clue updated) {
+    Clue clue = clueRepository.findOrFail(clueId);
+    if (updated.getClueName() != null && !updated.getClueName().equals(clue.getClueName())) {
+      clue.setClueName(updated.getClueName());
+      clueRepository.save(clue);
+    }
+    if (updated.getMedia() != null && !updated.getMedia().equals(clue.getMedia())) {
+      clue.setMedia(updated.getMedia());
+      clueRepository.save(clue);
+    }
+    if (updated.getHuntOrder() != null &&!updated.getHuntOrder().equals(clue.getHuntOrder())) {
+      clue.setHuntOrder(updated.getHuntOrder());
+      clueRepository.save(clue);
+    }
+    return clue;
+  }
 }

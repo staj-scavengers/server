@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -67,6 +68,16 @@ public class HuntController {
   Organizer organizer = organizerRepository.findOrFail(organizerId);
   if (!organizer.equals(hunt.getOrganizer())) {
    hunt.setOrganizer(organizer);
+   huntRepository.save(hunt);
+  }
+  return hunt;
+ }
+
+ @PutMapping(value = "/{id}")
+ public Hunt rename(@PathVariable UUID huntId, @RequestPart String huntName) {
+  Hunt hunt = huntRepository.findOrFail(huntId);
+  if (!huntName.equals(hunt.getHuntName())) {
+   hunt.setHuntName(huntName);
    huntRepository.save(hunt);
   }
   return hunt;
