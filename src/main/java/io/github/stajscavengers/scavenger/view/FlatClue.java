@@ -10,7 +10,7 @@ import org.springframework.lang.NonNull;
 
 public interface FlatClue {
 
-    
+
     @NonNull
     UUID getId();
 

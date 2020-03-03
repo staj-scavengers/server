@@ -2,6 +2,7 @@ package io.github.stajscavengers.scavenger.model.entity;
 
 import java.net.URI;
 import java.util.Date;
+import java.util.UUID;
 import javax.annotation.PostConstruct;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -42,7 +43,7 @@ public class HuntActivity {
   @Column( name = "hunt_activity_id")
   @GeneratedValue(generator = "uuid")
   @GenericGenerator(name = "uuid", strategy = "uuid")
-  private long huntActivityId;
+  private UUID huntActivityId;
 
   @NonNull
   @ManyToOne(fetch = FetchType.LAZY,
@@ -74,10 +75,10 @@ public class HuntActivity {
 
   @NonNull
   @Column(name = "clues_completed")
-  private Integer cluesCompleted;
+  private int cluesCompleted;
 
   @NonNull
-  public long getHuntActivityId() {
+  public UUID getHuntActivityId() {
     return huntActivityId;
   }
 
@@ -107,14 +108,14 @@ public class HuntActivity {
     this.totalTime = totalTime;
   }
 
-  @NonNull
-  public Integer getCluesCompleted() {
+  public int getCluesCompleted() {
     return cluesCompleted;
   }
 
-  public void setCluesCompleted(@NonNull Integer cluesCompleted) {
+  public void setCluesCompleted(int cluesCompleted) {
     this.cluesCompleted = cluesCompleted;
   }
+
   public URI getHref() {
     return entityLinks.linkForItemResource(HuntActivity.class, huntActivityId).toUri();
   }

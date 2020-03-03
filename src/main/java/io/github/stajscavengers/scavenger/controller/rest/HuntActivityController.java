@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/hunt_activity")
 @ExposesResourceFor(HuntActivity.class)
-public class HuntActivityController {
+public class  HuntActivityController {
 
   private final HuntActivityRepository huntActivityRepository;
   private final HuntRepository huntRepository;

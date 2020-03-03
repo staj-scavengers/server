@@ -2,6 +2,7 @@ package io.github.stajscavengers.scavenger.model.entity;
 
 import java.net.URI;
 import java.util.UUID;
+import javax.annotation.PostConstruct;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,13 +10,16 @@ import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.hateoas.server.EntityLinks;
-
+import org.springframework.stereotype.Component;
 
 
 @SuppressWarnings("JpaDataSourceORMInspection")
+@Component
 @Entity
+@Table(name = "user_profile")
 public class User {
 
   private static EntityLinks entityLinks;
@@ -28,7 +32,7 @@ public class User {
   private UUID id;
 
   @NonNull
-  @Column(name = "oauth_token", nullable = false, updatable = false)
+  @Column(name = "oauth_token", nullable = true, updatable = false)
   private String oAuthToken;
 
   @NonNull
@@ -62,4 +66,13 @@ public class User {
     return entityLinks.linkForItemResource(User.class, id).toUri();
   }
 
+  @PostConstruct
+  private void init(){
+    entityLinks.toString();
+  }
+
+  @Autowired
+  private void setEntityLinks(EntityLinks entityLinks){
+    User.entityLinks= entityLinks;
+  }
 }
