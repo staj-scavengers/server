@@ -44,15 +44,15 @@ public class ClueController {
     return ResponseEntity.created(clue.getHref()).body(clue);
   }
 
-  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-  public Iterable<Clue> get() {
-    return clueRepository.findAllByOrderByHunt();
-  }
+//  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+//  public Iterable<Clue> get() {
+//    return clueRepository.getAllByOrderByHuntId();
+//  }
 
   @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
-  public Iterable<Clue> search(@RequestParam("q") Integer fragment) {
+  public Iterable<Clue> search(@RequestParam("q") UUID hunt_id) {
 
-    return clueRepository.getAllByHuntOrderContainsOrderByHuntOrder(fragment);
+    return clueRepository.getAllByHuntIdContainsOrderByHuntOrder(hunt_id);
   }
 
   @DeleteMapping(value = "/{id}")
