@@ -1,6 +1,5 @@
 package io.github.stajscavengers.scavenger.controller.rest;
 
-import io.github.stajscavengers.scavenger.model.entity.Hunt;
 import io.github.stajscavengers.scavenger.model.entity.HuntActivity;
 import io.github.stajscavengers.scavenger.service.HuntActivityRepository;
 import io.github.stajscavengers.scavenger.service.HuntRepository;
@@ -16,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/hunt_activity")
+@RequestMapping("/hunt_activities")
 @ExposesResourceFor(HuntActivity.class)
 public class  HuntActivityController {
 
