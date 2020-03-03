@@ -68,12 +68,11 @@ public class ClueController {
     clueRepository.findById(id).ifPresent(clueRepository::delete);
   }
 
-  @PutMapping(value = "/{clueId}/hunt/{huntId}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public Clue attach(@PathVariable UUID clueId, @PathVariable UUID huntId) {
-    Clue clue = clueRepository.findOrFail(clueId);
-    Hunt hunt = huntRepository.findOrFail(huntId);
-    if (!hunt.equals(clue.getHunt())) {
-      clue.setHunt(hunt);
+  @PutMapping(value = "/{id}/media", produces = MediaType.APPLICATION_JSON_VALUE)
+  public Clue updateMedia(@PathVariable UUID id, @RequestBody String newMedia) {
+    Clue clue = clueRepository.findOrFail(id);
+    if (!newMedia.equals(clue.getMedia())) {
+      clue.setMedia(newMedia);
       clueRepository.save(clue);
     }
     return clue;
