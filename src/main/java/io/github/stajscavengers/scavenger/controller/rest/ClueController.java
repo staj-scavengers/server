@@ -3,6 +3,7 @@ package io.github.stajscavengers.scavenger.controller.rest;
 import io.github.stajscavengers.scavenger.model.entity.Clue;
 import io.github.stajscavengers.scavenger.model.entity.Hunt;
 import io.github.stajscavengers.scavenger.model.entity.HuntActivity;
+import io.github.stajscavengers.scavenger.model.entity.User;
 import io.github.stajscavengers.scavenger.service.ClueRepository;
 import io.github.stajscavengers.scavenger.service.HuntRepository;
 import java.util.Set;
@@ -53,6 +54,11 @@ public class ClueController {
   public Iterable<Clue> search(@RequestParam("q") UUID hunt_id) {
 
     return clueRepository.getAllByHuntIdContainsOrderByHuntOrder(hunt_id);
+  }
+
+  @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+  public Clue get(@PathVariable UUID id) {
+    return clueRepository.findOrFail(id);
   }
 
   @DeleteMapping(value = "/{id}")
