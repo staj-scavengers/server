@@ -1,6 +1,8 @@
 package io.github.stajscavengers.scavenger.controller.rest;
+import io.github.stajscavengers.scavenger.model.entity.Clue;
 import io.github.stajscavengers.scavenger.model.entity.Hunt;
 import io.github.stajscavengers.scavenger.model.entity.Organizer;
+import io.github.stajscavengers.scavenger.service.ClueRepository;
 import io.github.stajscavengers.scavenger.service.HuntRepository;
 import io.github.stajscavengers.scavenger.service.OrganizerRepository;
 import java.util.UUID;
@@ -27,11 +29,14 @@ public class HuntController {
 
  private final HuntRepository huntRepository;
  private final OrganizerRepository organizerRepository;
+ private final ClueRepository clueRepository;
 
  @Autowired
-  public HuntController(HuntRepository huntRepository, OrganizerRepository organizerRepository) {
+  public HuntController(HuntRepository huntRepository, OrganizerRepository organizerRepository,
+     ClueRepository clueRepository) {
    this.huntRepository = huntRepository;
    this.organizerRepository = organizerRepository;
+  this.clueRepository = clueRepository;
  }
 
  @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -59,6 +64,15 @@ public class HuntController {
  @ResponseStatus(HttpStatus.NO_CONTENT)
  public void delete(@PathVariable UUID id) {
   huntRepository.findById(id).ifPresent(huntRepository::delete);
+ }
+
+ @PutMapping(value = "/{huntId}/clue/{clueId}", produces = MediaType.APPLICATION_JSON_VALUE)
+ public Clue attachClue(@PathVariable UUID huntId, @PathVariable UUID clueId) {
+  Hunt hunt = huntRepository.findOrFail(huntId);
+  Clue clue = clueRepository.findOrFail(clueId);
+  clue.setHunt(hunt);
+  clueRepository.save(clue);
+  return clue;
  }
 
  @PutMapping(value = "/{huntId}/organizer/{organizerId}", produces = MediaType.APPLICATION_JSON_VALUE)
