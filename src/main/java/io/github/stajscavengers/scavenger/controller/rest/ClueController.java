@@ -2,11 +2,8 @@ package io.github.stajscavengers.scavenger.controller.rest;
 
 import io.github.stajscavengers.scavenger.model.entity.Clue;
 import io.github.stajscavengers.scavenger.model.entity.Hunt;
-import io.github.stajscavengers.scavenger.model.entity.HuntActivity;
-import io.github.stajscavengers.scavenger.model.entity.User;
 import io.github.stajscavengers.scavenger.service.ClueRepository;
 import io.github.stajscavengers.scavenger.service.HuntRepository;
-import java.util.Set;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.server.ExposesResourceFor;
@@ -21,7 +18,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -64,13 +60,22 @@ public class ClueController {
 
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<Clue> getList() {
-    return clueRepository.getAllByOrderByHuntOrder();
+    return clueRepository.getAllByOrderByHunt();
   }
 
   @DeleteMapping(value = "/{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void delete(@PathVariable UUID id) {
     clueRepository.findById(id).ifPresent(clueRepository::delete);
+  }
+
+  @PutMapping(value = "/{clueId}/hunt/{huntId}", produces = MediaType.APPLICATION_JSON_VALUE)
+  public Clue attachClue(@PathVariable UUID huntId, @PathVariable UUID clueId) {
+    Hunt hunt = huntRepository.findOrFail(huntId);
+    Clue clue = clueRepository.findOrFail(clueId);
+    clue.setHunt(hunt);
+    clueRepository.save(clue);
+    return clue;
   }
 
 // we don't need this (I think).
@@ -94,6 +99,10 @@ public class ClueController {
     }
     if (updated.getMedia() != null && !updated.getMedia().equals(clue.getMedia())) {
       clue.setMedia(updated.getMedia());
+      clueRepository.save(clue);
+    }
+    if (updated.getMediaTag() != null && !updated.getMediaTag().equals(clue.getMediaTag())) {
+      clue.setMediaTag(updated.getMediaTag());
       clueRepository.save(clue);
     }
     if (updated.getHuntOrder() != null && !updated.getHuntOrder().equals(clue.getHuntOrder())) {

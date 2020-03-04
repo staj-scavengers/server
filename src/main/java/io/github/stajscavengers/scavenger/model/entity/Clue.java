@@ -1,5 +1,6 @@
 package io.github.stajscavengers.scavenger.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.net.URI;
 import java.util.UUID;
 import javax.annotation.PostConstruct;
@@ -13,6 +14,7 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.server.EntityLinks;
@@ -27,10 +29,12 @@ import org.springframework.stereotype.Component;
 @Table(
     // TODO we need a way to make sure that each hunt has unique hunt order values,
     //  but still let multiple "Clue 1"s, etc. exist in different hunts.
+    uniqueConstraints =
+    @UniqueConstraint(columnNames = {"hunt_id", "hunt_order"}),
     indexes = {
         @Index(columnList = "clue_name"),
-        @Index(columnList = "hunt_id"),
-        @Index(columnList = "hunt_order", unique = true),
+//        @Index(columnList = "hunt_id"),
+//        @Index(columnList = "hunt_order"),
         @Index(columnList = "media_tag")
     }
 )
@@ -49,6 +53,7 @@ public class Clue {
   @Column(name = "clue_name", nullable = false)
   private String clueName;
 
+  @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
   @ManyToOne(fetch = FetchType.LAZY,
       cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
   @JoinColumn(name = "hunt_id")
