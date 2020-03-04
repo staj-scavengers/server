@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface OrganizerRepository extends JpaRepository<Organizer, UUID> {
 
-
     Iterable<Organizer> getAllByOrderById();
 
     @Query(value = "SELECT * FROM sa.Organizer WHERE organizer_id = :id",
