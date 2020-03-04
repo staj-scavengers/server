@@ -45,16 +45,19 @@ public class HuntController {
   huntRepository.save(hunt);
   return ResponseEntity.created(hunt.getHref()).body(hunt);
  }
-
- @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
- public Hunt getByOrganizer(long id) {
-  return huntRepository.getByOrganizer(id).get();
+/* FIXME Spring doesn't want to map both Iterable GetMapping methods : "Cannot map 'huntController' method
+    io.github.stajscavengers.scavenger.controller.rest.HuntController#getByOrganizer(UUID)
+    to {GET /hunts, produces [application/json]}: There is already 'huntController' bean method
+    io.github.stajscavengers.scavenger.controller.rest.HuntController#getList() mapped."*/
+ @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+ public Iterable<Hunt> getByOrganizer(UUID id) {
+  return huntRepository.getByOrganizer(id);
  }
 
-// @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-// public Iterable<Hunt> get() {
-//  return huntRepository.getAllByOrderByOrganizer();
-// }
+ @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+ public Iterable<Hunt> getList() {
+  return huntRepository.getList();
+ }
 
  @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
  public Iterable<Hunt> search(@RequestParam("q") String fragment) {
@@ -67,14 +70,7 @@ public class HuntController {
   huntRepository.findById(id).ifPresent(huntRepository::delete);
  }
 
- @PutMapping(value = "/{huntId}/clue/{clueId}", produces = MediaType.APPLICATION_JSON_VALUE)
- public Clue attachClue(@PathVariable UUID huntId, @PathVariable UUID clueId) {
-  Hunt hunt = huntRepository.findOrFail(huntId);
-  Clue clue = clueRepository.findOrFail(clueId);
-  clue.setHunt(hunt);
-  clueRepository.save(clue);
-  return clue;
- }
+
 
  @PutMapping(value = "/{huntId}/organizer/{organizerId}", produces = MediaType.APPLICATION_JSON_VALUE)
  public Hunt attach(@PathVariable UUID huntId, @PathVariable UUID organizerId) {

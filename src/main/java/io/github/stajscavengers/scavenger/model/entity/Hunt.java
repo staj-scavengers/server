@@ -1,6 +1,8 @@
 package io.github.stajscavengers.scavenger.model.entity;
 
 import java.net.URI;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.UUID;
 import javax.annotation.PostConstruct;
 import javax.persistence.CascadeType;
@@ -12,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +53,11 @@ public class Hunt {
   )
   @JoinColumn(name = "organizer_id")
   private Organizer organizer;
+
+  @OneToMany(mappedBy = "hunt", cascade = {CascadeType.ALL})
+  @OrderBy("hunt_id, hunt_order")
+  private List<Clue> clues = new LinkedList<>();
+
 
 
   @NonNull

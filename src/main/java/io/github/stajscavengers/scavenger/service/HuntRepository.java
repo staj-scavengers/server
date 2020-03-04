@@ -1,6 +1,7 @@
 package io.github.stajscavengers.scavenger.service;
 
 import io.github.stajscavengers.scavenger.model.entity.Hunt;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,10 +14,10 @@ public interface HuntRepository extends JpaRepository<Hunt, UUID> {
   Iterable<Hunt> getAllByHuntNameContainsOrderByHuntName(String fragment);
 
   @Query(value = "SELECT * FROM sa.Hunt ORDER BY hunt_name", nativeQuery = true)
-  Optional<Hunt> get();
+  Iterable<Hunt> getList();
 
   @Query(value = "SELECT * FROM sa.Hunt WHERE organizer id = :id ORDER BY hunt_name", nativeQuery = true)
-  Optional<Hunt> getByOrganizer(long id);
+  List<Hunt> getByOrganizer(UUID id);
 
   default Hunt findOrFail(UUID id) {
     return findById(id).get();

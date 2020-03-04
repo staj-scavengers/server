@@ -1,5 +1,6 @@
 package io.github.stajscavengers.scavenger.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.net.URI;
 import java.util.UUID;
 import javax.annotation.PostConstruct;
@@ -49,6 +50,7 @@ public class Clue {
   @Column(name = "clue_name", nullable = false)
   private String clueName;
 
+  @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
   @ManyToOne(fetch = FetchType.LAZY,
       cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
   @JoinColumn(name = "hunt_id")
