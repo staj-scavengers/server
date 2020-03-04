@@ -47,7 +47,8 @@ public class HuntController {
  }
 
  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
- public Hunt getByOrganizer(long id) {
+ // Changed from getByOrganizer(long id) to this. --Trace
+ public Hunt getByOrganizer(UUID id) {
   return huntRepository.getByOrganizer(id).get();
  }
 
@@ -84,6 +85,11 @@ public class HuntController {
    hunt.setHuntName(updated.getHuntName());
    huntRepository.save(hunt);
   }
+  // Not entirely sure if this should be here.
+  if (updated.getOrganizer() != null && !updated.getOrganizer().equals(hunt.getOrganizer())) {
+   hunt.setOrganizer(updated.getOrganizer());
+   huntRepository.save(hunt);
+  }
   return hunt;
  }
 
@@ -98,14 +104,4 @@ public class HuntController {
 //  return hunt;
 // }
 //
-// @PutMapping(value = "/{id}")
-// public Hunt rename(@PathVariable UUID huntId, @RequestPart String huntName) {
-//  Hunt hunt = huntRepository.findOrFail(huntId);
-//  if (!huntName.equals(hunt.getHuntName())) {
-//   hunt.setHuntName(huntName);
-//   huntRepository.save(hunt);
-//  }
-//  return hunt;
-// }
-// supdawg
 }

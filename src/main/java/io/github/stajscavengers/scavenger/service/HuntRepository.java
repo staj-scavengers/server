@@ -16,7 +16,8 @@ public interface HuntRepository extends JpaRepository<Hunt, UUID> {
   Optional<Hunt> get();
 
   @Query(value = "SELECT * FROM sa.Hunt WHERE organizer id = :id ORDER BY hunt_name", nativeQuery = true)
-  Optional<Hunt> getByOrganizer(long id);
+  // Changed from getByOrganizer(long id) to this. --Trace
+  Optional<Hunt> getByOrganizer(UUID id);
 
   default Hunt findOrFail(UUID id) {
     return findById(id).get();

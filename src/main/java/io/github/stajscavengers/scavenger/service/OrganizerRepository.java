@@ -13,7 +13,8 @@ public interface OrganizerRepository extends JpaRepository<Organizer, UUID> {
 
     @Query(value = "SELECT * FROM sa.Organizer WHERE organizer_id = :id",
         nativeQuery = true)
-    Optional<Organizer> get(long id);
+    // changed from get(long id); to this. --Trace
+    Optional<Organizer> get(UUID id);
 
     default Organizer findOrFail(UUID id){
       return findById(id).get();
