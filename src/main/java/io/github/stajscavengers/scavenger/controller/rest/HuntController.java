@@ -76,25 +76,36 @@ public class HuntController {
   return clue;
  }
 
- @PutMapping(value = "/{huntId}/organizer/{organizerId}", produces = MediaType.APPLICATION_JSON_VALUE)
- public Hunt attach(@PathVariable UUID huntId, @PathVariable UUID organizerId) {
+ @PutMapping(value = "huntId",
+     consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+ public Hunt edit(@PathVariable UUID huntId, @RequestBody Hunt updated) {
   Hunt hunt = huntRepository.findOrFail(huntId);
-  Organizer organizer = organizerRepository.findOrFail(organizerId);
-  if (!organizer.equals(hunt.getOrganizer())) {
-   hunt.setOrganizer(organizer);
+  if (updated.getHuntName() != null && !updated.getHuntName().equals(hunt.getHuntName())) {
+   hunt.setHuntName(updated.getHuntName());
    huntRepository.save(hunt);
   }
   return hunt;
  }
 
- @PutMapping(value = "/{id}")
- public Hunt rename(@PathVariable UUID huntId, @RequestPart String huntName) {
-  Hunt hunt = huntRepository.findOrFail(huntId);
-  if (!huntName.equals(hunt.getHuntName())) {
-   hunt.setHuntName(huntName);
-   huntRepository.save(hunt);
-  }
-  return hunt;
- }
+// @PutMapping(value = "/{huntId}/organizer/{organizerId}", produces = MediaType.APPLICATION_JSON_VALUE)
+// public Hunt attach(@PathVariable UUID huntId, @PathVariable UUID organizerId) {
+//  Hunt hunt = huntRepository.findOrFail(huntId);
+//  Organizer organizer = organizerRepository.findOrFail(organizerId);
+//  if (!organizer.equals(hunt.getOrganizer())) {
+//   hunt.setOrganizer(organizer);
+//   huntRepository.save(hunt);
+//  }
+//  return hunt;
+// }
+//
+// @PutMapping(value = "/{id}")
+// public Hunt rename(@PathVariable UUID huntId, @RequestPart String huntName) {
+//  Hunt hunt = huntRepository.findOrFail(huntId);
+//  if (!huntName.equals(hunt.getHuntName())) {
+//   hunt.setHuntName(huntName);
+//   huntRepository.save(hunt);
+//  }
+//  return hunt;
+// }
 // supdawg
 }
