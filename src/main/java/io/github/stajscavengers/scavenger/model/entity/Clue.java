@@ -25,6 +25,8 @@ import org.springframework.stereotype.Component;
 @Entity
 @Component
 @Table(
+    // TODO we need a way to make sure that each hunt has unique hunt order values,
+    //  but still let multiple "Clue 1"s, etc. exist in different hunts.
     indexes = {
         @Index(columnList = "clue_name"),
         @Index(columnList = "hunt_id"),

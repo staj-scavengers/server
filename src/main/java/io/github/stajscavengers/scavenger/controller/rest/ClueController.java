@@ -62,21 +62,27 @@ public class ClueController {
     return clueRepository.findOrFail(id);
   }
 
+  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+  public Iterable<Clue> getList() {
+    return clueRepository.getAllByOrderByHuntOrder();
+  }
+
   @DeleteMapping(value = "/{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void delete(@PathVariable UUID id) {
     clueRepository.findById(id).ifPresent(clueRepository::delete);
   }
 
-  @PutMapping(value = "/{id}/media", produces = MediaType.APPLICATION_JSON_VALUE)
-  public Clue updateMedia(@PathVariable UUID id, @RequestBody String newMedia) {
-    Clue clue = clueRepository.findOrFail(id);
-    if (!newMedia.equals(clue.getMedia())) {
-      clue.setMedia(newMedia);
-      clueRepository.save(clue);
-    }
-    return clue;
-  }
+// we don't need this (I think).
+//  @PutMapping(value = "/{id}/media", produces = MediaType.APPLICATION_JSON_VALUE)
+//  public Clue updateMedia(@PathVariable UUID id, @RequestBody String newMedia) {
+//    Clue clue = clueRepository.findOrFail(id);
+//    if (!newMedia.equals(clue.getMedia())) {
+//      clue.setMedia(newMedia);
+//      clueRepository.save(clue);
+//    }
+//    return clue;
+//  }
 
   @PutMapping(value = "/{clueId}",
       consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -90,7 +96,7 @@ public class ClueController {
       clue.setMedia(updated.getMedia());
       clueRepository.save(clue);
     }
-    if (updated.getHuntOrder() != null &&!updated.getHuntOrder().equals(clue.getHuntOrder())) {
+    if (updated.getHuntOrder() != null && !updated.getHuntOrder().equals(clue.getHuntOrder())) {
       clue.setHuntOrder(updated.getHuntOrder());
       clueRepository.save(clue);
     }

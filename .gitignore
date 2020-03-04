@@ -3,6 +3,9 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**
 !**/src/test/**
+derby.log
+create.sql
+/scavenger_db
 
 ### STS ###
 .apt_generated
