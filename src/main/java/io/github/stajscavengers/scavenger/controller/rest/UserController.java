@@ -1,5 +1,6 @@
 package io.github.stajscavengers.scavenger.controller.rest;
 
+import io.github.stajscavengers.scavenger.model.entity.Clue;
 import io.github.stajscavengers.scavenger.model.entity.User;
 import io.github.stajscavengers.scavenger.service.UserRepository;
 import java.util.UUID;
@@ -54,12 +55,32 @@ public class UserController {
     return userRepository.findOrFail(id);
   }
 
-  @PutMapping(value = "/{id}",
+  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+  public Iterable<User> getList() {
+    return userRepository.getAllByOrderByUserName();
+  }
+
+//  @PutMapping(value = "/{id}",
+//      consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+//  public User put(@PathVariable UUID id, @RequestBody User modifiedUser) {
+//    User user = userRepository.findOrFail(id);
+//    user.setUserName(modifiedUser.getUserName());
+//    return userRepository.save(user);
+//  }
+
+  @PutMapping(value = "/{userId}",
       consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public User put(@PathVariable UUID id, @RequestBody User modifiedUser) {
-    User user = userRepository.findOrFail(id);
-    user.setUserName(modifiedUser.getUserName());
-    return userRepository.save(user);
+  public User edit(@PathVariable UUID userId, @RequestBody User updated) {
+    User user = userRepository.findOrFail(userId);
+    if (updated.getUserName() != null && !updated.getUserName().equals(user.getUserName())) {
+      user.setUserName(updated.getUserName());
+      userRepository.save(user);
+    }
+//    if (updated.getoAuthToken() != null && !updated.getoAuthToken().equals(user.getoAuthToken())) {
+//      user.setoAuthToken(updated.getoAuthToken());
+//      userRepository.save(user);
+//    }
+    return user;
   }
 
   @DeleteMapping(value = "/{id}")
