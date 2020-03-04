@@ -17,6 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.server.EntityLinks;
@@ -55,7 +56,7 @@ public class Hunt {
   private Organizer organizer;
 
   @OneToMany(mappedBy = "hunt", cascade = {CascadeType.ALL})
-  @OrderBy("hunt_id, hunt_order")
+//  @OrderBy("hunt_id, hunt_order")
   private List<Clue> clues = new LinkedList<>();
 
 
