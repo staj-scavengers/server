@@ -22,7 +22,8 @@ public interface  HuntActivityRepository extends JpaRepository<HuntActivity, UUI
   Iterable<HuntActivity> getAllByOrderByTotalTime();
 
   @Query(value = "SELECT * FROM HuntActivity WHERE hunt_id = :huntId", nativeQuery = true)
-  Optional<HuntActivity> get(long huntId);
+  // changed from get(long huntId) to this.
+  Optional<HuntActivity> get(UUID huntId);
 
   default HuntActivity findOrFail(UUID id) {
     return findById(id).get();
