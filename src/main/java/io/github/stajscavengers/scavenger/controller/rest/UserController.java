@@ -54,12 +54,27 @@ public class UserController {
     return userRepository.findOrFail(id);
   }
 
-  @PutMapping(value = "/{id}",
+//  @PutMapping(value = "/{id}",
+//      consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+//  public User put(@PathVariable UUID id, @RequestBody User modifiedUser) {
+//    User user = userRepository.findOrFail(id);
+//    user.setUserName(modifiedUser.getUserName());
+//    return userRepository.save(user);
+//  }
+
+  @PutMapping(value = "/{userId}",
       consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public User put(@PathVariable UUID id, @RequestBody User modifiedUser) {
-    User user = userRepository.findOrFail(id);
-    user.setUserName(modifiedUser.getUserName());
-    return userRepository.save(user);
+  public User edit(@PathVariable UUID userId, @RequestBody User updated) {
+    User user = userRepository.findOrFail(userId);
+    if (updated.getUserName() != null && !updated.getUserName().equals(user.getUserName())) {
+      user.setUserName(updated.getUserName());
+      userRepository.save(user);
+    }
+    if (updated.getoAuthToken() != null && !updated.getoAuthToken().equals(user.getoAuthToken())) {
+      user.setoAuthToken(updated.getoAuthToken());
+      userRepository.save(user);
+    }
+    return user;
   }
 
   @DeleteMapping(value = "/{id}")
