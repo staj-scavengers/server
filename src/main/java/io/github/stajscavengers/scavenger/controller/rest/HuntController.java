@@ -48,19 +48,19 @@ public class HuntController {
 
  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
  // Changed from getByOrganizer(long id) to this. --Trace
- public Hunt getByOrganizer(UUID id) {
-  return huntRepository.getByOrganizer(id).get();
+ public Iterable<Hunt> getByOrganizer(UUID id) {
+  return huntRepository.getByOrganizer(id);
  }
 
 // @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-// public Iterable<Hunt> get() {
+// public Iterable<Hunt> getList() {
 //  return huntRepository.getAllByOrderByOrganizer();
 // }
 
- @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
- public Iterable<Hunt> search(@RequestParam("q") String fragment) {
-  return huntRepository.getAllByHuntNameContainsOrderByHuntName(fragment);
- }
+// @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
+// public Iterable<Hunt> search(@RequestParam("q") String fragment) {
+//  return huntRepository.getAllByHuntNameContainsOrderByHuntName(fragment);
+// }
 
  @DeleteMapping(value = "/{id}")
  @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -85,6 +85,7 @@ public class HuntController {
    hunt.setHuntName(updated.getHuntName());
    huntRepository.save(hunt);
   }
+
   // Not entirely sure if this should be here.
   if (updated.getOrganizer() != null && !updated.getOrganizer().equals(hunt.getOrganizer())) {
    hunt.setOrganizer(updated.getOrganizer());
