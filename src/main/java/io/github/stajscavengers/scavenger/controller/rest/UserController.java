@@ -1,5 +1,6 @@
 package io.github.stajscavengers.scavenger.controller.rest;
 
+import io.github.stajscavengers.scavenger.model.entity.Clue;
 import io.github.stajscavengers.scavenger.model.entity.User;
 import io.github.stajscavengers.scavenger.service.UserRepository;
 import java.util.UUID;
@@ -54,6 +55,11 @@ public class UserController {
     return userRepository.findOrFail(id);
   }
 
+  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+  public Iterable<User> getList() {
+    return userRepository.getAllByOrderByUserName();
+  }
+
 //  @PutMapping(value = "/{id}",
 //      consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 //  public User put(@PathVariable UUID id, @RequestBody User modifiedUser) {
@@ -70,10 +76,10 @@ public class UserController {
       user.setUserName(updated.getUserName());
       userRepository.save(user);
     }
-    if (updated.getoAuthToken() != null && !updated.getoAuthToken().equals(user.getoAuthToken())) {
-      user.setoAuthToken(updated.getoAuthToken());
-      userRepository.save(user);
-    }
+//    if (updated.getoAuthToken() != null && !updated.getoAuthToken().equals(user.getoAuthToken())) {
+//      user.setoAuthToken(updated.getoAuthToken());
+//      userRepository.save(user);
+//    }
     return user;
   }
 
