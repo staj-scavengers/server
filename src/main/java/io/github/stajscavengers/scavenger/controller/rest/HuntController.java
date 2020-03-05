@@ -1,5 +1,5 @@
 package io.github.stajscavengers.scavenger.controller.rest;
-import io.github.stajscavengers.scavenger.model.entity.Clue;
+
 import io.github.stajscavengers.scavenger.model.entity.Hunt;
 import io.github.stajscavengers.scavenger.model.entity.Organizer;
 import io.github.stajscavengers.scavenger.service.ClueRepository;
@@ -28,67 +28,66 @@ import org.springframework.web.bind.annotation.RestController;
 @ExposesResourceFor(Hunt.class)
 public class HuntController {
 
- private final HuntRepository huntRepository;
- private final OrganizerRepository organizerRepository;
- private final ClueRepository clueRepository;
+  private final HuntRepository huntRepository;
+  private final OrganizerRepository organizerRepository;
+  private final ClueRepository clueRepository;
 
- @Autowired
+  @Autowired
   public HuntController(HuntRepository huntRepository, OrganizerRepository organizerRepository,
-     ClueRepository clueRepository) {
-   this.huntRepository = huntRepository;
-   this.organizerRepository = organizerRepository;
-  this.clueRepository = clueRepository;
- }
-
- @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
- public ResponseEntity<Hunt> post(@RequestBody Hunt hunt) {
-  huntRepository.save(hunt);
-  return ResponseEntity.created(hunt.getHref()).body(hunt);
- }
-
- @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
- // Changed from getByOrganizer(long id) to this. --Trace
- public Iterable<Hunt> getByOrganizer(UUID id) {
-  return huntRepository.getByOrganizer(id);
- }
-
- @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
- public Iterable<Hunt> getList() {
-  return huntRepository.getAllByOrderByOrganizer();
- }
-
- @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
- public Iterable<Hunt> search(@RequestParam("q") String fragment) {
-  return huntRepository.getAllByHuntNameContainsOrderByHuntName(fragment);
- }
-
- @DeleteMapping(value = "/{id}")
- @ResponseStatus(HttpStatus.NO_CONTENT)
- public void delete(@PathVariable UUID id) {
-  huntRepository.findById(id).ifPresent(huntRepository::delete);
- }
-
-
-
- @PutMapping(value = "/{huntId}/organizer/{organizerId}", produces = MediaType.APPLICATION_JSON_VALUE)
- public Hunt attach(@PathVariable UUID huntId, @PathVariable UUID organizerId) {
-  Hunt hunt = huntRepository.findOrFail(huntId);
-  Organizer organizer = organizerRepository.findOrFail(organizerId);
-  if (!organizer.equals(hunt.getOrganizer())) {
-   hunt.setOrganizer(organizer);
-   huntRepository.save(hunt);
+      ClueRepository clueRepository) {
+    this.huntRepository = huntRepository;
+    this.organizerRepository = organizerRepository;
+    this.clueRepository = clueRepository;
   }
-  return hunt;
- }
 
- @PutMapping(value = "/{id}")
- public Hunt rename(@PathVariable UUID huntId, @RequestPart String huntName) {
-  Hunt hunt = huntRepository.findOrFail(huntId);
-  if (!huntName.equals(hunt.getHuntName())) {
-   hunt.setHuntName(huntName);
-   huntRepository.save(hunt);
+  @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<Hunt> post(@RequestBody Hunt hunt) {
+    huntRepository.save(hunt);
+    return ResponseEntity.created(hunt.getHref()).body(hunt);
   }
-  return hunt;
- }
+
+  @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+  // Changed from getByOrganizer(long id) to this. --Trace
+  public Iterable<Hunt> getByOrganizer(UUID id) {
+    return huntRepository.getByOrganizer(id);
+  }
+
+  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+  public Iterable<Hunt> getList() {
+    return huntRepository.getAllByOrderByOrganizer();
+  }
+
+  @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
+  public Iterable<Hunt> search(@RequestParam("q") String fragment) {
+    return huntRepository.getAllByHuntNameContainsOrderByHuntName(fragment);
+  }
+
+  @DeleteMapping(value = "/{id}")
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  public void delete(@PathVariable UUID id) {
+    huntRepository.findById(id).ifPresent(huntRepository::delete);
+  }
+
+
+  @PutMapping(value = "/{huntId}/organizer/{organizerId}", produces = MediaType.APPLICATION_JSON_VALUE)
+  public Hunt attach(@PathVariable UUID huntId, @PathVariable UUID organizerId) {
+    Hunt hunt = huntRepository.findOrFail(huntId);
+    Organizer organizer = organizerRepository.findOrFail(organizerId);
+    if (!organizer.equals(hunt.getOrganizer())) {
+      hunt.setOrganizer(organizer);
+      huntRepository.save(hunt);
+    }
+    return hunt;
+  }
+
+  @PutMapping(value = "/{id}")
+  public Hunt rename(@PathVariable UUID huntId, @RequestPart String huntName) {
+    Hunt hunt = huntRepository.findOrFail(huntId);
+    if (!huntName.equals(hunt.getHuntName())) {
+      hunt.setHuntName(huntName);
+      huntRepository.save(hunt);
+    }
+    return hunt;
+  }
 // supdawg
 }

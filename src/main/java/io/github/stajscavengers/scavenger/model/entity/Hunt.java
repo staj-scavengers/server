@@ -15,9 +15,7 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.server.EntityLinks;
@@ -32,7 +30,7 @@ import org.springframework.stereotype.Component;
     indexes = {
         @Index(columnList = "hunt_name"),
     }
-    )
+)
 public class Hunt {
 
   private static EntityLinks entityLinks;
@@ -58,7 +56,6 @@ public class Hunt {
   @OneToMany(mappedBy = "hunt", cascade = {CascadeType.ALL})
 //  @OrderBy("hunt_id, hunt_order")
   private List<Clue> clues = new LinkedList<>();
-
 
 
   @NonNull
@@ -97,7 +94,6 @@ public class Hunt {
   private void setEntityLinks(EntityLinks entityLinks) {
     Hunt.entityLinks = entityLinks;
   }
-
 
 
 }

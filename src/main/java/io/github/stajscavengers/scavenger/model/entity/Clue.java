@@ -19,7 +19,6 @@ import org.hibernate.annotations.GenericGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.server.EntityLinks;
 import org.springframework.lang.NonNull;
-import org.springframework.hateoas.server.EntityLinks;
 import org.springframework.stereotype.Component;
 
 
@@ -33,8 +32,6 @@ import org.springframework.stereotype.Component;
     @UniqueConstraint(columnNames = {"hunt_id", "hunt_order"}),
     indexes = {
         @Index(columnList = "clue_name"),
-//        @Index(columnList = "hunt_id"),
-//        @Index(columnList = "hunt_order"),
         @Index(columnList = "media_tag")
     }
 )
