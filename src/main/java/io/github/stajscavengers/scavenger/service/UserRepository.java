@@ -10,7 +10,7 @@ public interface UserRepository extends JpaRepository<User, UUID> {
 
   Iterable<User> getAllByOrderByUserName();
 
-  Iterable<User> getAllByUserNameContainsOrderByUserName(String fragment);
+  Iterable<User> getAllByUserNameContains(String fragment);
 
   @Query(value = "SELECT * FROM sa.User WHERE user_id = :id",
     nativeQuery = true)

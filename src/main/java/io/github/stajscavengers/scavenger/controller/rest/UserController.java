@@ -39,22 +39,32 @@ public class UserController {
     return ResponseEntity.created(user.getHref()).body(user);
   }
 
-
 //  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 //  public Iterable<User> get() {
 //    return userRepository.getAllByOrderBy();
 //  }
 
+  /**
+   * @param fragment is a search string entered in the url.
+   * @return list of users with the requested string in their name.
+   */
   @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<User> search(@RequestParam("q") String fragment) {
-    return userRepository.getAllByUserNameContainsOrderByUserName(fragment);
+    return userRepository.getAllByUserNameContains(fragment);
   }
 
+  /**
+   * @param id is the user's unique id
+   * @return an individual user
+   */
   @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
   public User get(@PathVariable UUID id) {
     return userRepository.findOrFail(id);
   }
 
+  /**
+   * @return all users.  We may not need this method.
+   */
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<User> getList() {
     return userRepository.getAllByOrderByUserName();
@@ -68,6 +78,14 @@ public class UserController {
 //    return userRepository.save(user);
 //  }
 
+  /**
+   * This method provides an option to change a user's name.  Unsure if we will use this or rely on
+   * Google oAuth data.
+   *
+   * @param userId  gets an existing user.
+   * @param updated brings a new user name from the JSON request.
+   * @return the same user with an updated UserName field.
+   */
   @PutMapping(value = "/{userId}",
       consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public User edit(@PathVariable UUID userId, @RequestBody User updated) {
@@ -83,6 +101,10 @@ public class UserController {
     return user;
   }
 
+  /**
+   * Deletes a single user.
+   * @param id is the user to be deleted.
+   */
   @DeleteMapping(value = "/{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void delete(@PathVariable UUID id) {
