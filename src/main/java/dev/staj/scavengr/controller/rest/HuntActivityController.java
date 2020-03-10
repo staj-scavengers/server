@@ -34,9 +34,8 @@ public class  HuntActivityController {
   }
 
   /**
-   *
-   * @param huntActivity
-   * @return
+   * @param huntActivity add new hunt activity with post mapping.
+   * @return href for the hunt activity.
    */
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
@@ -45,8 +44,13 @@ public class  HuntActivityController {
     return ResponseEntity.created(huntActivity.getHref()).body(huntActivity);
   }
 
+  /**
+   *
+   * @return all hunt activities.
+   */
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<HuntActivity> get() {
     return huntActivityRepository.getAllByOrderByHunt();
   }
+
 }
