@@ -26,6 +26,11 @@ public class OrganizerController {
   private final OrganizerRepository organizerRepository;
   private final UserRepository userRepository;
 
+  /**
+   * Initializes {@link OrganizerRepository} and {@link UserRepository}
+   * @param organizerRepository
+   * @param userRepository
+   */
   @Autowired
   public OrganizerController (OrganizerRepository organizerRepository, UserRepository userRepository) {
     this.organizerRepository = organizerRepository;

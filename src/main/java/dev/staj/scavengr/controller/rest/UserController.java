@@ -36,9 +36,9 @@ public class UserController {
   }
 
   /**
-   * This method creates a new User entity.
-   * @param user contains user fields.
-   * @return Href to new user.
+   * This method creates a new {@link User} entity.
+   * @param user contains {@link User} fields.
+   * @return Href to new {@link User}.
    */
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
@@ -60,9 +60,9 @@ public class UserController {
   }
 
   /**
-   * This method searches all users based on a string.
+   * This method searches all {@link User}s based on a string.
    * @param fragment is a search string entered in the url.
-   * @return list of users with the requested string in their name.
+   * @return list of {@link User}s with the requested string in their name.
    */
   @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<User> search(@RequestParam("q") String fragment) {
@@ -70,8 +70,8 @@ public class UserController {
   }
 
   /**
-   * @param id is the user's unique id
-   * @return an individual user
+   * @param id is the {@link User}'s unique id.
+   * @return an individual {@link User}.
    */
   @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
   public User get(@PathVariable UUID id) {
@@ -79,7 +79,7 @@ public class UserController {
   }
 
   /**
-   * @return all users.  We may not need this method.
+   * @return all {@link User}s. We may not need this method.
    */
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<User> getList() {
@@ -87,12 +87,12 @@ public class UserController {
   }
 
   /**
-   * This method provides an option to change a user's name.  Unsure if we will use this or rely on
+   * This method provides an option to change a {@link User}'s name.  Unsure if we will use this or rely on
    * Google oAuth data.  Incorporates an "if not null" statement to handle empty requests.
    *
-   * @param userId specifies an existing user.
-   * @param updated brings a new user name from the JSON request.
-   * @return the same user with an updated UserName field.
+   * @param userId specifies an existing {@link User}.
+   * @param updated brings a new {@link User} name from the JSON request.
+   * @return the same {@link User} with an updated UserName field.
    */
   @PutMapping(value = "/{userId}",
       consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -106,8 +106,8 @@ public class UserController {
   }
 
   /**
-   * Deletes a single user.
-   * @param id is the user to be deleted.
+   * Deletes a single {@link User}.
+   * @param id is the {@link User} to be deleted.
    */
   @DeleteMapping(value = "/{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
