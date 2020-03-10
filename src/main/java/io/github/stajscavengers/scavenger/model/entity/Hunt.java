@@ -31,9 +31,15 @@ import org.springframework.stereotype.Component;
         @Index(columnList = "hunt_name"),
     }
 )
+/**
+ * Hunt class contains two foreign keys and one index.
+ * foreign keys are organizer and clues, and there is a uuid for the hunt id which is generated Automatically
+ * and it has a huntName index.
+ */
 public class Hunt {
 
   private static EntityLinks entityLinks;
+
 
   @Id
   @GeneratedValue(generator = "uuid2")
@@ -57,30 +63,51 @@ public class Hunt {
 //  @OrderBy("hunt_id, hunt_order")
   private List<Clue> clues = new LinkedList<>();
 
-
+  /**
+   * get id for each hunt
+   * @return
+   */
   @NonNull
   public UUID getId() {
     return id;
   }
 
+  /**
+   * get hunt by there name.
+   * @return
+   */
   @NonNull
   public String getHuntName() {
     return huntName;
   }
 
+  /**
+   *
+   * sethuntName is used to assign name to any hunt.
+   */
   public void setHuntName(@NonNull String huntName) {
     this.huntName = huntName;
   }
 
+  /**
+   * return organizer
+   */
   @NonNull
   public Organizer getOrganizer() {
     return organizer;
   }
 
+  /**
+   * sets organizer for each hunt.
+   */
   public void setOrganizer(Organizer organizer) {
     this.organizer = organizer;
   }
 
+  /**
+   * get entity links
+   *
+   */
   public URI getHref() {
     return entityLinks.linkForItemResource(Hunt.class, id).toUri();
   }

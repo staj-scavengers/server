@@ -38,29 +38,51 @@ public class User {
   @Column(name = "user_name", nullable = false)
   private String userName;
 
+  /**
+   * return user id.
+   * */
   @NonNull
   public UUID getId() {
     return id;
   }
 
+  /**
+   *
+   * return oauthtoken for each user.
+   */
   @NonNull
   public String getoAuthToken() {
     return oAuthToken;
   }
 
+  /**
+   * set an oauthToken for each user.
+   * @param oAuthToken
+   */
   public void setoAuthToken(@NonNull String oAuthToken) {
     this.oAuthToken = oAuthToken;
   }
 
+  /**
+   *
+   * return user name.
+   */
   @NonNull
   public String getUserName() {
     return userName;
   }
 
+  /**
+   * sets userName
+   */
   public void setUserName(@NonNull String userName) {
     this.userName = userName;
   }
 
+  /**
+   *
+   * return the entity links for each user.
+   */
   public URI getHref() {
     return entityLinks.linkForItemResource(User.class, id).toUri();
   }
