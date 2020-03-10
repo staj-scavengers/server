@@ -21,11 +21,10 @@ public interface FlatClue {
     Organizer getHunt();
 
     @NonNull
-    Object getMedia();
+    String getMedia();
 
     @NonNull
-    Object getMediaTag();
-
+    String getMediaTag();
     @NonNull
     Integer getHunterOrder();
 

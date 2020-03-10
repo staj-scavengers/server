@@ -79,45 +79,84 @@ public class HuntActivity {
   @Column(name = "clues_completed")
   private int cluesCompleted;
 
+  /**
+   *
+   * returns hunt activity
+   */
   @NonNull
   public UUID getHuntActivityId() {
     return huntActivityId;
   }
 
+  /**
+   *
+   * return the time and date that a user started the hunt activity.
+   */
   @NonNull
   public Date getStarted() {
     return started;
   }
 
+  /**
+   *
+   * set a time for a user when started the hunt activity.
+   */
   public void setStarted(@NonNull Date started) {
     this.started = started;
   }
 
+  /**
+   *
+   * return date and time for when a hunt activity is completed
+   */
   @NonNull
   public Date getCompleted() {
     return completed;
   }
 
+  /**
+   *
+   * Sets Date and time for when a user completed the hunt activity.
+   */
   public void setCompleted(@NonNull Date completed) {
     this.completed = completed;
   }
 
+  /**
+   *
+   * return total time that a user spent on a hunt activity.
+   */
   public long getTotalTime() {
     return totalTime;
   }
 
+  /**
+   *
+   * sets total time that has been spent on a hunt activity.
+   */
   public void setTotalTime(long totalTime) {
     this.totalTime = totalTime;
   }
 
+  /**
+   * return the number of how many clues have been completed
+   */
   public int getCluesCompleted() {
     return cluesCompleted;
   }
 
+  /**
+   *
+   * set cluesCompleted for the clues that has done.
+   */
   public void setCluesCompleted(int cluesCompleted) {
     this.cluesCompleted = cluesCompleted;
   }
 
+  /**
+   *
+   * return entity links for hunt activity.
+   */
   public URI getHref() {
     return entityLinks.linkForItemResource(HuntActivity.class, huntActivityId).toUri();
   }

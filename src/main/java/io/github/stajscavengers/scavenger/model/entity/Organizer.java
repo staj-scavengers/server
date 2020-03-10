@@ -44,16 +44,26 @@ public class Organizer {
   @Column(name = "user_id", nullable = false, updatable = false)
   private Set<User> user = new LinkedHashSet<>();
 
+  /**
+   * returns organizer id.
+   */
   @NonNull
   public UUID getId() {
     return id;
   }
 
+  /**
+   *
+   * set a user for an organizer
+   */
   @NonNull
   public Set<User> getUser() {
     return user;
   }
 
+  /**
+   * get the entity links for organizer.
+   */
   public URI getHref() {
     return entityLinks.linkForItemResource(Hunt.class, id).toUri();
   }
