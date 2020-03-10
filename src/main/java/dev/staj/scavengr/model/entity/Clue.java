@@ -1,6 +1,7 @@
 package dev.staj.scavengr.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import dev.staj.scavengr.view.FlatClue;
 import java.net.URI;
 import java.util.UUID;
 import javax.annotation.PostConstruct;
@@ -39,7 +40,7 @@ import org.springframework.stereotype.Component;
         @Index(columnList = "media_tag")
     }
 )
-public class Clue {
+public class Clue implements FlatClue {
 
   /**
    * EntityLinks is a method which turns the links into Strings and generate a new Link.

@@ -1,12 +1,17 @@
 package dev.staj.scavengr.model.entity;
 
+import dev.staj.scavengr.view.FlatUser;
 import java.net.URI;
 import java.util.UUID;
 import javax.annotation.PostConstruct;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +24,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Entity
 @Table(name = "user_profile")
-public class User {
+public class User implements FlatUser {
 
   private static EntityLinks entityLinks;
 
@@ -37,6 +42,10 @@ public class User {
   @NonNull
   @Column(name = "user_name", nullable = false)
   private String userName;
+
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "organizer_id", referencedColumnName = "organizer_id")
+  private Organizer organizer;
 
   /**
    * return user id.
@@ -77,6 +86,14 @@ public class User {
    */
   public void setUserName(@NonNull String userName) {
     this.userName = userName;
+  }
+
+  public Organizer getOrganizer() {
+    return organizer;
+  }
+
+  public void setOrganizer(Organizer organizer) {
+    this.organizer = organizer;
   }
 
   /**

@@ -2,12 +2,13 @@ package dev.staj.scavengr.view;
 
 import java.net.URI;
 import java.util.Date;
+import java.util.UUID;
 import org.springframework.lang.NonNull;
 
 public interface FlatHuntActivity {
 
   @NonNull
-  long getHuntActivityId();
+  UUID getHuntActivityId();
 
   @NonNull
   Date getStarted();

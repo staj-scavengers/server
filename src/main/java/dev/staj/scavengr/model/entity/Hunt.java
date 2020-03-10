@@ -1,5 +1,6 @@
 package dev.staj.scavengr.model.entity;
 
+import dev.staj.scavengr.view.FlatHunt;
 import java.net.URI;
 import java.util.LinkedList;
 import java.util.List;
@@ -36,7 +37,7 @@ import org.springframework.stereotype.Component;
  * foreign keys are organizer and clues, and there is a uuid for the hunt id which is generated Automatically
  * and it has a huntName index.
  */
-public class Hunt {
+public class Hunt implements FlatHunt {
 
   private static EntityLinks entityLinks;
 

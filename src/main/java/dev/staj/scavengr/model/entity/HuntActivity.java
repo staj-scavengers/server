@@ -1,5 +1,6 @@
 package dev.staj.scavengr.model.entity;
 
+import dev.staj.scavengr.view.FlatHuntActivity;
 import java.net.URI;
 import java.util.Date;
 import java.util.UUID;
@@ -35,7 +36,7 @@ import org.springframework.stereotype.Component;
             @Index(columnList = "clues_completed")
         }
     )
-public class HuntActivity {
+public class HuntActivity implements FlatHuntActivity {
 
   private static EntityLinks entityLinks;
 
@@ -77,7 +78,7 @@ public class HuntActivity {
 
   @NonNull
   @Column(name = "clues_completed")
-  private int cluesCompleted;
+  private Integer cluesCompleted;
 
   /**
    *
@@ -141,7 +142,7 @@ public class HuntActivity {
   /**
    * return the number of how many clues have been completed
    */
-  public int getCluesCompleted() {
+  public Integer getCluesCompleted() {
     return cluesCompleted;
   }
 

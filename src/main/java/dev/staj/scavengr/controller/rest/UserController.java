@@ -1,6 +1,8 @@
 package dev.staj.scavengr.controller.rest;
 
+import dev.staj.scavengr.model.entity.Organizer;
 import dev.staj.scavengr.model.entity.User;
+import dev.staj.scavengr.service.OrganizerRepository;
 import dev.staj.scavengr.service.UserRepository;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +27,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
   private final UserRepository userRepository;
+  private final OrganizerRepository organizerRepository;
 
   @Autowired
-  public UserController(UserRepository userRepository) {
+  public UserController(UserRepository userRepository, OrganizerRepository organizerRepository) {
     this.userRepository = userRepository;
+    this.organizerRepository = organizerRepository;
   }
 
   /**
@@ -42,6 +46,17 @@ public class UserController {
   public ResponseEntity<User> post(@RequestBody User user) {
     userRepository.save(user);
     return ResponseEntity.created(user.getHref()).body(user);
+  }
+
+  @PutMapping(value = "/{userId}/organizer/{organizerId}", produces = MediaType.APPLICATION_JSON_VALUE)
+  public User attach(@PathVariable UUID userId, @PathVariable UUID organizerId) {
+    User user = userRepository.findOrFail(userId);
+    Organizer organizer = organizerRepository.findOrFail(organizerId);
+    if (!organizer.equals(user.getOrganizer())) {
+      user.setOrganizer(organizer);
+      userRepository.save(user);
+    }
+    return user;
   }
 
   /**
