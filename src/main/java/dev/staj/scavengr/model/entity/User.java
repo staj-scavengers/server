@@ -39,7 +39,7 @@ public class User implements FlatUser {
   @Column(name = "oauth_token", nullable = true, updatable = false)
   private String oAuthToken;
 
-  @NonNull
+   @NonNull
   @Column(name = "user_name", nullable = false)
   private String userName;
 

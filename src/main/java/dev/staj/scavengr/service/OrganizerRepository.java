@@ -6,16 +6,25 @@ import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+/**
+ * Implements methods from {@link Organizer} entity.
+ */
 public interface OrganizerRepository extends JpaRepository<Organizer, UUID> {
 
+  /**
+   * @return all organizers by their id.
+   */
+  Iterable<Organizer> getAllByOrderById();
 
-    Iterable<Organizer> getAllByOrderById();
-
-    @Query(value = "SELECT * FROM sa.Organizer WHERE organizer_id = :id",
-        nativeQuery = true)
-    // changed from get(long id); to this. --Trace
+  /**
+   * @return a single orgainzer by id.
+   */
     Optional<Organizer> get(UUID id);
 
+  /**
+   * @param id is unique organizer.
+   * @return list of organizers.
+   */
     default Organizer findOrFail(UUID id){
       return findById(id).get();
     }
