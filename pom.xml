@@ -9,7 +9,7 @@
     <version>2.2.4.RELEASE</version>
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
-  <groupId>io.github.staj-scavengers</groupId>
+  <groupId>dev.staj.scavengr</groupId>
   <artifactId>scavenger</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>scavenger</name>
