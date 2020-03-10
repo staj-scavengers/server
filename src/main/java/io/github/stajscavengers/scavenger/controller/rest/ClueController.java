@@ -37,6 +37,7 @@ public class ClueController {
 
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
+  @ResponseStatus(HttpStatus.CREATED)
   public ResponseEntity<Clue> post(@RequestBody Clue clue) {
     clueRepository.save(clue);
     return ResponseEntity.created(clue.getHref()).body(clue);

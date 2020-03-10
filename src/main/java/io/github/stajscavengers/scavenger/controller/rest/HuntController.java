@@ -41,13 +41,13 @@ public class HuntController {
   }
 
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  @ResponseStatus(HttpStatus.CREATED)
   public ResponseEntity<Hunt> post(@RequestBody Hunt hunt) {
     huntRepository.save(hunt);
     return ResponseEntity.created(hunt.getHref()).body(hunt);
   }
 
   @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-  // Changed from getByOrganizer(long id) to this. --Trace
   public Iterable<Hunt> getByOrganizer(UUID id) {
     return huntRepository.getByOrganizer(id);
   }
@@ -89,5 +89,4 @@ public class HuntController {
     }
     return hunt;
   }
-// supdawg
 }

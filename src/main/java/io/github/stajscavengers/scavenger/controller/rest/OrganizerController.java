@@ -37,6 +37,7 @@ public class OrganizerController {
   }
 
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  @ResponseStatus(HttpStatus.CREATED)
   public ResponseEntity<Organizer> post(@RequestBody Organizer organizer) {
     organizerRepository.save(organizer);
     return ResponseEntity.created(organizer.getHref()).body(organizer);

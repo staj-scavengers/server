@@ -32,19 +32,21 @@ public class UserController {
     this.userRepository = userRepository;
   }
 
+  /**
+   * This method creates a new User entity.
+   * @param user contains user fields.
+   * @return Href to new user.
+   */
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
+  @ResponseStatus(HttpStatus.CREATED)
   public ResponseEntity<User> post(@RequestBody User user) {
     userRepository.save(user);
     return ResponseEntity.created(user.getHref()).body(user);
   }
 
-//  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-//  public Iterable<User> get() {
-//    return userRepository.getAllByOrderBy();
-//  }
-
   /**
+   * This method searches all users based on a string.
    * @param fragment is a search string entered in the url.
    * @return list of users with the requested string in their name.
    */
@@ -70,19 +72,11 @@ public class UserController {
     return userRepository.getAllByOrderByUserName();
   }
 
-//  @PutMapping(value = "/{id}",
-//      consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-//  public User put(@PathVariable UUID id, @RequestBody User modifiedUser) {
-//    User user = userRepository.findOrFail(id);
-//    user.setUserName(modifiedUser.getUserName());
-//    return userRepository.save(user);
-//  }
-
   /**
    * This method provides an option to change a user's name.  Unsure if we will use this or rely on
-   * Google oAuth data.
+   * Google oAuth data.  Incorporates an "if not null" statement to handle empty requests.
    *
-   * @param userId  gets an existing user.
+   * @param userId specifies an existing user.
    * @param updated brings a new user name from the JSON request.
    * @return the same user with an updated UserName field.
    */
@@ -94,10 +88,6 @@ public class UserController {
       user.setUserName(updated.getUserName());
       userRepository.save(user);
     }
-//    if (updated.getoAuthToken() != null && !updated.getoAuthToken().equals(user.getoAuthToken())) {
-//      user.setoAuthToken(updated.getoAuthToken());
-//      userRepository.save(user);
-//    }
     return user;
   }
 
