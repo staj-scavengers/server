@@ -34,8 +34,8 @@ public class  HuntActivityController {
   }
 
   /**
-   * @param huntActivity add new hunt activity with post mapping.
-   * @return href for the hunt activity.
+   * @param huntActivity add new {@link HuntActivity} with post mapping.
+   * @return href for the {@link HuntActivity}.
    */
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
@@ -46,7 +46,7 @@ public class  HuntActivityController {
 
   /**
    *
-   * @return all hunt activities.
+   * @return all {@link HuntActivity HuntActivity(s)}.
    */
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<HuntActivity> get() {

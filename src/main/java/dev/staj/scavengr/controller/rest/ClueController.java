@@ -2,6 +2,7 @@ package dev.staj.scavengr.controller.rest;
 
 import dev.staj.scavengr.model.entity.Clue;
 import dev.staj.scavengr.model.entity.Hunt;
+import dev.staj.scavengr.model.entity.User;
 import dev.staj.scavengr.service.ClueRepository;
 import dev.staj.scavengr.service.HuntRepository;
 import java.util.UUID;
@@ -39,9 +40,9 @@ public class ClueController {
   }
 
   /**
-   * This method consume media to create new clues.
+   * This method consume media to create new {@link Clue}s.
    * @param clue contains video,Href,articles.
-   * @return clue Hrefs.
+   * @return {@link Clue} Hrefs.
    */
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
@@ -58,7 +59,7 @@ public class ClueController {
 
   /**
    *
-   * @param hunt_id has a search method that allow user to search clues by there hunt id..
+   * @param hunt_id has a search method that allow {@link User} to search {@link Clue}s by there {@link Hunt} id..
    * @return returns the list of clues .
    */
   @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -67,9 +68,9 @@ public class ClueController {
   }
 
   /**
-   * this method contains clue.
-   * @param id get only one clue by its id.
-   * @return clue.
+   * this method contains {@link Clue}.
+   * @param id get only one {@link Clue} by its id.
+   * @return {@link Clue}.
    */
   @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
   public Clue get(@PathVariable UUID id) {
@@ -78,7 +79,7 @@ public class ClueController {
 
   /**
    *
-   * @return list of clues.
+   * @return list of {@link Clue}s.
    */
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<Clue> getList() {
@@ -87,7 +88,7 @@ public class ClueController {
 
   /**
    *
-   * @param id delete a clue by its id.
+   * @param id delete a {@link Clue} by its id.
    */
   @DeleteMapping(value = "/{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -96,10 +97,10 @@ public class ClueController {
   }
 
   /**
-   * attachClue set an existing clue and attach it to hunts.
+   * attachClue set an existing {@link Clue} and attach it to {@link Hunt}s.
    * @param huntId is being attached by clueId.
    * @param clueId is being attached to huntId.
-   * @return the hunt with an existing clue attached to it.
+   * @return the {@link Hunt} with an existing {@link Clue} attached to it.
    */
   @PutMapping(value = "/{clueId}/hunt/{huntId}", produces = MediaType.APPLICATION_JSON_VALUE)
   public Clue attachClue(@PathVariable UUID huntId, @PathVariable UUID clueId) {
@@ -122,9 +123,9 @@ public class ClueController {
 //  }
 
   /**
-   * Edit method update and edit the clues and clue type which is media and media type which is either nfc tag or qrcode.
+   * Edit method update and edit the {@link Clue}s and {@link Clue} type which is media and media type which is either nfc tag or QR-code.
    * @param clueId is being used to attache any media and media tag to it.
-   * @param updated updates clue name and clue instance.
+   * @param updated updates {@link Clue} name and {@link Clue} instance.
    * @return clue.
    */
   @PutMapping(value = "/{clueId}",
