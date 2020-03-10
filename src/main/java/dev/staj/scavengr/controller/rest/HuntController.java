@@ -64,9 +64,14 @@ public class HuntController {
    * @return all the organizer by organizer id.
    */
   @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public Iterable<Hunt> getByOrganizer(UUID id) {
-    return huntRepository.getAllByOrganizer(id);
+  public Hunt get (@PathVariable UUID id) {
+    return huntRepository.findOrFail(id);
   }
+
+//  @GetMapping(value = "/{organizer_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+//  public Iterable<Hunt> getByOrganizer(@PathVariable UUID organizerId) {
+//    return huntRepository.getAllByOrganizer(organizerId);
+//  }
 
   /**
    *
