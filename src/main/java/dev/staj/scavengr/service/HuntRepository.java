@@ -9,29 +9,32 @@ import org.springframework.data.jpa.repository.Query;
 /**
  * Implements methods from {@link Hunt} entity.
  */
-public interface HuntRepository extends JpaRepository<Hunt, UUID> {
+public interface
+
+
+HuntRepository extends JpaRepository<Hunt, UUID> {
 
   /**
-   * @return all hunts ordered by {@link Organizer}.
+   * @return all {@link Hunt}s ordered by {@link Organizer}.
    */
   Iterable<Hunt> getAllByOrderByOrganizer();
 
   /**
    *
    * @param fragment is a string used to search in url.
-   * @return all hunts ordered by name.
+   * @return all {@link Hunt}s ordered by name.
    */
   Iterable<Hunt> getAllByHuntNameContainsOrderByHuntName(String fragment);
 
   /**
    * @param id unique {@link Organizer}.
-   * @return all hunts by organizer.
+   * @return all {@link Hunt}s by {@link Organizer}.
    */
   Iterable<Hunt> getAllByOrganizer(UUID id);
 
   /**
-   * @param id unique hunt id.
-   * @return list of hunts.
+   * @param id unique {@link Hunt} id.
+   * @return list of {@link Hunt}s.
    */
   default Hunt findOrFail(UUID id) {
     return findById(id).get();

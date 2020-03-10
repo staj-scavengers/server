@@ -12,20 +12,20 @@ public interface ClueRepository extends JpaRepository<Clue, UUID> {
 
   /**
    *
-   * @return all clues ordered by {@link Hunt}.
+   * @return all {@link Clue} ordered by {@link Hunt}.
    */
   Iterable<Clue> getAllByOrderByHunt();
 
   /**
    *
    * @param hunt_id receives an existing {@link Hunt}.
-   * @return all hunts ordered by id.
+   * @return all {@link Hunt}s ordered by id.
    */
   Iterable<Clue> getAllByHuntIdContainsOrderByHuntOrder(UUID hunt_id);
 
   /**
    *
-   * @param id unique clue name.
+   * @param id unique {@link Clue} name.
    * @return list of clues by id.
    */
   default Clue findOrFail(UUID id) {
