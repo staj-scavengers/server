@@ -20,6 +20,5 @@ public interface OrganizerRepository extends JpaRepository<Organizer, UUID> {
       return findById(id).get();
     }
 
-
   }
 
