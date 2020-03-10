@@ -45,7 +45,7 @@ public class Organizer implements FlatOrganizer {
   private User user;
 
   @OneToMany(mappedBy = "organizer", cascade = {CascadeType.ALL})
-  @JsonSerialize(as = FlatHunt.class)
+//  @JsonSerialize(as = FlatHunt.class)
   private Set<Hunt> hunts = new LinkedHashSet<>();
 
   /**
