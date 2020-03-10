@@ -48,9 +48,14 @@ public class HuntController {
   }
 
   @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public Iterable<Hunt> getByOrganizer(UUID id) {
-    return huntRepository.getAllByOrganizer(id);
+  public Hunt get (@PathVariable UUID id) {
+    return huntRepository.findOrFail(id);
   }
+
+//  @GetMapping(value = "/{organizer_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+//  public Iterable<Hunt> getByOrganizer(@PathVariable UUID organizerId) {
+//    return huntRepository.getAllByOrganizer(organizerId);
+//  }
 
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<Hunt> getList() {
@@ -68,7 +73,6 @@ public class HuntController {
     huntRepository.findById(id).ifPresent(huntRepository::delete);
   }
 
-
   @PutMapping(value = "/{huntId}/organizer/{organizerId}", produces = MediaType.APPLICATION_JSON_VALUE)
   public Hunt attach(@PathVariable UUID huntId, @PathVariable UUID organizerId) {
     Hunt hunt = huntRepository.findOrFail(huntId);
@@ -81,10 +85,10 @@ public class HuntController {
   }
 
   @PutMapping(value = "/{id}")
-  public Hunt rename(@PathVariable UUID huntId, @RequestPart String huntName) {
-    Hunt hunt = huntRepository.findOrFail(huntId);
-    if (!huntName.equals(hunt.getHuntName())) {
-      hunt.setHuntName(huntName);
+  public Hunt rename(@PathVariable UUID id, @RequestBody Hunt updated) {
+    Hunt hunt = huntRepository.findOrFail(id);
+    if (!updated.getHuntName().equals(hunt.getHuntName())) {
+      hunt.setHuntName(updated.getHuntName());
       huntRepository.save(hunt);
     }
     return hunt;

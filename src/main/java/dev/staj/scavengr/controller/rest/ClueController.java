@@ -33,6 +33,11 @@ public class ClueController {
   private final ClueRepository clueRepository;
   private final HuntRepository huntRepository;
 
+  /**
+   * This constructor initializes the Clue Controller with instances of {@link ClueRepository} and {@link HuntRepository}
+   * @param clueRepository
+   * @param huntRepository
+   */
   @Autowired
   public ClueController(ClueRepository clueRepository, HuntRepository huntRepository) {
     this.clueRepository = clueRepository;
