@@ -26,6 +26,9 @@ import org.springframework.stereotype.Component;
 @SuppressWarnings("JpaDataSourceORMInspection")
 @Entity
 @Component
+/**
+ * Organizers are a subset of users with the ability to create, modify and manage access to hunts.
+ */
 public class Organizer implements FlatOrganizer {
 
   private static EntityLinks entityLinks;
@@ -56,6 +59,10 @@ public class Organizer implements FlatOrganizer {
     return id;
   }
 
+  /**
+   *
+   * returns the hunts one organizer is responsible for.
+   */
   public Set<Hunt> getHunts() {
     return hunts;
   }
