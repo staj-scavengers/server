@@ -1,6 +1,7 @@
 package dev.staj.scavengr.service;
 
 import dev.staj.scavengr.model.entity.Hunt;
+import dev.staj.scavengr.model.entity.Organizer;
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -11,7 +12,7 @@ import org.springframework.data.jpa.repository.Query;
 public interface HuntRepository extends JpaRepository<Hunt, UUID> {
 
   /**
-   * @return all hunts ordered by organizer.
+   * @return all hunts ordered by {@link Organizer}.
    */
   Iterable<Hunt> getAllByOrderByOrganizer();
 
@@ -23,7 +24,7 @@ public interface HuntRepository extends JpaRepository<Hunt, UUID> {
   Iterable<Hunt> getAllByHuntNameContainsOrderByHuntName(String fragment);
 
   /**
-   * @param id unique organizer.
+   * @param id unique {@link Organizer}.
    * @return all hunts by organizer.
    */
   Iterable<Hunt> getAllByOrganizer(UUID id);

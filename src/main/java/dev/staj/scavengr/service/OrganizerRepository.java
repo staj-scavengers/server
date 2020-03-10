@@ -22,7 +22,7 @@ public interface OrganizerRepository extends JpaRepository<Organizer, UUID> {
     Optional<Organizer> get(UUID id);
 
   /**
-   * @param id is unique organizer.
+   * @param id is unique {@link Organizer}.
    * @return list of organizers.
    */
     default Organizer findOrFail(UUID id){

@@ -23,10 +23,8 @@ public interface UserRepository extends JpaRepository<User, UUID> {
    */
   Iterable<User> getAllByUserNameContains(String fragment);
 
-  // Trouble of thinking what else to add in Javadoc. -Abby
-
   /**
-   * @param id is unique user.
+   * @param id is unique {@link User}.
    * @return list of users.
    */
   default User findOrFail(UUID id){
