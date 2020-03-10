@@ -1,6 +1,8 @@
 package dev.staj.scavengr.model.entity;
 
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import dev.staj.scavengr.view.FlatHunt;
 import dev.staj.scavengr.view.FlatOrganizer;
 import java.net.URI;
 import java.util.LinkedHashSet;
@@ -43,6 +45,7 @@ public class Organizer implements FlatOrganizer {
   private User user;
 
   @OneToMany(mappedBy = "organizer", cascade = {CascadeType.ALL})
+  @JsonSerialize(as = FlatHunt.class)
   private Set<Hunt> hunts = new LinkedHashSet<>();
 
   /**

@@ -1,6 +1,9 @@
 package dev.staj.scavengr.model.entity;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import dev.staj.scavengr.view.FlatHunt;
 import dev.staj.scavengr.view.FlatHuntActivity;
+import dev.staj.scavengr.view.FlatUser;
 import java.net.URI;
 import java.util.Date;
 import java.util.UUID;
@@ -52,12 +55,14 @@ public class HuntActivity implements FlatHuntActivity {
   @ManyToOne(fetch = FetchType.LAZY,
       cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
   @JoinColumn(name = "hunt_id")
+  @JsonSerialize(as = FlatHunt.class)
   private Hunt hunt;
 
   @NonNull
   @ManyToOne(fetch = FetchType.LAZY,
       cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
   @JoinColumn(name = "user_id")
+  @JsonSerialize(as = FlatUser.class)
   private User user;
 
   @NonNull

@@ -1,7 +1,9 @@
 package dev.staj.scavengr.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import dev.staj.scavengr.view.FlatClue;
+import dev.staj.scavengr.view.FlatHunt;
 import java.net.URI;
 import java.util.UUID;
 import javax.annotation.PostConstruct;
@@ -73,6 +75,7 @@ public class Clue implements FlatClue {
   @ManyToOne(fetch = FetchType.LAZY,
       cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
   @JoinColumn(name = "hunt_id")
+  @JsonSerialize(as = FlatHunt.class)
   private Hunt hunt;
 
   /**

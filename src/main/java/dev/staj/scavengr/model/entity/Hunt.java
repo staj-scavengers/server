@@ -1,6 +1,8 @@
 package dev.staj.scavengr.model.entity;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import dev.staj.scavengr.view.FlatHunt;
+import dev.staj.scavengr.view.FlatOrganizer;
 import java.net.URI;
 import java.util.LinkedList;
 import java.util.List;
@@ -58,6 +60,7 @@ public class Hunt implements FlatHunt {
       cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}
   )
   @JoinColumn(name = "organizer_id")
+  @JsonSerialize(as = FlatOrganizer.class)
   private Organizer organizer;
 
   @OneToMany(mappedBy = "hunt", cascade = {CascadeType.ALL})
