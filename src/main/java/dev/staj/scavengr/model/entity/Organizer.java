@@ -35,11 +35,15 @@ public class Organizer {
   private UUID id;
 
 // ForeignKey
+
   @NonNull
-  @OneToMany(fetch = FetchType.LAZY,
+  @OneToOne(fetch = FetchType.LAZY,
       cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
   @Column(name = "user_id", nullable = false, updatable = false)
-  private Set<User> user = new LinkedHashSet<>();
+  private User user;
+
+@OneToMany(mappedBy = "organizer", cascade = {CascadeType.ALL})
+  private Set<Hunt> hunts = new LinkedHashSet<>();
 
   /**
    * returns organizer id.
@@ -49,12 +53,16 @@ public class Organizer {
     return id;
   }
 
+  public Set<Hunt> getHunts() {
+    return hunts;
+  }
+
   /**
    *
    * set a user for an organizer
    */
   @NonNull
-  public Set<User> getUser() {
+  public User getUser() {
     return user;
   }
 
