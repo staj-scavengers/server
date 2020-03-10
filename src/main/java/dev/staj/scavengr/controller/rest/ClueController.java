@@ -38,6 +38,11 @@ public class ClueController {
     this.huntRepository = huntRepository;
   }
 
+  /**
+   * This method consume media to create new clues.
+   * @param clue contains video,Href,articles.
+   * @return clue Hrefs.
+   */
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
@@ -51,28 +56,51 @@ public class ClueController {
 //    return clueRepository.getAllByOrderByHuntId();
 //  }
 
+  /**
+   *
+   * @param hunt_id has a search method that allow user to search clues by there hunt id..
+   * @return returns the list of clues .
+   */
   @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<Clue> search(@RequestParam("q") UUID hunt_id) {
-
     return clueRepository.getAllByHuntIdContainsOrderByHuntOrder(hunt_id);
   }
 
+  /**
+   * this method contains clue.
+   * @param id get only one clue by its id.
+   * @return clue.
+   */
   @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
   public Clue get(@PathVariable UUID id) {
     return clueRepository.findOrFail(id);
   }
 
+  /**
+   *
+   * @return list of clues.
+   */
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<Clue> getList() {
     return clueRepository.getAllByOrderByHunt();
   }
 
+  /**
+   *
+   * @param id delete a clue by its id.
+   */
   @DeleteMapping(value = "/{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void delete(@PathVariable UUID id) {
     clueRepository.findById(id).ifPresent(clueRepository::delete);
   }
 
+  /**
+   * attachClue set an existing clue and attach it to hunts.
+   * @param huntId is being attached by clueId.
+   * @param clueId is being attached to huntId.
+   * @return the hunt with an existing clue attached to it.
+   */
   @PutMapping(value = "/{clueId}/hunt/{huntId}", produces = MediaType.APPLICATION_JSON_VALUE)
   public Clue attachClue(@PathVariable UUID huntId, @PathVariable UUID clueId) {
     Hunt hunt = huntRepository.findOrFail(huntId);
@@ -93,6 +121,12 @@ public class ClueController {
 //    return clue;
 //  }
 
+  /**
+   * Edit method update and edit the clues and clue type which is media and media type which is either nfc tag or qrcode.
+   * @param clueId is being used to attache any media and media tag to it.
+   * @param updated updates clue name and clue instance.
+   * @return clue.
+   */
   @PutMapping(value = "/{clueId}",
       consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public Clue edit(@PathVariable UUID clueId, @RequestBody Clue updated) {

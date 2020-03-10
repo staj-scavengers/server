@@ -33,6 +33,11 @@ public class  HuntActivityController {
     this.userRepository = userRepository;
   }
 
+  /**
+   *
+   * @param huntActivity
+   * @return
+   */
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
   public ResponseEntity<HuntActivity> post(@RequestBody HuntActivity huntActivity) {
