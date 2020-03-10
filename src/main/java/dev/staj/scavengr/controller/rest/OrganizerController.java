@@ -37,6 +37,11 @@ public class OrganizerController {
     this.userRepository = userRepository;
   }
 
+  /**
+   * Adds a new {@link Organizer} and saves it.
+   * @param organizer What is being saved.
+   * @return Href for {@link Organizer}.
+   */
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
   public ResponseEntity<Organizer> post(@RequestBody Organizer organizer) {
@@ -44,16 +49,29 @@ public class OrganizerController {
     return ResponseEntity.created(organizer.getHref()).body(organizer);
   }
 
+  /**
+   * Gets an Iterable of {@link Organizer}s.
+   * @return Iterable of {@link Organizer} to the organizerRepository.
+   */
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<Organizer> get() {
     return organizerRepository.getAllByOrderById();
   }
 
+  /**
+   * Gets a single {@link Organizer} by the id.
+   * @param id For finding the specific {@link Organizer}.
+   * @return id of the {@link Organizer} to the organizerRepository.
+   */
   @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
   public Organizer get(@PathVariable UUID id) {
     return organizerRepository.findOrFail(id);
   }
 
+  /**
+   * Deletes an {@link Organizer} by the id.
+   * @param id For finding the {@link Organizer} to be deleted.
+   */
   @DeleteMapping(value = "/{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void delete(@PathVariable UUID id) {
