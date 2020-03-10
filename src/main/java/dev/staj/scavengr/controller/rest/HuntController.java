@@ -49,7 +49,7 @@ public class HuntController {
 
   @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<Hunt> getByOrganizer(UUID id) {
-    return huntRepository.getByOrganizer(id);
+    return huntRepository.getAllByOrganizer(id);
   }
 
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
