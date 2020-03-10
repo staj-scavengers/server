@@ -6,7 +6,7 @@ import java.net.URI;
 import java.util.UUID;
 import org.springframework.lang.NonNull;
 
-@JsonPropertyOrder({"id", "hunt_name", "organizer", "href"})
+@JsonPropertyOrder({"id", "hunt_name", "href"})
 public interface FlatHunt {
 
 

@@ -1,5 +1,8 @@
 package dev.staj.scavengr.model.entity;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import dev.staj.scavengr.view.FlatHunt;
+import dev.staj.scavengr.view.FlatOrganizer;
 import java.net.URI;
 import java.util.LinkedList;
 import java.util.List;
@@ -36,7 +39,7 @@ import org.springframework.stereotype.Component;
  * foreign keys are organizer and clues, and there is a uuid for the hunt id which is generated Automatically
  * and it has a huntName index.
  */
-public class Hunt {
+public class Hunt implements FlatHunt {
 
   private static EntityLinks entityLinks;
 
@@ -57,6 +60,7 @@ public class Hunt {
       cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}
   )
   @JoinColumn(name = "organizer_id")
+  @JsonSerialize(as = FlatOrganizer.class)
   private Organizer organizer;
 
   @OneToMany(mappedBy = "hunt", cascade = {CascadeType.ALL})

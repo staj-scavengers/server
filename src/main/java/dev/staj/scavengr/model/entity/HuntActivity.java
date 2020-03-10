@@ -1,5 +1,9 @@
 package dev.staj.scavengr.model.entity;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import dev.staj.scavengr.view.FlatHunt;
+import dev.staj.scavengr.view.FlatHuntActivity;
+import dev.staj.scavengr.view.FlatUser;
 import java.net.URI;
 import java.util.Date;
 import java.util.UUID;
@@ -35,7 +39,7 @@ import org.springframework.stereotype.Component;
             @Index(columnList = "clues_completed")
         }
     )
-public class HuntActivity {
+public class HuntActivity implements FlatHuntActivity {
 
   private static EntityLinks entityLinks;
 
@@ -51,12 +55,14 @@ public class HuntActivity {
   @ManyToOne(fetch = FetchType.LAZY,
       cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
   @JoinColumn(name = "hunt_id")
+  @JsonSerialize(as = FlatHunt.class)
   private Hunt hunt;
 
   @NonNull
   @ManyToOne(fetch = FetchType.LAZY,
       cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
   @JoinColumn(name = "user_id")
+  @JsonSerialize(as = FlatUser.class)
   private User user;
 
   @NonNull
@@ -77,7 +83,7 @@ public class HuntActivity {
 
   @NonNull
   @Column(name = "clues_completed")
-  private int cluesCompleted;
+  private Integer cluesCompleted;
 
   /**
    *
@@ -141,7 +147,7 @@ public class HuntActivity {
   /**
    * return the number of how many clues have been completed
    */
-  public int getCluesCompleted() {
+  public Integer getCluesCompleted() {
     return cluesCompleted;
   }
 

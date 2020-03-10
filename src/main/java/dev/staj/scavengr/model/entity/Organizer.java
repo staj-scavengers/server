@@ -1,6 +1,9 @@
 package dev.staj.scavengr.model.entity;
 
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import dev.staj.scavengr.view.FlatHunt;
+import dev.staj.scavengr.view.FlatOrganizer;
 import java.net.URI;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -13,6 +16,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.server.EntityLinks;
@@ -22,7 +26,7 @@ import org.springframework.stereotype.Component;
 @SuppressWarnings("JpaDataSourceORMInspection")
 @Entity
 @Component
-public class Organizer {
+public class Organizer implements FlatOrganizer {
 
   private static EntityLinks entityLinks;
 
@@ -37,12 +41,11 @@ public class Organizer {
 // ForeignKey
 
   @NonNull
-  @OneToOne(fetch = FetchType.LAZY,
-      cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-  @Column(name = "user_id", nullable = false, updatable = false)
+  @OneToOne(mappedBy = "organizer")
   private User user;
 
-@OneToMany(mappedBy = "organizer", cascade = {CascadeType.ALL})
+  @OneToMany(mappedBy = "organizer", cascade = {CascadeType.ALL})
+//  @JsonSerialize(as = FlatHunt.class)
   private Set<Hunt> hunts = new LinkedHashSet<>();
 
   /**
