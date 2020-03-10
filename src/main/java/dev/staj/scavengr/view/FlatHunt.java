@@ -8,7 +8,7 @@ import java.util.UUID;
 import org.springframework.lang.NonNull;
 
 /**
- * this interface provides a returnable JSON value that does not recursively return linked entities
+ * this interface provides a returnable JSON {@link Hunt} object that does not recursively return linked entities
  */
 @JsonPropertyOrder({"id", "hunt_name"})
 public interface FlatHunt {

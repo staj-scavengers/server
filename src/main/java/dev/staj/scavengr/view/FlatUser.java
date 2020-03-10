@@ -7,7 +7,7 @@ import java.util.UUID;
 import org.springframework.lang.NonNull;
 
 /**
- * this interface provides a returnable JSON value that does not recursively return linked entities
+ * this interface provides a returnable JSON {@link User} object that does not recursively return linked entities
  */
 @JsonPropertyOrder({"id", "oauth_token", "user_name"})
 public interface FlatUser {

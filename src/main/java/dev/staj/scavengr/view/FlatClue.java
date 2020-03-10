@@ -9,7 +9,7 @@ import java.util.UUID;
 import org.springframework.lang.NonNull;
 
 /**
- * this interface provides a returnable JSON value that does not recursively return linked
+ * this interface provides a returnable JSON {@link Clue} object that does not recursively return linked
  * entities.
  */
 @JsonPropertyOrder({"id", "hunt", "hunt_order", "clue_name", "media_tag", "media"})
