@@ -7,19 +7,33 @@ import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+/**
+ * Implements methods from {@link Hunt} entity.
+ */
 public interface HuntRepository extends JpaRepository<Hunt, UUID> {
 
+  /**
+   * @return all hunts ordered by organizer.
+   */
   Iterable<Hunt> getAllByOrderByOrganizer();
 
+  /**
+   *
+   * @param fragment is a string used to search in url.
+   * @return all hunts ordered by name.
+   */
   Iterable<Hunt> getAllByHuntNameContainsOrderByHuntName(String fragment);
 
-  @Query(value = "SELECT * FROM sa.Hunt ORDER BY hunt_name", nativeQuery = true)
-  Iterable<Hunt> getList();
+  /**
+   * @param id unique organizer.
+   * @return all hunts by organizer.
+   */
+  Iterable<Hunt> getAllByOrganizer(UUID id);
 
-  @Query(value = "SELECT * FROM sa.Hunt WHERE organizer id = :id ORDER BY hunt_name", nativeQuery = true)
-  // Changed from getByOrganizer(long id) to this. --Trace
-  Iterable<Hunt> getByOrganizer(UUID id);
-
+  /**
+   * @param id unique hunt id.
+   * @return list of hunts.
+   */
   default Hunt findOrFail(UUID id) {
     return findById(id).get();
   }
