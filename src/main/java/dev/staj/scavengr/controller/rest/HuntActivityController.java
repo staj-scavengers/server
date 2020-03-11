@@ -2,6 +2,7 @@ package dev.staj.scavengr.controller.rest;
 
 import dev.staj.scavengr.model.entity.HuntActivity;
 import dev.staj.scavengr.service.HuntActivityRepository;
+import dev.staj.scavengr.service.OrganizerRepository;
 import dev.staj.scavengr.service.UserRepository;
 import dev.staj.scavengr.service.HuntRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * This Controller Class uses HTTP to do CRUD Operations, {@link HuntRepository},
+ * {@link UserRepository}, {@link HuntActivityRepository}
+ * @author STAJ
+ */
 @RestController
 @RequestMapping("/hunt_activities")
 @ExposesResourceFor(HuntActivity.class)

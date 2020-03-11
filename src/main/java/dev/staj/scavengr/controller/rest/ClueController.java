@@ -5,6 +5,8 @@ import dev.staj.scavengr.model.entity.Hunt;
 import dev.staj.scavengr.model.entity.User;
 import dev.staj.scavengr.service.ClueRepository;
 import dev.staj.scavengr.service.HuntRepository;
+import dev.staj.scavengr.service.OrganizerRepository;
+import dev.staj.scavengr.service.UserRepository;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.server.ExposesResourceFor;
@@ -21,9 +23,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
 /**
- *
+ * This Controller Class uses HTTP to do CRUD Operations, {@link ClueRepository},
+ * {@link HuntRepository}.
+ * @author STAJ
  */
 @RestController
 @RequestMapping("/clues")

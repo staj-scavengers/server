@@ -23,6 +23,11 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * This controller class uses HTTP to do CRUD operations. this emplements {@link HuntRepository},
+ * {@link OrganizerRepository}, {@link ClueRepository}.
+ * @author STAJ
+ */
 @RestController
 @RequestMapping("/hunts")
 @ExposesResourceFor(Hunt.class)

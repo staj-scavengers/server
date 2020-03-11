@@ -21,6 +21,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * This Controller Class uses HTTP to do CRUD Operations, {@link OrganizerRepository},
+ * {@link UserRepository}.
+ * @author STAJ
+ */
 @RestController
 @RequestMapping("/users")
 @ExposesResourceFor(User.class)
