@@ -1,8 +1,8 @@
 package dev.staj.scavengr.exception;
 
 import java.util.NoSuchElementException;
-import javax.validation.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MissingPathVariableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -19,6 +19,11 @@ public class ControllerExceptionHandler {
   @ExceptionHandler(IllegalArgumentException.class)
   @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "Invalid request content or parameters")
   public void badRequest() {}
+
+  // TODO add an exception handler for a duplicate value.
+  @ExceptionHandler(DuplicateKeyException.class)
+  @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "Duplicate key value")
+  public void duplicateValue(){}
 
   @ExceptionHandler(DataIntegrityViolationException.class)
   @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "Not processed due to null value")
