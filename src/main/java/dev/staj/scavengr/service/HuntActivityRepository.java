@@ -1,7 +1,9 @@
 package dev.staj.scavengr.service;
 
+import dev.staj.scavengr.model.entity.Hunt;
 import dev.staj.scavengr.model.entity.HuntActivity;
 import dev.staj.scavengr.model.entity.User;
+import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,31 +18,32 @@ public interface  HuntActivityRepository extends JpaRepository<HuntActivity, UUI
    *
    * @return all hunt activities ordered by {@link User}
    */
-  Iterable<HuntActivity> getAllByOrderByHunt();
-
-  /**
-   *
-   * @return list of all hunt activity ordered by {@link User}.
-   */
-  Iterable<HuntActivity> getAllByOrderByUser();
+  Iterable<HuntActivity> getAllByHuntOrderByUser(Hunt hunt);
 
   /**
    *
    * @return list of all hunt activity ordered by started time/date.
    */
-  Iterable<HuntActivity> getAllByOrderByStarted();
+  Iterable<HuntActivity> getAllOrderByStarted();
+
+  /**
+   * @param user to return records for.
+   * @return list of HuntActivity by {@link User}, ordered by start date.
+   */
+  Iterable<HuntActivity> getAllByUserOrderByStarted(User user);
+
+  /**
+   * @param user to return records for.
+   * @return list of HuntActivity by {@link User}, ordered by completed date.
+   */
+  Iterable<HuntActivity> getAllByUserOrderByCompleted(User user);
 
   /**
    *
-   * @return list of all completed hunt activity.
+   * @param user to return records for.
+   * @return list of HuntActivity by {@link User}, ordered by {@link Hunt}.
    */
-  Iterable<HuntActivity> getAllByOrderByCompleted();
-
-  /**
-   *
-   * @return list of all hunt activity by total time to complete.
-   */
-  Iterable<HuntActivity> getAllByOrderByTotalTime();
+  Iterable<HuntActivity> getAllByUserOrderByHunt(User user);
 
   /**
    *

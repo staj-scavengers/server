@@ -1,10 +1,11 @@
 package dev.staj.scavengr.controller.rest;
 
+import dev.staj.scavengr.model.entity.Clue;
 import dev.staj.scavengr.model.entity.Hunt;
 import dev.staj.scavengr.model.entity.Organizer;
 import dev.staj.scavengr.service.ClueRepository;
-import dev.staj.scavengr.service.OrganizerRepository;
 import dev.staj.scavengr.service.HuntRepository;
+import dev.staj.scavengr.service.OrganizerRepository;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.server.ExposesResourceFor;
@@ -24,8 +25,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * This controller class uses HTTP to do CRUD operations. this emplements {@link HuntRepository},
- * {@link OrganizerRepository}, {@link ClueRepository}.
+ * This Controller Class uses HTTP and JSON values to do {@link Hunt} CRUD Operations through the
+ * {@link HuntRepository}.
+ *
  * @author STAJ
  */
 @RestController
@@ -38,10 +40,12 @@ public class HuntController {
   private final ClueRepository clueRepository;
 
   /**
-   * initializes hunt repository, organizer repository, clue repository
-   * @param huntRepository is {@link HuntRepository}
-   * @param organizerRepository
-   * @param clueRepository
+   * The HuntController constructor initializes the three repositories the controller needs access
+   * to.
+   *
+   * @param huntRepository      contains methods for manipulating {@link Hunt}s.
+   * @param organizerRepository contains methods for manipulating {@link Organizer}s.
+   * @param clueRepository      contains methods for manipulating {@link Clue}s.
    */
   @Autowired
   public HuntController(HuntRepository huntRepository, OrganizerRepository organizerRepository,
@@ -52,9 +56,10 @@ public class HuntController {
   }
 
   /**
+   * This method creates a new {@link Hunt} entity.
    *
-   * @param hunt create new hunt
-   * @return href for hunt id.
+   * @param hunt contains Hunt fields.
+   * @return Href address for the new Hunt.
    */
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
@@ -64,23 +69,31 @@ public class HuntController {
   }
 
   /**
+   * This method searches for one {@link Hunt} by id.
    *
-   * @param id
-   * @return all the organizer by organizer id.
+   * @param id is the Hunt's unique id.
+   * @return an individual Hunt.
    */
   @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public Hunt get (@PathVariable UUID id) {
+  public Hunt get(@PathVariable UUID id) {
     return huntRepository.findOrFail(id);
   }
 
-//  @GetMapping(value = "/{organizer_id}", produces = MediaType.APPLICATION_JSON_VALUE)
-//  public Iterable<Hunt> getByOrganizer(@PathVariable UUID organizerId) {
-//    return huntRepository.getAllByOrganizer(organizerId);
-//  }
+  /**
+   * This method returns the list of {@link Hunt}s created by a single {@link Organizer}
+   *
+   * @param organizer is the Organizer to search by
+   * @return an {@link Iterable}<{@link Hunt}> collection.
+   */
+  @GetMapping(value = "/{organizer}", produces = MediaType.APPLICATION_JSON_VALUE)
+  public Iterable<Hunt> getByOrganizer(@PathVariable Organizer organizer) {
+    return huntRepository.getAllByOrganizer(organizer);
+  }
 
   /**
+   * This method returns all {@link Hunt}s in the database.  It may not be needed in production.
    *
-   * @return a list of organizer.
+   * @return all Hunts grouped by {@link Organizer}.
    */
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<Hunt> getList() {
@@ -88,9 +101,10 @@ public class HuntController {
   }
 
   /**
-   * Search hunts by the keyword
-   * @param fragment
-   * @return huntName by search.
+   * This method searches all {@link Hunt}s based on a string.
+   *
+   * @param fragment is a search string entered in the url.
+   * @return list of matching Hunts.
    */
   @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<Hunt> search(@RequestParam("q") String fragment) {
@@ -98,8 +112,9 @@ public class HuntController {
   }
 
   /**
+   * This method deletes a single {@link Hunt}.
    *
-   * @param id delete the hunt.
+   * @param id is the id of the Hunt to be deleted.
    */
   @DeleteMapping(value = "/{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -108,10 +123,11 @@ public class HuntController {
   }
 
   /**
+   * This method attaches an {@link Organizer} to a {@link Hunt} if it isn't already.
    *
-   * @param huntId  if a hunt is already assigned to an organizer so its gonna update it other wise it will create a new one
-   * @param organizerId can be assigned to huntid that doesnt have any organizer if already exist it will be updated
-   * @return
+   * @param huntId      is the id of the Hunt to be modified.
+   * @param organizerId is the id of the Organizer to be attached.
+   * @return the updated Hunt.
    */
   @PutMapping(value = "/{huntId}/organizer/{organizerId}", produces = MediaType.APPLICATION_JSON_VALUE)
   public Hunt attach(@PathVariable UUID huntId, @PathVariable UUID organizerId) {
@@ -125,14 +141,15 @@ public class HuntController {
   }
 
   /**
+   * This method allows a {@link Hunt} to be renamed.
    *
-   * @param huntId if hunt id already has a hunt name update it if doesnt have any create new hunt name for that id
+   * @param id       is the Hunt to be renamed
    * @param huntName being assign to hunt name.
-   * @return hunt name.
+   * @return the updated Hunt.
    */
   @PutMapping(value = "/{id}")
-  public Hunt rename(@PathVariable UUID huntId, @RequestPart String huntName) {
-    Hunt hunt = huntRepository.findOrFail(huntId);
+  public Hunt rename(@PathVariable UUID id, @RequestPart String huntName) {
+    Hunt hunt = huntRepository.findOrFail(id);
     if (!huntName.equals(hunt.getHuntName())) {
       hunt.setHuntName(huntName);
       huntRepository.save(hunt);

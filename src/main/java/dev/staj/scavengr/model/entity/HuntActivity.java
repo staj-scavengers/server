@@ -35,7 +35,6 @@ import org.springframework.stereotype.Component;
         indexes = {
             @Index(columnList = "date_started"),
             @Index(columnList = "date_completed"),
-            @Index(columnList = "total_time"),
             @Index(columnList = "clues_completed")
         }
     )

@@ -2,7 +2,6 @@ package dev.staj.scavengr.controller.rest;
 
 import dev.staj.scavengr.model.entity.Clue;
 import dev.staj.scavengr.model.entity.Hunt;
-import dev.staj.scavengr.model.entity.User;
 import dev.staj.scavengr.service.ClueRepository;
 import dev.staj.scavengr.service.HuntRepository;
 import java.util.UUID;
@@ -21,9 +20,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
 /**
- * This Controller Class uses HTTP to do CRUD Operations, {@link ClueRepository},
- * {@link HuntRepository}.
+ * This Controller Class uses HTTP and JSON values to do {@link Clue} CRUD Operations through the
+ * {@link ClueRepository}.
+ *
  * @author STAJ
  */
 @RestController
@@ -35,9 +36,11 @@ public class ClueController {
   private final HuntRepository huntRepository;
 
   /**
-   * This constructor initializes the Clue Controller with instances of {@link ClueRepository} and {@link HuntRepository}
-   * @param clueRepository
-   * @param huntRepository
+   * The ClueController constructor initializes the two repositories the controller needs access
+   * to.
+   *
+   * @param clueRepository contains methods for manipulating {@link Clue}s.
+   * @param huntRepository contains methods for manipulating {@link Hunt}s.
    */
   @Autowired
   public ClueController(ClueRepository clueRepository, HuntRepository huntRepository) {
@@ -46,9 +49,10 @@ public class ClueController {
   }
 
   /**
-   * This method consume media to create new {@link Clue}s.
-   * @param clue contains video,Href,articles.
-   * @return {@link Clue} Hrefs.
+   * This method creates a new {@link Clue}.
+   *
+   * @param clue contains Clue fields.
+   * @return Href address for the new Clue.
    */
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
@@ -58,25 +62,22 @@ public class ClueController {
     return ResponseEntity.created(clue.getHref()).body(clue);
   }
 
-//  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-//  public Iterable<Clue> get() {
-//    return clueRepository.getAllByOrderByHuntId();
-//  }
-
   /**
+   * This method returns all {@link Clue}s for one {@link Hunt}.
    *
-   * @param hunt_id has a search method that allow {@link User} to search {@link Clue}s by there {@link Hunt} id..
-   * @return returns the list of clues .
+   * @param hunt is the Hunt to search by
+   * @return an {@link Iterable}<{@link Clue}> collection.
    */
   @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
-  public Iterable<Clue> search(@RequestParam("q") UUID hunt_id) {
-    return clueRepository.getAllByHuntOrderByHuntOrder(hunt_id);
+  public Iterable<Clue> search(@RequestParam("q") Hunt hunt) {
+    return clueRepository.getAllByHuntOrderByHuntOrder(hunt);
   }
 
   /**
-   * this method contains {@link Clue}.
-   * @param id get only one {@link Clue} by its id.
-   * @return {@link Clue}.
+   * this method searches for one {@link Clue} by id.
+   *
+   * @param id is the {@link Clue}'s unique id.
+   * @return an individual Clue.
    */
   @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
   public Clue get(@PathVariable UUID id) {
@@ -84,8 +85,9 @@ public class ClueController {
   }
 
   /**
+   * This method returns all {@link Clue}s in the database.  It may not be needed in production.
    *
-   * @return list of {@link Clue}s.
+   * @return an {@link Iterable}<{@link Clue}> collection.
    */
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<Clue> getList() {
@@ -93,8 +95,9 @@ public class ClueController {
   }
 
   /**
+   * This method deletes a single {@link Clue}.
    *
-   * @param id delete a {@link Clue} by its id.
+   * @param id is the id of the Clue to be deleted.
    */
   @DeleteMapping(value = "/{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -103,10 +106,11 @@ public class ClueController {
   }
 
   /**
-   * attachClue set an existing {@link Clue} and attach it to {@link Hunt}s.
-   * @param huntId is being attached by clueId.
-   * @param clueId is being attached to huntId.
-   * @return the {@link Hunt} with an existing {@link Clue} attached to it.
+   * This method attaches a {@link Clue} to a {@link Hunt}.
+   *
+   * @param huntId is the id of the Hunt.
+   * @param clueId is the id of the Clue to be modified.
+   * @return the updated Clue.
    */
   @PutMapping(value = "/{clueId}/hunt/{huntId}", produces = MediaType.APPLICATION_JSON_VALUE)
   public Clue attachClue(@PathVariable UUID huntId, @PathVariable UUID clueId) {
@@ -117,27 +121,19 @@ public class ClueController {
     return clue;
   }
 
-// we don't need this (I think).
-//  @PutMapping(value = "/{id}/media", produces = MediaType.APPLICATION_JSON_VALUE)
-//  public Clue updateMedia(@PathVariable UUID id, @RequestBody String newMedia) {
-//    Clue clue = clueRepository.findOrFail(id);
-//    if (!newMedia.equals(clue.getMedia())) {
-//      clue.setMedia(newMedia);
-//      clueRepository.save(clue);
-//    }
-//    return clue;
-//  }
-
   /**
-   * Edit method update and edit the {@link Clue}s and {@link Clue} type which is media and media type which is either nfc tag or QR-code.
-   * @param clueId is being used to attache any media and media tag to it.
-   * @param updated updates {@link Clue} name and {@link Clue} instance.
-   * @return clue.
+   * This method modifies the fields of an existing {@link Clue} object.  By checking "is not null"
+   * and "does not already match" for each field before updating, it is able to handle redundant and
+   * incomplete requests without failing.
+   *
+   * @param id      is the Clue to be modified.
+   * @param updated contains new Clue field values.
+   * @return the modified Clue.
    */
-  @PutMapping(value = "/{clueId}",
+  @PutMapping(value = "/{id}",
       consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public Clue edit(@PathVariable UUID clueId, @RequestBody Clue updated) {
-    Clue clue = clueRepository.findOrFail(clueId);
+  public Clue edit(@PathVariable UUID id, @RequestBody Clue updated) {
+    Clue clue = clueRepository.findOrFail(id);
     if (updated.getClueName() != null && !updated.getClueName().equals(clue.getClueName())) {
       clue.setClueName(updated.getClueName());
       clueRepository.save(clue);

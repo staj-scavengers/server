@@ -1,6 +1,7 @@
 package dev.staj.scavengr.controller.rest;
 
 import dev.staj.scavengr.model.entity.Organizer;
+import dev.staj.scavengr.model.entity.User;
 import dev.staj.scavengr.service.OrganizerRepository;
 import dev.staj.scavengr.service.UserRepository;
 import java.util.UUID;
@@ -19,8 +20,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * This Controller Class uses HTTP to do CRUD Operations, {@link OrganizerRepository},
- * {@link UserRepository}.
+ * This Controller Class uses HTTP and JSON values to do CRUD operations through the {@link
+ * OrganizerRepository}.
+ *
  * @author STAJ
  */
 @RestController
@@ -32,20 +34,24 @@ public class OrganizerController {
   private final UserRepository userRepository;
 
   /**
-   * Initializes {@link OrganizerRepository} and {@link UserRepository}
-   * @param organizerRepository
-   * @param userRepository
+   * The OrganizerController constructor initializes the two repositories the controller needs
+   * access to.
+   *
+   * @param organizerRepository contains methods for manipulating {@link Organizer}s
+   * @param userRepository      contains methods for manipulating {@link User}s.
    */
   @Autowired
-  public OrganizerController (OrganizerRepository organizerRepository, UserRepository userRepository) {
+  public OrganizerController(OrganizerRepository organizerRepository,
+      UserRepository userRepository) {
     this.organizerRepository = organizerRepository;
     this.userRepository = userRepository;
   }
 
   /**
-   * Adds a new {@link Organizer} and saves it.
-   * @param organizer What is being saved.
-   * @return Href for {@link Organizer}.
+   * This method creates a new {@link Organizer} entity.
+   *
+   * @param organizer contains Organizer fields.
+   * @return Href address for the new Organizer.
    */
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
@@ -55,8 +61,10 @@ public class OrganizerController {
   }
 
   /**
-   * Gets an Iterable of {@link Organizer}s.
-   * @return Iterable of {@link Organizer} to the organizerRepository.
+   * This method returns all {@link Organizer}s in the database.  It may not be needed in
+   * production.
+   *
+   * @return all Organizers.
    */
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<Organizer> get() {
@@ -64,9 +72,10 @@ public class OrganizerController {
   }
 
   /**
-   * Gets a single {@link Organizer} by the id.
-   * @param id For finding the specific {@link Organizer}.
-   * @return id of the {@link Organizer} to the organizerRepository.
+   * This method searches for one {@link Organizer} by id.
+   *
+   * @param id is the Organizer's unique id.
+   * @return an individual Organizer.
    */
   @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
   public Organizer get(@PathVariable UUID id) {
@@ -74,8 +83,9 @@ public class OrganizerController {
   }
 
   /**
-   * Deletes an {@link Organizer} by the id.
-   * @param id For finding the {@link Organizer} to be deleted.
+   * This method deletes a single {@link Organizer}.
+   *
+   * @param id is the id of the Organizer to be deleted.
    */
   @DeleteMapping(value = "/{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
