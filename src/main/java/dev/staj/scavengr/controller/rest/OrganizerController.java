@@ -60,7 +60,7 @@ public class OrganizerController {
    */
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<Organizer> get() {
-    return organizerRepository.getAllByOrderById();
+    return organizerRepository.getAll();
   }
 
   /**

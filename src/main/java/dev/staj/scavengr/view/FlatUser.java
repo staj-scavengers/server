@@ -24,7 +24,7 @@ public interface FlatUser {
    * returns the oAuth token for a particular user.
    */
   @NonNull
-  String getoAuthToken();
+  String getOauthToken();
 
   /**
    *

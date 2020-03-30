@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author STAJ
  */
 @RestController
-@RequestMapping("/hunt_activities")
+@RequestMapping("/hunt-activities")
 @ExposesResourceFor(HuntActivity.class)
 public class  HuntActivityController {
 

@@ -14,7 +14,7 @@ public interface OrganizerRepository extends JpaRepository<Organizer, UUID> {
   /**
    * @return all organizers by their id.
    */
-  Iterable<Organizer> getAllByOrderById();
+  Iterable<Organizer> getAll();
 
   /**
    * @param id is unique {@link Organizer}.

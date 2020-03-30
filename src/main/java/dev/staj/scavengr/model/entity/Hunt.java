@@ -1,6 +1,7 @@
 package dev.staj.scavengr.model.entity;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import dev.staj.scavengr.view.FlatClue;
 import dev.staj.scavengr.view.FlatHunt;
 import dev.staj.scavengr.view.FlatOrganizer;
 import java.net.URI;
@@ -64,11 +65,12 @@ public class Hunt implements FlatHunt {
   private Organizer organizer;
 
   @OneToMany(mappedBy = "hunt", cascade = {CascadeType.ALL})
-//  @OrderBy("hunt_id, hunt_order")
+  @JsonSerialize(contentAs = FlatClue.class)
   private List<Clue> clues = new LinkedList<>();
 
   /**
    * get id for each hunt
+   *
    * @return
    */
   @NonNull
@@ -78,6 +80,7 @@ public class Hunt implements FlatHunt {
 
   /**
    * get hunt by there name.
+   *
    * @return
    */
   @NonNull
@@ -86,7 +89,6 @@ public class Hunt implements FlatHunt {
   }
 
   /**
-   *
    * sethuntName is used to assign name to any hunt.
    */
   public void setHuntName(@NonNull String huntName) {
@@ -110,7 +112,6 @@ public class Hunt implements FlatHunt {
 
   /**
    * get entity links
-   *
    */
   public URI getHref() {
     return entityLinks.linkForItemResource(Hunt.class, id).toUri();

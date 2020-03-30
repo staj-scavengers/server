@@ -5,8 +5,6 @@ import dev.staj.scavengr.model.entity.Hunt;
 import dev.staj.scavengr.model.entity.User;
 import dev.staj.scavengr.service.ClueRepository;
 import dev.staj.scavengr.service.HuntRepository;
-import dev.staj.scavengr.service.OrganizerRepository;
-import dev.staj.scavengr.service.UserRepository;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.server.ExposesResourceFor;
@@ -72,7 +70,7 @@ public class ClueController {
    */
   @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<Clue> search(@RequestParam("q") UUID hunt_id) {
-    return clueRepository.getAllByHuntIdContainsOrderByHuntOrder(hunt_id);
+    return clueRepository.getAllByHuntOrderByHuntOrder(hunt_id);
   }
 
   /**
@@ -91,7 +89,7 @@ public class ClueController {
    */
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<Clue> getList() {
-    return clueRepository.getAllByOrderByHunt();
+    return clueRepository.getAllOrderByHunt();
   }
 
   /**

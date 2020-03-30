@@ -59,7 +59,7 @@ public class Clue implements FlatClue {
   @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
   @ManyToOne(fetch = FetchType.LAZY,
       cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-  @JoinColumn(name = "hunt_id")
+  @JoinColumn(name = "hunt_id", nullable = false)
   @JsonSerialize(as = FlatHunt.class)
   private Hunt hunt;
 
@@ -72,7 +72,7 @@ public class Clue implements FlatClue {
   private String mediaTag;
 
   @NonNull
-  @Column(name = "hunt_order", nullable = false)
+  @Column(name = "hunt_order")
   private Integer huntOrder;
 
   /**
