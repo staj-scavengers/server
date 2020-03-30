@@ -1,5 +1,6 @@
 package dev.staj.scavengr.controller.rest;
 
+import dev.staj.scavengr.model.entity.Clue;
 import dev.staj.scavengr.model.entity.Hunt;
 import dev.staj.scavengr.model.entity.HuntActivity;
 import dev.staj.scavengr.model.entity.Organizer;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -66,6 +68,7 @@ public class HuntActivityController {
     return ResponseEntity.created(huntActivity.getHref()).body(huntActivity);
   }
 
+  //FIXME with ScavengrService getHuntActivityByUser
   /**
    * This method returns all {@link HuntActivity} records for a single {@link User}, ordered by date
    * started.
@@ -73,35 +76,12 @@ public class HuntActivityController {
    * @param user is the User's records to search for.
    * @return an {@link Iterable}<{@link HuntActivity}> collection.
    */
-  @GetMapping(value = "/{user}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public Iterable<HuntActivity> getByUserStart(@PathVariable User user) {
+  @GetMapping(value = "/search/{user}", produces = MediaType.APPLICATION_JSON_VALUE)
+  public Iterable<HuntActivity> getByUser(@PathVariable User user) {
     return huntActivityRepository.getAllByUserOrderByStarted(user);
   }
 
-  /**
-   * This method returns all {@link HuntActivity} records for a single {@link User}, ordered by date
-   * completed.
-   *
-   * @param user is the User's records to search for.
-   * @return an {@link Iterable}<{@link HuntActivity}> collection.
-   */
-  @GetMapping(value = "/{user}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public Iterable<HuntActivity> getByUserComplete(@PathVariable User user) {
-    return huntActivityRepository.getAllByUserOrderByCompleted(user);
-  }
-
-  /**
-   * This method returns all {@link HuntActivity} records for a single {@link User}, ordered by date
-   * {@link Hunt}.
-   *
-   * @param user is the User's records to search for.
-   * @return an {@link Iterable}<{@link HuntActivity}> collection.
-   */
-  @GetMapping(value = "/{user}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public Iterable<HuntActivity> getByUserHunt(@PathVariable User user) {
-    return huntActivityRepository.getAllByUserOrderByCompleted(user);
-  }
-
+  //FIXME with ScavengrService getHuntActivityByHunt
   /**
    * This method returns all {@link HuntActivity} records for a single {@link Hunt}, ordered by date
    * {@link User}.
@@ -112,6 +92,25 @@ public class HuntActivityController {
   @GetMapping(value = "/{hunt}", produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<HuntActivity> getByHunt(@PathVariable Hunt hunt) {
     return huntActivityRepository.getAllByHuntOrderByUser(hunt);
+  }
+
+  @PutMapping(value = "/{id}",
+      consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  public HuntActivity edit(@PathVariable UUID id, @RequestBody HuntActivity updated) {
+    HuntActivity huntActivity = huntActivityRepository.findOrFail(id);
+    if (updated.getStarted() != null && !updated.getStarted().equals(huntActivity.getStarted())) {
+      huntActivity.setStarted(updated.getStarted());
+      huntActivityRepository.save(huntActivity);
+    }
+    if (updated.getCluesCompleted() != null && !updated.getCluesCompleted().equals(huntActivity.getCluesCompleted())) {
+      huntActivity.setCluesCompleted(updated.getCluesCompleted());
+      huntActivityRepository.save(huntActivity);
+    }
+    if (updated.getCompleted() != null && !updated.getCompleted().equals(huntActivity.getCompleted())) {
+      huntActivity.setCompleted(updated.getCompleted());
+      huntActivityRepository.save(huntActivity);
+    }
+      return huntActivity;
   }
 
   /**
