@@ -1,6 +1,7 @@
 package dev.staj.scavengr.controller.rest;
 
 import dev.staj.scavengr.model.entity.Organizer;
+import dev.staj.scavengr.model.entity.User;
 import dev.staj.scavengr.service.OrganizerRepository;
 import dev.staj.scavengr.service.UserRepository;
 import java.util.UUID;
@@ -18,6 +19,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * This Controller Class uses HTTP and JSON values to do CRUD operations through the {@link
+ * OrganizerRepository}.
+ *
+ * @author STAJ
+ */
 @RestController
 @RequestMapping("/organizers")
 @ExposesResourceFor(Organizer.class)
@@ -26,12 +33,26 @@ public class OrganizerController {
   private final OrganizerRepository organizerRepository;
   private final UserRepository userRepository;
 
+  /**
+   * The OrganizerController constructor initializes the two repositories the controller needs
+   * access to.
+   *
+   * @param organizerRepository contains methods for manipulating {@link Organizer}s
+   * @param userRepository      contains methods for manipulating {@link User}s.
+   */
   @Autowired
-  public OrganizerController (OrganizerRepository organizerRepository, UserRepository userRepository) {
+  public OrganizerController(OrganizerRepository organizerRepository,
+      UserRepository userRepository) {
     this.organizerRepository = organizerRepository;
     this.userRepository = userRepository;
   }
 
+  /**
+   * This method creates a new {@link Organizer} entity.
+   *
+   * @param organizer contains Organizer fields.
+   * @return Href address for the new Organizer.
+   */
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
   public ResponseEntity<Organizer> post(@RequestBody Organizer organizer) {
@@ -39,16 +60,33 @@ public class OrganizerController {
     return ResponseEntity.created(organizer.getHref()).body(organizer);
   }
 
+  /**
+   * This method returns all {@link Organizer}s in the database.  It may not be needed in
+   * production.
+   *
+   * @return all Organizers.
+   */
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<Organizer> get() {
-    return organizerRepository.getAllByOrderById();
+    return organizerRepository.getAll();
   }
 
+  /**
+   * This method searches for one {@link Organizer} by id.
+   *
+   * @param id is the Organizer's unique id.
+   * @return an individual Organizer.
+   */
   @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
   public Organizer get(@PathVariable UUID id) {
     return organizerRepository.findOrFail(id);
   }
 
+  /**
+   * This method deletes a single {@link Organizer}.
+   *
+   * @param id is the id of the Organizer to be deleted.
+   */
   @DeleteMapping(value = "/{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void delete(@PathVariable UUID id) {

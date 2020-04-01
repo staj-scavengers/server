@@ -67,7 +67,7 @@ public class HuntActivity implements FlatHuntActivity {
   @NonNull
   @CreationTimestamp
   @Temporal(TemporalType.TIMESTAMP)
-  @Column(name = "date_started")
+  @Column(name = "date_started", nullable = false)
   private Date started;
 
   @UpdateTimestamp

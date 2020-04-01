@@ -1,6 +1,7 @@
 package dev.staj.scavengr.service;
 
 import dev.staj.scavengr.model.entity.Clue;
+import dev.staj.scavengr.model.entity.Hunt;
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -10,18 +11,19 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface ClueRepository extends JpaRepository<Clue, UUID> {
 
   /**
-   * @return all clues ordered by hunt.
+   * @return all {@link Clue} ordered by {@link Hunt}.
    */
-  Iterable<Clue> getAllByOrderByHunt();
+  Iterable<Clue> getAllOrderByHunt();
 
   /**
-   * @param hunt_id receives an existing hunt.
-   * @return all hunts ordered by id.
+   *
+   * @param hunt receives an existing {@link Hunt}.
+   * @return all {@link Hunt}s ordered by id.
    */
-  Iterable<Clue> getAllByHuntIdContainsOrderByHuntOrder(UUID hunt_id);
+  Iterable<Clue> getAllByHuntOrderByHuntOrder(Hunt hunt);
 
   /**
-   * @param id unique clue name.
+   * @param id unique {@link Clue} name.
    * @return list of clues by id.
    */
   default Clue findOrFail(UUID id) {

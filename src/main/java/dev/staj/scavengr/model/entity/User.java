@@ -1,16 +1,15 @@
 package dev.staj.scavengr.model.entity;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import dev.staj.scavengr.view.FlatOrganizer;
 import dev.staj.scavengr.view.FlatUser;
 import java.net.URI;
 import java.util.UUID;
 import javax.annotation.PostConstruct;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
@@ -37,14 +36,14 @@ public class User implements FlatUser {
 
   @NonNull
   @Column(name = "oauth_token", nullable = true, updatable = false)
-  private String oAuthToken;
+  private String oauthToken;
 
    @NonNull
   @Column(name = "user_name", nullable = false)
   private String userName;
 
-  @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "organizer_id", referencedColumnName = "organizer_id")
+  @OneToOne(mappedBy = "user")
+  @JsonSerialize(as = FlatOrganizer.class)
   private Organizer organizer;
 
   /**
@@ -60,16 +59,16 @@ public class User implements FlatUser {
    * return oauthtoken for each user.
    */
   @NonNull
-  public String getoAuthToken() {
-    return oAuthToken;
+  public String getOauthToken() {
+    return oauthToken;
   }
 
   /**
    * set an oauthToken for each user.
    * @param oAuthToken
    */
-  public void setoAuthToken(@NonNull String oAuthToken) {
-    this.oAuthToken = oAuthToken;
+  public void setOauthToken(@NonNull String oAuthToken) {
+    this.oauthToken = oAuthToken;
   }
 
   /**

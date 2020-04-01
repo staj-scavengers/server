@@ -4,6 +4,7 @@ package dev.staj.scavengr.model.entity;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import dev.staj.scavengr.view.FlatHunt;
 import dev.staj.scavengr.view.FlatOrganizer;
+import dev.staj.scavengr.view.FlatUser;
 import java.net.URI;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -15,6 +16,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import org.hibernate.annotations.GenericGenerator;
@@ -44,11 +46,13 @@ public class Organizer implements FlatOrganizer {
 // ForeignKey
 
   @NonNull
-  @OneToOne(mappedBy = "organizer")
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "organizer_id", referencedColumnName = "organizer_id", nullable = false)
+  @JsonSerialize(as = FlatUser.class)
   private User user;
 
   @OneToMany(mappedBy = "organizer", cascade = {CascadeType.ALL})
-//  @JsonSerialize(as = FlatHunt.class)
+  @JsonSerialize(contentAs = FlatHunt.class)
   private Set<Hunt> hunts = new LinkedHashSet<>();
 
   /**

@@ -21,6 +21,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * This Controller Class uses HTTP and JSON values to do {@link Clue} CRUD Operations through the
+ * {@link ClueRepository}.
+ *
+ * @author STAJ
+ */
 @RestController
 @RequestMapping("/clues")
 @ExposesResourceFor(Clue.class)
@@ -29,12 +35,25 @@ public class ClueController {
   private final ClueRepository clueRepository;
   private final HuntRepository huntRepository;
 
+  /**
+   * The ClueController constructor initializes the two repositories the controller needs access
+   * to.
+   *
+   * @param clueRepository contains methods for manipulating {@link Clue}s.
+   * @param huntRepository contains methods for manipulating {@link Hunt}s.
+   */
   @Autowired
   public ClueController(ClueRepository clueRepository, HuntRepository huntRepository) {
     this.clueRepository = clueRepository;
     this.huntRepository = huntRepository;
   }
 
+  /**
+   * This method creates a new {@link Clue}.
+   *
+   * @param clue contains Clue fields.
+   * @return Href address for the new Clue.
+   */
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
@@ -43,33 +62,56 @@ public class ClueController {
     return ResponseEntity.created(clue.getHref()).body(clue);
   }
 
-//  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-//  public Iterable<Clue> get() {
-//    return clueRepository.getAllByOrderByHuntId();
-//  }
-
+  /**
+   * This method returns all {@link Clue}s for one {@link Hunt}.
+   *
+   * @param hunt is the Hunt to search by
+   * @return an {@link Iterable}<{@link Clue}> collection.
+   */
   @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
-  public Iterable<Clue> search(@RequestParam("q") UUID hunt_id) {
-
-    return clueRepository.getAllByHuntIdContainsOrderByHuntOrder(hunt_id);
+  public Iterable<Clue> search(@RequestParam("q") Hunt hunt) {
+    return clueRepository.getAllByHuntOrderByHuntOrder(hunt);
   }
 
+  /**
+   * this method searches for one {@link Clue} by id.
+   *
+   * @param id is the {@link Clue}'s unique id.
+   * @return an individual Clue.
+   */
   @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
   public Clue get(@PathVariable UUID id) {
     return clueRepository.findOrFail(id);
   }
 
+  /**
+   * This method returns all {@link Clue}s in the database.  It may not be needed in production.
+   *
+   * @return an {@link Iterable}<{@link Clue}> collection.
+   */
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<Clue> getList() {
-    return clueRepository.getAllByOrderByHunt();
+    return clueRepository.getAllOrderByHunt();
   }
 
+  /**
+   * This method deletes a single {@link Clue}.
+   *
+   * @param id is the id of the Clue to be deleted.
+   */
   @DeleteMapping(value = "/{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void delete(@PathVariable UUID id) {
     clueRepository.findById(id).ifPresent(clueRepository::delete);
   }
 
+  /**
+   * This method attaches a {@link Clue} to a {@link Hunt}.
+   *
+   * @param huntId is the id of the Hunt.
+   * @param clueId is the id of the Clue to be modified.
+   * @return the updated Clue.
+   */
   @PutMapping(value = "/{clueId}/hunt/{huntId}", produces = MediaType.APPLICATION_JSON_VALUE)
   public Clue attachClue(@PathVariable UUID huntId, @PathVariable UUID clueId) {
     Hunt hunt = huntRepository.findOrFail(huntId);
@@ -79,11 +121,19 @@ public class ClueController {
     return clue;
   }
 
-
-  @PutMapping(value = "/{clueId}",
+  /**
+   * This method modifies the fields of an existing {@link Clue} object.  By checking "is not null"
+   * and "does not already match" for each field before updating, it is able to handle redundant and
+   * incomplete requests without failing.
+   *
+   * @param id      is the Clue to be modified.
+   * @param updated contains new Clue field values.
+   * @return the modified Clue.
+   */
+  @PutMapping(value = "/{id}",
       consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public Clue edit(@PathVariable UUID clueId, @RequestBody Clue updated) {
-    Clue clue = clueRepository.findOrFail(clueId);
+  public Clue edit(@PathVariable UUID id, @RequestBody Clue updated) {
+    Clue clue = clueRepository.findOrFail(id);
     if (updated.getClueName() != null && !updated.getClueName().equals(clue.getClueName())) {
       clue.setClueName(updated.getClueName());
       clueRepository.save(clue);

@@ -13,6 +13,9 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 
+/**
+ * The ScavengerApplication class provides a runnable method to initialize the server
+ */
 @SpringBootApplication
 @EnableWebSecurity
 @EnableResourceServer
@@ -27,6 +30,10 @@ public class ScavengerApplication extends ResourceServerConfigurerAdapter{
     resources.resourceId(clientId);
   }
 
+  /**
+   * The main method initializes the Scavenger server as a Spring application
+   * @param args is not used by our implementation
+   */
   public static void main(String[] args) {
     SpringApplication.run(ScavengerApplication.class, args);
   }
@@ -63,4 +70,3 @@ public class ScavengerApplication extends ResourceServerConfigurerAdapter{
   }*/
 
 }
-

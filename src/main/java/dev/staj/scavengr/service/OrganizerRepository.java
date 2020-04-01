@@ -12,13 +12,13 @@ import org.springframework.data.jpa.repository.Query;
 public interface OrganizerRepository extends JpaRepository<Organizer, UUID> {
 
   /**
-   * @return all organizers by their id.
+   * @return all {@link Organizer}s.
    */
-  Iterable<Organizer> getAllByOrderById();
+  Iterable<Organizer> getAll();
 
   /**
-   * @param id is unique organizer.
-   * @return list of organizers.
+   * @param id is unique {@link Organizer}.
+   * @return list of Organizers.
    */
     default Organizer findOrFail(UUID id){
       return findById(id).get();

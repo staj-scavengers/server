@@ -33,6 +33,11 @@ public interface FlatHuntActivity {
    */
   Date getCompleted();
 
+  /**
+   *
+   * returns the difference between the started and completed values for a particular hunt by a particular user.
+   */
+  long getTotalTime();
 
   /**
    *

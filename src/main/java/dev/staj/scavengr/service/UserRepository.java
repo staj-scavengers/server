@@ -13,21 +13,19 @@ import org.springframework.data.jpa.repository.Query;
 public interface UserRepository extends JpaRepository<User, UUID> {
 
   /**
-   * @return ordered list of all user names in {@link User}.
+   * @return ordered list of all {@link User} names in {@link User}.
    */
   Iterable<User> getAllByOrderByUserName();
 
   /**
    * @param fragment is a string used to search in url.
-   * @return list of user names contained in {@link User} based on input of search.
+   * @return list of {@link User} names contained in {@link User} based on input of search.
    */
   Iterable<User> getAllByUserNameContains(String fragment);
 
-  // Trouble of thinking what else to add in Javadoc. -Abby
-
   /**
-   * @param id is unique user.
-   * @return list of users.
+   * @param id is unique {@link User}.
+   * @return list of {@link User}s.
    */
   default User findOrFail(UUID id){
     return findById(id).get();
