@@ -1,6 +1,5 @@
 package dev.staj.scavengr.controller.rest;
 
-import dev.staj.scavengr.model.entity.Clue;
 import dev.staj.scavengr.model.entity.Hunt;
 import dev.staj.scavengr.model.entity.HuntActivity;
 import dev.staj.scavengr.model.entity.Organizer;
@@ -115,7 +114,7 @@ public class HuntActivityController {
    */
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<HuntActivity> get() {
-    return huntActivityRepository.getAllOrderByStarted();
+    return huntActivityRepository.getAllByOrderByStarted();
   }
 
   /**

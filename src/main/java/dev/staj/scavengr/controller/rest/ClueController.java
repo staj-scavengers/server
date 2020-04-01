@@ -91,7 +91,7 @@ public class ClueController {
    */
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<Clue> getList() {
-    return clueRepository.getAll();
+    return clueRepository.getAllByOrderByHunt();
   }
 
   /**

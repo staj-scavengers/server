@@ -99,7 +99,7 @@ public class HuntController {
    */
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<Hunt> getList() {
-    return huntRepository.getAllOrderByOrganizer();
+    return huntRepository.getAllByOrderByOrganizer();
   }
 
   /**

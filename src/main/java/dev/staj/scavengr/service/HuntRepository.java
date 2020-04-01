@@ -17,7 +17,7 @@ HuntRepository extends JpaRepository<Hunt, UUID> {
   /**
    * @return all {@link Hunt}s ordered by {@link Organizer}.
    */
-  Iterable<Hunt> getAllOrderByOrganizer();
+  Iterable<Hunt> getAllByOrderByOrganizer();
 
   /**
    *

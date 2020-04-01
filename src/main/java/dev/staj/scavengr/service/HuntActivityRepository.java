@@ -24,7 +24,7 @@ public interface  HuntActivityRepository extends JpaRepository<HuntActivity, UUI
    *
    * @return list of all hunt activity ordered by started time/date.
    */
-  Iterable<HuntActivity> getAllOrderByStarted();
+  Iterable<HuntActivity> getAllByOrderByStarted();
 
   /**
    *
