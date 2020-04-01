@@ -79,16 +79,6 @@ public class ClueController {
     return clue;
   }
 
-// we don't need this (I think).
-//  @PutMapping(value = "/{id}/media", produces = MediaType.APPLICATION_JSON_VALUE)
-//  public Clue updateMedia(@PathVariable UUID id, @RequestBody String newMedia) {
-//    Clue clue = clueRepository.findOrFail(id);
-//    if (!newMedia.equals(clue.getMedia())) {
-//      clue.setMedia(newMedia);
-//      clueRepository.save(clue);
-//    }
-//    return clue;
-//  }
 
   @PutMapping(value = "/{clueId}",
       consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

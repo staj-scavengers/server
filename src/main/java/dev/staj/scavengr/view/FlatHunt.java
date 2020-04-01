@@ -14,7 +14,6 @@ import org.springframework.lang.NonNull;
 public interface FlatHunt {
 
   /**
-   *
    * returns the hunt's unique id.
    */
   @NonNull

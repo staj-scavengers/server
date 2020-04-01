@@ -64,7 +64,6 @@ public class Hunt implements FlatHunt {
   private Organizer organizer;
 
   @OneToMany(mappedBy = "hunt", cascade = {CascadeType.ALL})
-//  @OrderBy("hunt_id, hunt_order")
   private List<Clue> clues = new LinkedList<>();
 
   /**
@@ -106,6 +105,18 @@ public class Hunt implements FlatHunt {
    */
   public void setOrganizer(Organizer organizer) {
     this.organizer = organizer;
+  }
+
+  public List<Clue> getClues() {
+    return clues;
+  }
+
+  public void setClues(List<Clue> clues) {
+    this.clues = clues;
+  }
+
+  public void addClue(Clue clue) {
+    this.clues.add(clue);
   }
 
   /**

@@ -31,6 +31,12 @@ public class ScavengerApplication extends ResourceServerConfigurerAdapter{
     SpringApplication.run(ScavengerApplication.class, args);
   }
 
+  @Override
+  public void configure(HttpSecurity http) throws Exception {
+    http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+    http.authorizeRequests().anyRequest().permitAll();
+  }
+
   // TODO enable after user roles are defined
 /*  @Override
   public void configure(HttpSecurity http) throws Exception {
@@ -57,3 +63,4 @@ public class ScavengerApplication extends ResourceServerConfigurerAdapter{
   }*/
 
 }
+

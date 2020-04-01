@@ -12,12 +12,6 @@ public interface  HuntActivityRepository extends JpaRepository<HuntActivity, UUI
 
   Iterable<HuntActivity> getAllByOrderByUser();
 
-  Iterable<HuntActivity> getAllByOrderByStarted();
-
-  Iterable<HuntActivity> getAllByOrderByCompleted();
-
-  Iterable<HuntActivity> getAllByOrderByTotalTime();
-
   default HuntActivity findOrFail(UUID id) {
     return findById(id).get();
   }

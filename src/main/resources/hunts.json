@@ -1,0 +1,33 @@
+[
+  {
+    "clueName": "Clue 1",
+    "mediaTag": "scavengr-clue-1",
+    "media": "https://youtu.be/nqNqE0QiMPE",
+    "huntOrder": 1
+  },
+  {
+    "clueName": "Clue 2",
+    "mediaTag": "scavengr-clue-2",
+    "media": "https://youtu.be/rEUxlwb2uFI",
+    "huntOrder": 2
+  },
+  {
+    "clueName": "Clue 3",
+    "mediaTag": "scavengr-clue-3",
+    "media": "https://i.imgur.com/a5LsAgq.jpg",
+    "huntOrder": 3
+  },
+  {
+    "clueName": "Clue 4",
+    "mediaTag": "scavengr-clue-4",
+    "media": "https://soundcloud.com/overwerk/afterhours-medley",
+    "huntOrder": 4
+  },
+  {
+    "clueName": "Clue 5",
+    "mediaTag": "scavengr-clue-5",
+    "media": "https://en.wikipedia.org/wiki/Wikipedia:On_this_day/Today",
+    "huntOrder": 5
+  }
+
+]

@@ -1,10 +1,12 @@
 package dev.staj.scavengr.controller.rest;
 
+import dev.staj.scavengr.model.entity.Clue;
 import dev.staj.scavengr.model.entity.Hunt;
 import dev.staj.scavengr.model.entity.Organizer;
 import dev.staj.scavengr.service.ClueRepository;
 import dev.staj.scavengr.service.OrganizerRepository;
 import dev.staj.scavengr.service.HuntRepository;
+import java.util.Arrays;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.server.ExposesResourceFor;
@@ -47,6 +49,8 @@ public class HuntController {
     return ResponseEntity.created(hunt.getHref()).body(hunt);
   }
 
+
+
   @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<Hunt> getByOrganizer(@PathVariable UUID id) {
     return huntRepository.getAllByOrganizer(id);
@@ -68,6 +72,24 @@ public class HuntController {
     huntRepository.findById(id).ifPresent(huntRepository::delete);
   }
 
+  @PutMapping(value = "/{huntId}/clue/{clueId}", produces = MediaType.APPLICATION_JSON_VALUE)
+  public Hunt putClue(@PathVariable UUID huntId, @PathVariable UUID clueId) {
+    Hunt hunt = huntRepository.findOrFail(huntId);
+    Clue clue = clueRepository.findOrFail(clueId);
+    if (!hunt.getClues().contains(clue)) {
+      hunt.addClue(clue);
+      huntRepository.save(hunt);
+    }
+    return hunt;
+  }
+
+  @PutMapping(value = "/{huntId}", produces = MediaType.APPLICATION_JSON_VALUE)
+  public Hunt setClues(@PathVariable UUID huntId, @RequestBody Clue... clues) {
+    Hunt hunt = huntRepository.findOrFail(huntId);
+      hunt.setClues(Arrays.asList(clues));
+      huntRepository.save(hunt);
+    return hunt;
+  }
 
   @PutMapping(value = "/{huntId}/organizer/{organizerId}", produces = MediaType.APPLICATION_JSON_VALUE)
   public Hunt attach(@PathVariable UUID huntId, @PathVariable UUID organizerId) {
