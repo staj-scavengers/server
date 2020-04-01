@@ -5,6 +5,7 @@ import dev.staj.scavengr.view.FlatClue;
 import dev.staj.scavengr.view.FlatHunt;
 import dev.staj.scavengr.view.FlatOrganizer;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
@@ -111,15 +112,19 @@ public class Hunt implements FlatHunt {
   }
 
   public List<Clue> getClues() {
-    return clues;
+    return new ArrayList<>(clues);
   }
 
   public void setClues(List<Clue> clues) {
     this.clues = clues;
+    for (Clue clue : clues) {
+      clue.setHunt(this);
+    }
   }
 
   public void addClue(Clue clue) {
-    this.clues.add(clue);
+    clues.add(clue);
+    clue.setHunt(this);
   }
 
   /**

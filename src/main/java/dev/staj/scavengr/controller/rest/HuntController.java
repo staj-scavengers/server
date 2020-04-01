@@ -80,18 +80,6 @@ public class HuntController {
     return huntRepository.findOrFail(id);
   }
 
-  // TODO probably do this through OrganizerController instead.
-  /**
-   * This method returns the list of {@link Hunt}s created by a single {@link Organizer}
-   *
-   * @param organizer is the Organizer id to search by
-   * @return an {@link Iterable}<{@link Hunt}> collection.
-   */
-  @GetMapping(value = "/{organizer}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public Iterable<Hunt> getByOrganizer(@PathVariable Organizer organizer) {
-    return huntRepository.getAllByOrganizer(organizer);
-  }
-
   /**
    * This method returns all {@link Hunt}s in the database.  It may not be needed in production.
    *
@@ -124,6 +112,7 @@ public class HuntController {
     huntRepository.findById(id).ifPresent(huntRepository::delete);
   }
 
+  // TODO override .equals() in Clue to compare Clues more effectively.
   @PutMapping(value = "/{huntId}/clue/{clueId}", produces = MediaType.APPLICATION_JSON_VALUE)
   public Hunt putClue(@PathVariable UUID huntId, @PathVariable UUID clueId) {
     Hunt hunt = huntRepository.findOrFail(huntId);
@@ -136,10 +125,19 @@ public class HuntController {
   }
 
   @PutMapping(value = "/{huntId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public Hunt setClues(@PathVariable UUID huntId, @RequestBody Clue... clues) {
+  public Hunt editHunt(@PathVariable UUID huntId, @RequestBody Hunt updated) {
     Hunt hunt = huntRepository.findOrFail(huntId);
-      hunt.setClues(Arrays.asList(clues));
-      huntRepository.save(hunt);
+    if (updated.getHuntName() != null && !updated.getHuntName().equalsIgnoreCase(hunt.getHuntName())) {
+      hunt.setHuntName(updated.getHuntName());
+          }
+    if (updated.getClues() != null) {
+      for (Clue clue : updated.getClues()) {
+        if (!hunt.getClues().contains(clue)) {
+          hunt.addClue(clue);
+        }
+      }
+    }
+    huntRepository.save(hunt);
     return hunt;
   }
 
