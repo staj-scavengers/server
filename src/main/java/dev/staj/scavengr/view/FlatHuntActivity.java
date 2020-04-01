@@ -31,14 +31,8 @@ public interface FlatHuntActivity {
    *
    * returns the date a particular hunt was completed by a particular user.
    */
-  @NonNull
   Date getCompleted();
 
-  /**
-   *
-   * returns the difference between the started and completed values for a particular hunt by a particular user.
-   */
-  long getTotalTime();
 
   /**
    *

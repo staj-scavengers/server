@@ -48,7 +48,7 @@ public class HuntController {
   }
 
   @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public Iterable<Hunt> getByOrganizer(UUID id) {
+  public Iterable<Hunt> getByOrganizer(@PathVariable UUID id) {
     return huntRepository.getAllByOrganizer(id);
   }
 
@@ -81,8 +81,8 @@ public class HuntController {
   }
 
   @PutMapping(value = "/{id}")
-  public Hunt rename(@PathVariable UUID huntId, @RequestPart String huntName) {
-    Hunt hunt = huntRepository.findOrFail(huntId);
+  public Hunt rename(@PathVariable UUID id, @RequestPart String huntName) {
+    Hunt hunt = huntRepository.findOrFail(id);
     if (!huntName.equals(hunt.getHuntName())) {
       hunt.setHuntName(huntName);
       huntRepository.save(hunt);

@@ -71,15 +71,10 @@ public class HuntActivity implements FlatHuntActivity {
   @Column(name = "date_started")
   private Date started;
 
-  @NonNull
   @UpdateTimestamp
   @Temporal(TemporalType.TIMESTAMP)
   @Column(name = "date_completed")
   private Date completed;
-
-  @NonNull
-  @Column(name = "total_time")
-  private long totalTime;
 
   @NonNull
   @Column(name = "clues_completed")
@@ -126,22 +121,6 @@ public class HuntActivity implements FlatHuntActivity {
    */
   public void setCompleted(@NonNull Date completed) {
     this.completed = completed;
-  }
-
-  /**
-   *
-   * return total time that a user spent on a hunt activity.
-   */
-  public long getTotalTime() {
-    return totalTime;
-  }
-
-  /**
-   *
-   * sets total time that has been spent on a hunt activity.
-   */
-  public void setTotalTime(long totalTime) {
-    this.totalTime = totalTime;
   }
 
   /**
