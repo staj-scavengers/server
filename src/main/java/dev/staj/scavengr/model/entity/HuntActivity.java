@@ -105,6 +105,22 @@ public class HuntActivity implements FlatHuntActivity {
     this.started = started;
   }
 
+  public String getTotalTime() {
+    if(started == null || completed == null) {
+      return null;
+    }
+    long minTotal = started.getTime() - completed.getTime();
+    long seconds = minTotal / 1000;
+    long minutes = seconds / 60;
+    long hours = minutes / 60;
+    long days = hours / 24;
+
+    String time = days + ":" + hours % 24 + ":" + minutes % 60 + ":" + seconds % 60;
+
+
+    return time;
+  }
+
   /**
    *
    * return date and time for when a hunt activity is completed

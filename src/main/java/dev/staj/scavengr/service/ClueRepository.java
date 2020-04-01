@@ -13,7 +13,7 @@ public interface ClueRepository extends JpaRepository<Clue, UUID> {
   /**
    * @return all {@link Clue} ordered by {@link Hunt}.
    */
-  Iterable<Clue> getAllOrderByHunt();
+  Iterable<Clue> getAll();
 
   /**
    *

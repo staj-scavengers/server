@@ -68,7 +68,6 @@ public class HuntActivityController {
     return ResponseEntity.created(huntActivity.getHref()).body(huntActivity);
   }
 
-  //FIXME with ScavengrService getHuntActivityByUser
   /**
    * This method returns all {@link HuntActivity} records for a single {@link User}, ordered by date
    * started.
@@ -78,10 +77,9 @@ public class HuntActivityController {
    */
   @GetMapping(value = "/search/{user}", produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<HuntActivity> getByUser(@PathVariable User user) {
-    return huntActivityRepository.getAllByUserOrderByStarted(user);
+    return huntActivityRepository.getAllByUserOrderByHunt(user);
   }
 
-  //FIXME with ScavengrService getHuntActivityByHunt
   /**
    * This method returns all {@link HuntActivity} records for a single {@link Hunt}, ordered by date
    * {@link User}.

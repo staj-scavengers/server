@@ -1,7 +1,9 @@
 package dev.staj.scavengr.controller.rest;
 
+import dev.staj.scavengr.model.entity.Hunt;
 import dev.staj.scavengr.model.entity.Organizer;
 import dev.staj.scavengr.model.entity.User;
+import dev.staj.scavengr.service.HuntRepository;
 import dev.staj.scavengr.service.OrganizerRepository;
 import dev.staj.scavengr.service.UserRepository;
 import java.util.UUID;
@@ -32,19 +34,22 @@ public class OrganizerController {
 
   private final OrganizerRepository organizerRepository;
   private final UserRepository userRepository;
+  private final HuntRepository huntRepository;
 
   /**
-   * The OrganizerController constructor initializes the two repositories the controller needs
+   * The OrganizerController constructor initializes the repositories the controller needs
    * access to.
    *
    * @param organizerRepository contains methods for manipulating {@link Organizer}s
    * @param userRepository      contains methods for manipulating {@link User}s.
+   * @param huntRepository      contains methods for manipulating {@link Hunt}s.
    */
   @Autowired
   public OrganizerController(OrganizerRepository organizerRepository,
-      UserRepository userRepository) {
+      UserRepository userRepository, HuntRepository huntRepository) {
     this.organizerRepository = organizerRepository;
     this.userRepository = userRepository;
+    this.huntRepository = huntRepository;
   }
 
   /**
@@ -80,6 +85,11 @@ public class OrganizerController {
   @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
   public Organizer get(@PathVariable UUID id) {
     return organizerRepository.findOrFail(id);
+  }
+
+  @GetMapping(value = "/{id}/hunts", produces = MediaType.APPLICATION_JSON_VALUE)
+  public Iterable<Hunt> getByOrganizer(@PathVariable UUID id) {
+    return organizerRepository.findOrFail(id).getHunts();
   }
 
   /**

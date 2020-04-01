@@ -84,12 +84,12 @@ public class HuntController {
   /**
    * This method returns the list of {@link Hunt}s created by a single {@link Organizer}
    *
-   * @param id is the Organizer id to search by
+   * @param organizer is the Organizer id to search by
    * @return an {@link Iterable}<{@link Hunt}> collection.
    */
   @GetMapping(value = "/{organizer}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public Iterable<Hunt> getByOrganizer(@PathVariable UUID id) {
-    return huntRepository.getAllByOrganizer(id);
+  public Iterable<Hunt> getByOrganizer(@PathVariable Organizer organizer) {
+    return huntRepository.getAllByOrganizer(organizer);
   }
 
   /**
@@ -135,7 +135,7 @@ public class HuntController {
     return hunt;
   }
 
-  @PutMapping(value = "/{huntId}", produces = MediaType.APPLICATION_JSON_VALUE)
+  @PutMapping(value = "/{huntId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public Hunt setClues(@PathVariable UUID huntId, @RequestBody Clue... clues) {
     Hunt hunt = huntRepository.findOrFail(huntId);
       hunt.setClues(Arrays.asList(clues));

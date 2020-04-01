@@ -37,7 +37,7 @@ public interface FlatHuntActivity {
    *
    * returns the difference between the started and completed values for a particular hunt by a particular user.
    */
-  long getTotalTime();
+  String getTotalTime();
 
   /**
    *
