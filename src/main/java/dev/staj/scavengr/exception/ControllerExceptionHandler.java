@@ -22,7 +22,7 @@ public class ControllerExceptionHandler {
 
   // TODO add an exception handler for a duplicate value.
   @ExceptionHandler(DuplicateKeyException.class)
-  @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "Duplicate key value")
+  @ResponseStatus(value = HttpStatus.CONFLICT, reason = "Duplicate key value")
   public void duplicateValue(){}
 
   @ExceptionHandler(DataIntegrityViolationException.class)
