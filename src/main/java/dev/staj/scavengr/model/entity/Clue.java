@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import dev.staj.scavengr.view.FlatClue;
 import dev.staj.scavengr.view.FlatHunt;
 import java.net.URI;
+import java.util.Objects;
 import java.util.UUID;
 import javax.annotation.PostConstruct;
 import javax.persistence.CascadeType;
@@ -23,7 +24,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.server.EntityLinks;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
-
 
 
 /**
@@ -76,7 +76,6 @@ public class Clue implements FlatClue {
   private Integer huntOrder;
 
   /**
-   *
    * @return getHunt gets the Hunts Object.
    */
   public Hunt getHunt() {
@@ -99,7 +98,6 @@ public class Clue implements FlatClue {
   }
 
   /**
-   *
    * @return getId returns clue id.
    */
   @NonNull
@@ -108,7 +106,6 @@ public class Clue implements FlatClue {
   }
 
   /**
-   *
    * @return getMedia returns media to user when scanned the QRCode || NFC tags.
    */
   @NonNull
@@ -117,7 +114,6 @@ public class Clue implements FlatClue {
   }
 
   /**
-   *
    * @param media Set the media for any clue in the entity.
    */
   public void setMedia(@NonNull String media) {
@@ -125,7 +121,6 @@ public class Clue implements FlatClue {
   }
 
   /**
-   *
    * @return getMediaTag returns the appropriate NFC tag and or QRCode.
    */
   @NonNull
@@ -134,7 +129,6 @@ public class Clue implements FlatClue {
   }
 
   /**
-   *
    * @param mediaTag set MediaTag to appropriate Clue.
    */
   public void setMediaTag(@NonNull String mediaTag) {
@@ -142,7 +136,6 @@ public class Clue implements FlatClue {
   }
 
   /**
-   *
    * @return hunt order.
    */
   @NonNull
@@ -151,7 +144,6 @@ public class Clue implements FlatClue {
   }
 
   /**
-   *
    * @param huntOrder sets hunts in given order.
    */
   public void setHuntOrder(Integer huntOrder) {
@@ -159,7 +151,6 @@ public class Clue implements FlatClue {
   }
 
   /**
-   *
    * @param hunt setHunt sets hunt for the User.
    */
   public void setHunt(Hunt hunt) {
@@ -167,7 +158,6 @@ public class Clue implements FlatClue {
   }
 
   /**
-   *
    * @return getHref returns the Link to the CLue.
    */
   public URI getHref() {
@@ -183,11 +173,41 @@ public class Clue implements FlatClue {
   }
 
   /**
-   *
    * @param entityLinks Generate an entity links value.
    */
+  @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
   @Autowired
   private void setEntityLinks(EntityLinks entityLinks) {
     Clue.entityLinks = entityLinks;
+  }
+
+  @Override
+  public String toString() {
+    return (hunt.getHuntName() + "# " + huntOrder + ": " + clueName);
+  }
+
+  @Override
+  public int hashCode() {
+    try {
+      return Objects.hash(clueName, media, mediaTag);
+    } catch (Exception e) {
+      return 0;
+    }
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    boolean comparison = false;
+    if (obj == this) {
+      comparison = true;
+    } else if (obj instanceof Clue && obj.hashCode() == hashCode()) {
+      Clue other = (Clue) obj;
+      if (clueName.equals(other.getClueName())
+          && media.equals(other.getMedia())
+          && mediaTag.equals(other.getMediaTag())) {
+        comparison = true;
+      }
+    }
+    return comparison;
   }
 }

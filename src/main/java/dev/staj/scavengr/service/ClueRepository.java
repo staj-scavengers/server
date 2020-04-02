@@ -26,6 +26,7 @@ public interface ClueRepository extends JpaRepository<Clue, UUID> {
    * @param id unique {@link Clue} name.
    * @return list of clues by id.
    */
+
   default Clue findOrFail(UUID id) {
     return findById(id).get();
   }

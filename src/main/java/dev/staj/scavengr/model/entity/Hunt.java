@@ -8,6 +8,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import javax.annotation.PostConstruct;
 import javax.persistence.CascadeType;
@@ -45,7 +46,6 @@ public class Hunt implements FlatHunt {
 
   private static EntityLinks entityLinks;
 
-
   @Id
   @GeneratedValue(generator = "uuid2")
   @GenericGenerator(name = "uuid2", strategy = "uuid2")
@@ -68,6 +68,8 @@ public class Hunt implements FlatHunt {
   @OneToMany(mappedBy = "hunt", cascade = {CascadeType.ALL})
   @JsonSerialize(contentAs = FlatClue.class)
   private List<Clue> clues = new LinkedList<>();
+
+
 
   /**
    * get id for each hunt
@@ -139,10 +141,35 @@ public class Hunt implements FlatHunt {
     entityLinks.toString();
   }
 
+  @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
   @Autowired
   private void setEntityLinks(EntityLinks entityLinks) {
     Hunt.entityLinks = entityLinks;
   }
 
+  @Override
+  public String toString() {
+    return (huntName);
+  }
 
+  @Override
+  public int hashCode() {
+    return Objects.hash(organizer, huntName);
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    boolean comparison = false;
+    if (obj == this) {
+      comparison = true;
+    } else if (obj instanceof Clue && obj.hashCode() == hashCode()) {
+      Hunt other = (Hunt) obj;
+      if (organizer == other.getOrganizer()
+          && huntName.equals(other.getHuntName())
+          && clues == other.getClues()) {
+        comparison = true;
+      }
+    }
+    return comparison;
+  }
 }

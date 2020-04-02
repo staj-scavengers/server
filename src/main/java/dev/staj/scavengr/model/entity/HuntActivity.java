@@ -165,8 +165,14 @@ public class HuntActivity implements FlatHuntActivity {
     entityLinks.toString();
   }
 
+  @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
   @Autowired
   private void setEntityLinks(EntityLinks entityLinks) {
     HuntActivity.entityLinks = entityLinks;
+  }
+
+  @Override
+  public String toString() {
+    return (hunt.getHuntName() + " | " + user.getUserName());
   }
 }

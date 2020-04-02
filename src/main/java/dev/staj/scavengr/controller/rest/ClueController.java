@@ -136,20 +136,17 @@ public class ClueController {
     Clue clue = clueRepository.findOrFail(id);
     if (updated.getClueName() != null && !updated.getClueName().equals(clue.getClueName())) {
       clue.setClueName(updated.getClueName());
-      clueRepository.save(clue);
     }
     if (updated.getMedia() != null && !updated.getMedia().equals(clue.getMedia())) {
       clue.setMedia(updated.getMedia());
-      clueRepository.save(clue);
     }
     if (updated.getMediaTag() != null && !updated.getMediaTag().equals(clue.getMediaTag())) {
       clue.setMediaTag(updated.getMediaTag());
-      clueRepository.save(clue);
     }
     if (updated.getHuntOrder() != null && !updated.getHuntOrder().equals(clue.getHuntOrder())) {
       clue.setHuntOrder(updated.getHuntOrder());
-      clueRepository.save(clue);
     }
+    clueRepository.save(clue);
     return clue;
   }
 }
