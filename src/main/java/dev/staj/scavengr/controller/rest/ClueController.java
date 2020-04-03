@@ -59,6 +59,7 @@ public class ClueController {
   @ResponseStatus(HttpStatus.CREATED)
   public ResponseEntity<Clue> post(@RequestBody Clue clue) {
     clueRepository.save(clue);
+
     return ResponseEntity.created(clue.getHref()).body(clue);
   }
 

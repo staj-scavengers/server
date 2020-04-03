@@ -85,8 +85,37 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+
+
+
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.2.0</version>
+        <configuration>
+          <links>
+            <link>https://docs.oracle.com/javase/8/docs/api/</link>
+            <link>https://jakarta.ee/specifications/persistence/2.2/apidocs/</link>
+            <link>https://docs.jboss.org/hibernate/orm/5.4/javadocs/</link>
+            <link>https://docs.spring.io/spring-data/data-jpa/docs/current/api/</link>
+            <link>https://docs.spring.io/spring-framework/docs/current/javadoc-api/</link>
+            <link>https://docs.spring.io/spring-boot/docs/current/api/</link>
+            <link>https://docs.spring.io/spring-hateoas/docs/current/api/</link>
+            <link>https://docs.jboss.org/hibernate/beanvalidation/spec/2.0/api/</link>
+            <link>https://docs.jboss.org/hibernate/stable/validator/api/</link>
+            <link>https://docs.spring.io/spring-security/site/docs/current/api/</link>
+            <link>https://googleapis.dev/java/google-oauth-client/1.30.6/</link>
+            <link>http://fasterxml.github.io/jackson-core/javadoc/2.10/</link>
+            <link>http://fasterxml.github.io/jackson-databind/javadoc/2.10/</link>
+          </links>
+        </configuration>
+      </plugin>
+
     </plugins>
   </build>
+
+
+
 
 </project>

@@ -1,0 +1,6 @@
+dev.staj.scavengr
+dev.staj.scavengr.controller.rest
+dev.staj.scavengr.exception
+dev.staj.scavengr.model.entity
+dev.staj.scavengr.service
+dev.staj.scavengr.view
