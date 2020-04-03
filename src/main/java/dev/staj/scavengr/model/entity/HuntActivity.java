@@ -28,6 +28,11 @@ import org.springframework.hateoas.server.EntityLinks;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
+/**
+ * HuntActivities are the join entity between {@link User}s and {@link Hunt}s, which persist the
+ * record of Hunt participation.  Each instance records start and complete times, as well as number
+ * of completed {@link Clue}s.
+ */
 @SuppressWarnings("JpaDataSourceORMInspection")
 @Entity
 @Component

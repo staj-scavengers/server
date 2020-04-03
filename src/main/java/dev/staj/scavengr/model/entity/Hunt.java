@@ -28,8 +28,12 @@ import org.springframework.hateoas.server.EntityLinks;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
+/**
+ * Hunt class contains two foreign keys and one index.
+ * foreign keys are organizer and clues, and there is a uuid for the hunt id which is generated Automatically
+ * and it has a huntName index.
+ */
 @SuppressWarnings("JpaDataSourceORMInspection")
-
 @Entity
 @Component
 @Table(
@@ -37,11 +41,6 @@ import org.springframework.stereotype.Component;
         @Index(columnList = "hunt_name"),
     }
 )
-/**
- * Hunt class contains two foreign keys and one index.
- * foreign keys are organizer and clues, and there is a uuid for the hunt id which is generated Automatically
- * and it has a huntName index.
- */
 public class Hunt implements FlatHunt {
 
   private static EntityLinks entityLinks;
@@ -68,7 +67,6 @@ public class Hunt implements FlatHunt {
   @OneToMany(mappedBy = "hunt", cascade = {CascadeType.ALL})
   @JsonSerialize(contentAs = FlatClue.class)
   private List<Clue> clues = new LinkedList<>();
-
 
 
   /**

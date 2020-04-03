@@ -8,6 +8,6 @@ public class PreloadLauncher {
     new SpringApplicationBuilder()
         .sources(ScavengerApplication.class)
         .profiles("preload")
-        .run(args);
+        .un(args);
   }
 }

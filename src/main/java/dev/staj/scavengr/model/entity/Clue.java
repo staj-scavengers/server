@@ -27,7 +27,8 @@ import org.springframework.stereotype.Component;
 
 
 /**
- * Clue Entity has four indexes clue_name, hunt_id, hunt_order, media_tag.
+ * Clues hold a {@link #mediaTag} matching a scannable real-world object, which triggers a {@link
+ * #media} link.
  */
 @SuppressWarnings("JpaDataSourceORMInspection")
 @Entity

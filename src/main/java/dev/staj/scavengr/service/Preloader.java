@@ -5,6 +5,10 @@ import dev.staj.scavengr.model.entity.Clue;
 import dev.staj.scavengr.model.entity.Hunt;
 import dev.staj.scavengr.model.entity.Organizer;
 import dev.staj.scavengr.model.entity.User;
+import dev.staj.scavengr.model.repository.ClueRepository;
+import dev.staj.scavengr.model.repository.HuntRepository;
+import dev.staj.scavengr.model.repository.OrganizerRepository;
+import dev.staj.scavengr.model.repository.UserRepository;
 import java.io.InputStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -16,7 +20,7 @@ import org.springframework.stereotype.Component;
 @Profile("preload")
 public class Preloader implements CommandLineRunner {
 
-  private static final String PRELOAD_DATA = "preload/clues.json";
+  private static final String PRELOAD_DATA = "preload/preload.json";
 
   private final HuntRepository huntRepository;
   private final ClueRepository clueRepository;

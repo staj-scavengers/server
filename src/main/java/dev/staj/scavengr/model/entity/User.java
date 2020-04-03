@@ -20,6 +20,9 @@ import org.springframework.stereotype.Component;
 
 
 @SuppressWarnings("JpaDataSourceORMInspection")
+/**
+ * User is the basic profile for anyone who uses the app
+ */
 @Component
 @Entity
 @Table(name = "user_profile")

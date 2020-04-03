@@ -2,8 +2,8 @@ package dev.staj.scavengr.controller.rest;
 
 import dev.staj.scavengr.model.entity.Clue;
 import dev.staj.scavengr.model.entity.Hunt;
-import dev.staj.scavengr.service.ClueRepository;
-import dev.staj.scavengr.service.HuntRepository;
+import dev.staj.scavengr.model.repository.ClueRepository;
+import dev.staj.scavengr.model.repository.HuntRepository;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.server.ExposesResourceFor;

@@ -1,4 +1,6 @@
-[
+{
+  "huntName": "Demo Hunt Alpha",
+  "clues": [
     {
       "clueName": "Clue 1",
       "mediaTag": "scavengr-clue-1",
@@ -30,3 +32,4 @@
       "huntOrder": 5
     }
   ]
+}

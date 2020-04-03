@@ -2,8 +2,8 @@ package dev.staj.scavengr.controller.rest;
 
 import dev.staj.scavengr.model.entity.Organizer;
 import dev.staj.scavengr.model.entity.User;
-import dev.staj.scavengr.service.OrganizerRepository;
-import dev.staj.scavengr.service.UserRepository;
+import dev.staj.scavengr.model.repository.OrganizerRepository;
+import dev.staj.scavengr.model.repository.UserRepository;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.server.ExposesResourceFor;

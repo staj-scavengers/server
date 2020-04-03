@@ -1,4 +1,4 @@
-package dev.staj.scavengr.service;
+package dev.staj.scavengr.model.repository;
 
 import dev.staj.scavengr.model.entity.User;
 import java.util.Optional;
@@ -11,6 +11,8 @@ import org.springframework.data.jpa.repository.Query;
  *
  */
 public interface UserRepository extends JpaRepository<User, UUID> {
+
+  Optional<User> findFirstByOauthToken(String oauthToken);
 
   /**
    * @return ordered list of all {@link User} names in {@link User}.

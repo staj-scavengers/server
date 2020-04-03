@@ -1,4 +1,4 @@
-package dev.staj.scavengr.service;
+package dev.staj.scavengr.model.repository;
 
 import dev.staj.scavengr.model.entity.Hunt;
 import dev.staj.scavengr.model.entity.Organizer;
