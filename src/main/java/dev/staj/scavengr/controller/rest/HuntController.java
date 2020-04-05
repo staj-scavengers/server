@@ -8,6 +8,7 @@ import dev.staj.scavengr.model.repository.HuntRepository;
 import dev.staj.scavengr.model.repository.OrganizerRepository;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.hateoas.server.ExposesResourceFor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -93,12 +94,16 @@ public class HuntController {
   /**
    * This method searches all {@link Hunt}s based on a string.
    *
-   * @param fragment is a search string entered in the url.
+   * @param q is a search string entered in the url.
    * @return list of matching Hunts.
    */
   @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
-  public Iterable<Hunt> search(@RequestParam("q") String fragment) {
-    return huntRepository.getAllByHuntNameContainsOrderByHuntName(fragment);
+  public Iterable<Hunt> search(
+      @RequestParam String q,
+      @RequestParam (required = false, defaultValue = "true") boolean isOpen,
+      @RequestParam (required = false, defaultValue = "false")boolean active
+  ) {
+    return huntRepository.getAllByHuntNameContainsAndIsOpenEqualsAndActiveEqualsOrderByHuntName(q, isOpen, active);
   }
 
   /**

@@ -68,6 +68,10 @@ public class Hunt implements FlatHunt {
   @JsonSerialize(contentAs = FlatClue.class)
   private List<Clue> clues = new LinkedList<>();
 
+  private Boolean isOpen;
+
+  private Boolean active;
+
 
   /**
    * get id for each hunt
@@ -125,6 +129,22 @@ public class Hunt implements FlatHunt {
   public void addClue(Clue clue) {
     clues.add(clue);
     clue.setHunt(this);
+  }
+
+  public Boolean getIsOpen() {
+    return isOpen;
+  }
+
+  public void setIsOpen(Boolean open) {
+    this.isOpen = open;
+  }
+
+  public Boolean getActive() {
+    return active;
+  }
+
+  public void setActive(Boolean active) {
+    this.active = active;
   }
 
   /**

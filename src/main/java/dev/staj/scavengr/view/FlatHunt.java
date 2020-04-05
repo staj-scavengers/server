@@ -26,6 +26,10 @@ public interface FlatHunt {
   @NonNull
   String getHuntName();
 
+  Boolean getIsOpen();
+
+  Boolean getActive();
+
   /**
    *
    * returns the href value of the {@link Hunt}.
