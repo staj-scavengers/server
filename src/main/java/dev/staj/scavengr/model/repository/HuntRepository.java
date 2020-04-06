@@ -24,7 +24,13 @@ HuntRepository extends JpaRepository<Hunt, UUID> {
    * @param fragment is a string used to search in url.
    * @return all {@link Hunt}s ordered by name.
    */
-  Iterable<Hunt> getAllByHuntNameContainsAndIsOpenEqualsAndActiveEqualsOrderByHuntName(String fragment, boolean isOpen, boolean Acive);
+  Iterable<Hunt> getAllByHuntNameContainsAndIsOpenEqualsAndActiveEqualsOrderByHuntName(String fragment, Boolean isOpen, Boolean active);
+
+  Iterable<Hunt> getAllByHuntNameContainsAndIsOpenEqualsOrderByHuntName(String fragment, Boolean isOpen);
+
+  Iterable<Hunt> getAllByHuntNameContainsAndActiveEqualsOrderByHuntName(String fragment, Boolean active);
+
+  Iterable<Hunt> getAllByHuntNameContainsOrderByHuntName(String fragment);
 
   /**
    * @param organizer unique {@link Organizer}.

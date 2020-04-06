@@ -6,6 +6,7 @@ import dev.staj.scavengr.model.entity.Organizer;
 import dev.staj.scavengr.model.repository.ClueRepository;
 import dev.staj.scavengr.model.repository.HuntRepository;
 import dev.staj.scavengr.model.repository.OrganizerRepository;
+import java.util.List;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
@@ -98,12 +99,31 @@ public class HuntController {
    * @return list of matching Hunts.
    */
   @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
-  public Iterable<Hunt> search(
-      @RequestParam String q,
-      @RequestParam (required = false, defaultValue = "true") boolean isOpen,
-      @RequestParam (required = false, defaultValue = "false")boolean active
+  public Iterable<Hunt> searchByName(
+      @RequestParam (required = false, defaultValue = "") String q,
+      @RequestParam (required = false) Boolean isOpen,
+      @RequestParam (required = false) Boolean active
   ) {
-    return huntRepository.getAllByHuntNameContainsAndIsOpenEqualsAndActiveEqualsOrderByHuntName(q, isOpen, active);
+    if (isOpen != null) {
+      if (active != null) {
+        return huntRepository.getAllByHuntNameContainsAndIsOpenEqualsAndActiveEqualsOrderByHuntName(q, isOpen, active);
+      } else {
+        return huntRepository.getAllByHuntNameContainsAndIsOpenEqualsOrderByHuntName(q, isOpen);
+
+      }
+    } else if (active != null) {
+      return huntRepository.getAllByHuntNameContainsAndActiveEqualsOrderByHuntName(q, active);
+
+    } else {
+      return huntRepository.getAllByHuntNameContainsOrderByHuntName(q);
+
+    }
+//    if (isOpen == null) {
+//      isOpen = true;
+//    }
+//    if (active == null) {
+//      active = true;
+//    }
   }
 
   /**

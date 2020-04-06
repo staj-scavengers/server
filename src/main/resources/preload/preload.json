@@ -1,6 +1,7 @@
 {
   "huntName": "Demo Hunt Alpha",
   "isOpen": "true",
+  "active": "true",
   "clues": [
     {
       "clueName": "Clue 1",
